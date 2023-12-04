@@ -3,4 +3,9 @@ project(Company_management C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_executable(Company_management main.c)
+add_executable(Company_management main.c
+        Libs/Geral.c
+        Libs/Geral.h
+        Libs/Admin.c
+        Libs/Admin.h
+)
