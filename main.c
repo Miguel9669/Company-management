@@ -1,18 +1,19 @@
 #include <stdio.h>
 #include "Libs/Geral.h"
 
-void menuProfile(int *variable) {
-    menu("1 - Administrador\n"
-         "2 - Utilizador\n"
-         "3 - Empresa\n"
-         "0 - Sair\n");
-    inputNumber(variable, "");
+void menuGetOption(int *variable, char *txt, int min, int max) {
+    do {
+        menu(txt);
+        inputNumber(variable, "");
+    } while (!verifyNumber(variable, min, max));
 }
 
-void atributeProfile
 int main() {
     int ola;
-    menuProfile(&ola);
+    menuGetOption(&ola, "1 - Administrador\n"
+                      "2 - Utilizador\n"
+                      "3 - Empresa\n"
+                      "0 - Sair\n", 0, 3);
     printf("%d", verifyNumber(&ola, 0, 3));
     printf("%d", ola);
     return 0;

@@ -2,3 +2,10 @@
 3	100	7234171400679602	CMakeFiles/Company_management.dir/Libs/Geral.c.obj	2af7a6d23538f7dc
 3	116	7234171066597783	CMakeFiles/Company_management.dir/main.c.obj	2cf27553554da2e3
 101	228	7234171401888653	Company_management.exe	81fe47534103d293
+37	342	7234886240590385	CMakeFiles/Company_management.dir/Libs/Admin.c.obj	62fce60e2f3c7082
+22	376	7234886240936402	CMakeFiles/Company_management.dir/Libs/Geral.c.obj	2af7a6d23538f7dc
+5	156	7234886302788555	CMakeFiles/Company_management.dir/main.c.obj	2cf27553554da2e3
+157	437	7234886305507164	Company_management.exe	98f01441a776e7bd
+5	176	7234888906923459	CMakeFiles/Company_management.dir/main.c.obj	2cf27553554da2e3
+19	195	7234888907131674	CMakeFiles/Company_management.dir/Libs/Geral.c.obj	2af7a6d23538f7dc
+196	400	7234888909066551	Company_management.exe	98f01441a776e7bd
