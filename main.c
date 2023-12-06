@@ -1,20 +1,36 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include "Libs/constVariables.h"
 #include "Libs/Geral.h"
-
-void menuGetOption(int *variable, char *txt, int min, int max) {
-    do {
-        menu(txt);
-        inputNumber(variable, "");
-    } while (!verifyNumber(variable, min, max));
-}
+#include "Libs/user.h"
+#include "Libs/structs.h"
 
 int main() {
-    int ola;
-    menuGetOption(&ola, "1 - Administrador\n"
-                      "2 - Utilizador\n"
-                      "3 - Empresa\n"
-                      "0 - Sair\n", 0, 3);
-    printf("%d", verifyNumber(&ola, 0, 3));
-    printf("%d", ola);
-    return 0;
+    //Companies companies = {.numberCompanies = 0};
+    int menuUserSearch;
+    char companySearch[MAX_NAME_COMPANY];
+    bool quit = false;
+
+    //do {
+        switch (ShowMenuAndGetOption(MENU_START, 0, 3, true)) {
+            case 0:
+                printf("Bye");
+                quit = true;
+                break;
+            case 1:
+                header(SEARCH_COMPANY);
+                menuUserSearch = ShowMenuAndGetOption(MENU_USER_SEARCH, 0, 3, false);
+                switch (menuUserSearch) {
+                    case 0:
+                        printf("Bye");
+                        quit = true;
+                        break;
+                    case 1:
+                        inputString(companySearch, "Diz a empresa que desejas procurar:");
+
+                }
+                break;
+        }
+   // } while (!quit);
+
 }

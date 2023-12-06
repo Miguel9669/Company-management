@@ -8,4 +8,8 @@ add_executable(Company_management main.c
         Libs/Geral.h
         Libs/Admin.c
         Libs/Admin.h
+        Libs/user.c
+        Libs/user.h
+        Libs/structs.h
+        Libs/constVariables.h
 )
