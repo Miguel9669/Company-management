@@ -52,7 +52,7 @@ int main() {
                         switch(ShowMenuAndGetOption(MENU_SEARCH_BY_CATEGORY,1,3,true)){
                             case 1 :
                                 searchByCategory(&companies, 1, &companyCategory);
-                             
+
                             case 2 :
                                 searchByCategory(&companies, 2, &companyCategory);
                             case 3 :
