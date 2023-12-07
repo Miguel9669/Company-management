@@ -6,27 +6,43 @@
 #include "structs.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
+static char *categoryString(Company company) {
+    static char *string[] = {"Micro Empresa", "Pequena e média empresa", "Grande empresa"};
+    return string[company.category - 1];
+}
+
+void showComments(Company *company) {
+    int i = 0;
+    printf("%s: %s", company->comments[i].user.name, company->comments[i].commentText);
+}
 
 void showCompany(Company *company){
-    if (company == 0){
-        printf("%s", SEARCH_NOT_FOUND);
+    if (company == NULL){
+        printf("%s\n", SEARCH_NOT_FOUND);
     } else {
-        printf("%s\n%c\n%u", company->nameCompany, company->activity, company->category);
+        header(company -> nameCompany);
+        printf("Name: %s\nActivity type: %c\nCompany category: %s", company->nameCompany, company->activity,
+               categoryString(*company));
     }
 
 }
 
-void inputNumber(int *variable, char *txt) {
+int inputNumber(char *txt) {
+    int variable;
     printf("%s", txt);
     printf(">>> ");
-    scanf(" %d", variable);
+    scanf(" %d", &variable);
+    return variable;
 }
 
-void inputString(char *variable, char *txt){
+char *inputString(char *txt, int quant){
+    char var[quant];
     puts(txt);
     printf(">>> ");
-    scanf(" %[^\n]s", variable);
+    scanf(" %[^\n]s", &var);
+    return var;
 }
 
 int verifyNumber(int *variable, int min, int max){
@@ -36,7 +52,20 @@ int verifyNumber(int *variable, int min, int max){
     } else {
         return 1;
     }
+}
 
+int verifyNif(int nif){
+    int count;
+    int Nif;
+    while (nif > 0){
+        nif /= 10;
+        count++;
+    }
+    if (count == 9) {
+        return nif;
+    } else {
+        return -1;
+    }
 }
 
 int ShowMenuAndGetOption(char *txt, int min, int max, bool showOption) {
@@ -44,17 +73,17 @@ int ShowMenuAndGetOption(char *txt, int min, int max, bool showOption) {
     do {
         system("clear");
         if(showOption){
-            puts("------------------------------------------------------------------");
+            puts("\n------------------------------------------------------------------");
         }
         puts(txt);
-        inputNumber(&number, "");
+        number = inputNumber("");
     } while (!verifyNumber(&number, min, max));
     return number;
 }
 
 
 void header(char *txt) {
-    puts("------------------------------------------------------------------------------------------");
+    puts("\n------------------------------------------------------------------------------------------");
     printf("                      %s\n", txt);
     puts("------------------------------------------------------------------------------------------");
 }

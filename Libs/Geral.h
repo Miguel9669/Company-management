@@ -3,10 +3,12 @@
 #define COMPANY_MANAGEMENT_GERAL_H
 #include "structs.h"
 void showCompany(Company *company);
-void inputNumber(int *variable, char *txt);
-void inputString(char *variable, char *txt);
+int inputNumber(char *txt);
+char *inputString(char *txt, int quant);
 int verifyNumber(int *variable, int min, int max);
 int ShowMenuAndGetOption(char *txt, int min, int max, bool showOption);
 void header(char *txt);
+void showComments(Company *company);
+int verifyNif(int nif);
 
 #endif //COMPANY_MANAGEMENT_GERAL_H

@@ -6,7 +6,7 @@
 #define COMPANY_MANAGEMENT_STRUCTS_H
 #include "constVariables.h"
 typedef enum {false, true} bool;
-typedef enum {MICRO = 1, PME, LARGECOMPANY} Category;
+typedef enum {MICRO = 1, PME, LARGE_COMPANY} Category;
 typedef struct {
     char name[MAX_NAME];
     char email[MAX_EMAIL];
@@ -28,12 +28,14 @@ typedef struct{
     int nif;
     char nameCompany[MAX_NAME_COMPANY];
     Comment comments[100];
-    char activity;
+    Local local;
+    char activity[10];
     Category category;
 }Company;
+
 typedef struct{
     int numberCompanies;
-    Company company[100];
+    Company company[5];
 }Companies;
 
 #endif //COMPANY_MANAGEMENT_STRUCTS_H
