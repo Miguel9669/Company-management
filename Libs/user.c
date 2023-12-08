@@ -9,8 +9,7 @@
 #include "Geral.h"
 #include <stdio.h>
 #include <string.h>
-char name[MAX_NAME];
-char email[MAX_EMAIL];
+#include <malloc.h>
 
 int lenCharArray(char *array){
     int count = 0;
@@ -26,27 +25,36 @@ void runArrayAndChangeString(char *variable, char *array){
 }
 
 Company *searchByName(Companies *companies, char *txt){
-    for (int i = 0; i < companies -> numberCompanies; i++){
-        if (strcmp(companies->company[i].nameCompany, txt) == 0){
-            return &(companies -> company[i]);
-        }
+    if (companies->numberCompanies > 0) {
+        for (int i = 0; i < companies -> numberCompanies; i++){
+            if (strcmp(companies->company[i].nameCompany, txt) == 0){
+                return &(companies -> company[i]);
+            }
 
+        }
+        return NULL;
+    } else {
+        printf("No companies to delete.\n");
     }
-    return NULL;
+
 }
 
 void searchByCategory(Companies *companies, int valueCategory, Company **company){
-    int count = 0;
-    header("COMPANIES FOUND");
-    for (int i = 0; i < companies -> numberCompanies; i++){
-        if (companies->company[i].category == valueCategory){
+    if (companies->numberCompanies > 0) {
+        int count = 0;
+        header("COMPANIES FOUND");
+        for (int i = 0; i < companies -> numberCompanies; i++) {
             header(companies->company[i].nameCompany);
-            company[count] = &(companies->company[i]);
             count++;
+            company[count] = &(companies->company[i]);
+            if (companies->company[i].category == valueCategory) {
+                header(companies->company[i].nameCompany);
+                company[count] = &(companies->company[i]);
+                count++;
+            }
         }
-
-
-
+    } else {
+        printf("No companies to Search.\n");
     }
 }
 
