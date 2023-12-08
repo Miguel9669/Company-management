@@ -9,5 +9,5 @@
 int lenCharArray(char *array);
 void runArrayAndChangeString(char *variable, char *array);
 Company *searchByName(Companies *companies, char *txt);
-void searchByCategory(Companies *companies, int valueCategory, Company **company)
+void searchByCategory(Companies *companies, int valueCategory, Company **company);
 #endif //COMPANY_MANAGEMENT_USER_H

@@ -1,7 +1,3 @@
-//
-// Created by anton on 04/12/2023.
-//
-
 #include "Geral.h"
 #include "structs.h"
 #include <stdio.h>
@@ -23,10 +19,14 @@ void showCompany(Company *company){
         printf("%s\n", SEARCH_NOT_FOUND);
     } else {
         header(company -> nameCompany);
-        printf("Name: %s\nActivity type: %c\nCompany category: %s", company->nameCompany, company->activity,
-               categoryString(*company));
+        printf("Company Information:\n");
+        printf("Name: %s\n", company->nameCompany);
+        printf("NIF: %d\n", company->nif);
+        printf("Activity: %s\n", company->activity);
+        printf("Address: %s\n", company->local.adress);
+        printf("City: %s\n", company->local.city);
+        printf("Postal Code: %s\n", company->local.codigoPostal);
     }
-
 }
 
 int inputNumber(char *txt) {
@@ -38,10 +38,15 @@ int inputNumber(char *txt) {
 }
 
 char *inputString(char *txt, int quant){
-    char var[quant];
-    puts(txt);
+    char *var = (char *)malloc(quant + 1);
+    if (var == NULL) {
+        fprintf(stderr, "Erro ao alocar memória\n");
+        exit(EXIT_FAILURE);
+    }
+
+    printf("%s", txt);
     printf(">>> ");
-    scanf(" %[^\n]s", &var);
+    scanf(" %[^\n]s", var);
     return var;
 }
 
@@ -54,15 +59,17 @@ int verifyNumber(int *variable, int min, int max){
     }
 }
 
-int verifyNif(int nif){
-    int count;
-    int Nif;
-    while (nif > 0){
+int verifyNif(int nif) {
+    int count = 0;
+    int Nif = nif;
+
+    while (nif > 0) {
         nif /= 10;
         count++;
     }
+
     if (count == 9) {
-        return nif;
+        return Nif;
     } else {
         return -1;
     }
