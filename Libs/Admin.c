@@ -41,16 +41,13 @@ void deleteCompany(Companies *companies) {
             return;
         }
 
-        companies->company[index].nif = 0;
-        strcpy(companies->company[index].nameCompany, "");
-        strcpy(companies->company[index].activity,"");
-        strcpy(companies->company[index].local.adress, "");
-        strcpy(companies->company[index].local.city, "");
-        strcpy(companies->company[index].local.codigoPostal, "");
+        companies->company[companies->numberCompanies].nif = 0;
+        strcpy(companies->company[companies->numberCompanies].nameCompany, "");
+        strcpy(companies->company[companies->numberCompanies].activity,"");
+        strcpy(companies->company[companies->numberCompanies].local.adress, "");
+        strcpy(companies->company[companies->numberCompanies].local.city, "");
+        strcpy(companies->company[companies->numberCompanies].local.codigoPostal, "");
         printf("Company deleted successfully.\n");
-        for (int i = index; i < companies->numberCompanies; ++i) {
-            companies->company[i] = companies->company[i+1];
-        }
         companies->numberCompanies--;
     } else {
         printf("No companies to delete.\n");
