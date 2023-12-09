@@ -58,21 +58,9 @@ void createCompany(Companies *companies) {
     strcpy(companies->company[companies->numberCompanies].activity, inputString(MSG_GET_ACTIVITY, 10));
     strcpy(companies->company[companies->numberCompanies].local.adress, inputString(MSG_GET_ADRESS, MAX_ADRESS));
     strcpy(companies->company[companies->numberCompanies].local.city, inputString(MSG_GET_CITY, MAX_CITY));
-    //Not done
-
-
-
-    // Verify CodPostal
     strcpy(companies->company[companies->numberCompanies].local.codigoPostal, inputString(MSG_GET_CODPOSTAL, MAX_CODIGO));
+    companies->company[companies->numberCompanies].category = ShowMenuAndGetOption(MENU_SEARCH_BY_CATEGORY, 1, 3, true);
 
-    if (isCompanyExists(companies, "", 0, companies->company[companies->numberCompanies].local.codigoPostal)) {
-        do {
-            strcpy(codPostal, inputString(EXISTENT_POSTAL, MAX_NAME_COMPANY));
-        } while (isCompanyExists(companies, "", 0, codPostal));
-
-        strcpy(companies->company[companies->numberCompanies].local.codigoPostal, codPostal);
-    }
-    //Finnish!
 
 
     companies->numberCompanies++;

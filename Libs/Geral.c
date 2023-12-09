@@ -26,6 +26,7 @@ void showCompany(Company *company){
         printf("Address: %s\n", company->local.adress);
         printf("City: %s\n", company->local.city);
         printf("Postal Code: %s\n", company->local.codigoPostal);
+        printf("Category: %s\n", categoryString(*company));
     }
 }
 
