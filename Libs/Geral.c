@@ -9,6 +9,12 @@ static char *categoryString(Company company) {
     return string[company.category - 1];
 }
 
+int lenString(char *variable) {
+    int count = 0;
+    while (variable[count] != '\0') {
+        count++;
+    }
+}
 void showComments(Company *company) {
     int i = 0;
     printf("%s: %s", company->comments[i].user.name, company->comments[i].commentText);
@@ -44,10 +50,19 @@ char *inputString(char *txt, int quant){
         fprintf(stderr, "Erro ao alocar memória\n");
         exit(EXIT_FAILURE);
     }
+    do {
+        system("clear");
+        printf("%s", txt);
+        printf(">>> ");
+        int c;
+        while ((c = getchar()) != '\n' && c != EOF);
+            fgets(var, quant + 1, stdin);
+        if (strlen(var) >= quant) {
+            printf( "Erro: a entrada é muito longa. Tente novamente.\n");
+        }
+    } while (strlen(var) >= quant);
 
-    printf("%s", txt);
-    printf(">>> ");
-    scanf(" %[^\n]s", var);
+
     return var;
 }
 

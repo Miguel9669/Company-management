@@ -10,5 +10,6 @@ int ShowMenuAndGetOption(char *txt, int min, int max, bool showOption);
 void header(char *txt);
 void showComments(Company *company);
 int verifyNif(int nif);
+int lenString(char *variable);
 
 #endif //COMPANY_MANAGEMENT_GERAL_H
