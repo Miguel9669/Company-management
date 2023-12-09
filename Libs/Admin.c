@@ -46,15 +46,11 @@ void createCompany(Companies *companies) {
         companies->company[companies->numberCompanies].nif = inputNumber(MSG_GET_NIF);
 
         if (verifyNif(companies->company[companies->numberCompanies].nif) == -1) {
-            do {
-                companies->company[companies->numberCompanies].nif = inputNumber(ERROR_NIF);
-            } while (verifyNif(companies->company[companies->numberCompanies].nif) == -1);
+            puts(ERROR_NIF);
         }
 
         if (isCompanyExists(companies, "", companies->company[companies->numberCompanies].nif, "")) {
-            do {
-                companies->company[companies->numberCompanies].nif = inputNumber(EXISTENT_NIF);
-            } while (isCompanyExists(companies, "", companies->company[companies->numberCompanies].nif, "") || (verifyNif(companies->company[companies->numberCompanies].nif) == -1));
+            puts(EXISTENT_NIF);
         }
 
     } while (verifyNif(companies->company[companies->numberCompanies].nif) == -1 || isCompanyExists(companies, "", companies->company[companies->numberCompanies].nif, ""));
