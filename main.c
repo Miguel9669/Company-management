@@ -6,6 +6,7 @@
 #include "Libs/user.h"
 #include "Libs/structs.h"
 #include "Libs/Admin.h"
+#include <unistd.h>
 
 int main() {
     Companies companies = {.numberCompanies = 0};
@@ -62,14 +63,16 @@ int main() {
                                 searchByCategory(&companies, 1);
                                 char *companySearch = NULL;
                                 cleanBuffer();
-                                companySearch = inputString("Which company do you want to sheach: ", MAX_NAME_COMPANY);
+                                companySearch = inputString("Which company do you want to search: ", MAX_NAME_COMPANY);
                                 Company *foundCompany = searchByName(&companies, companySearch);
                                 free(companySearch);
                                 if (foundCompany == NULL) {
                                     puts("Error: Please search for a company that exists");
+                                    sleep(4);
 
                                 } else if (foundCompany->category != 1){
                                     puts("Error: Please search for a company that's in this category");
+                                    sleep(4);
                                 } else {
                                     showCompany(foundCompany);
                                 }

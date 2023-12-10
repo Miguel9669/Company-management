@@ -9,8 +9,7 @@
 #include "Geral.h"
 #include <stdio.h>
 #include <string.h>
-char name[MAX_NAME];
-char email[MAX_EMAIL];
+
 
 int lenCharArray(char *array){
     int count = 0;
@@ -41,7 +40,6 @@ void searchByCategory(Companies *companies, int valueCategory){
     for (int i = 0; i < companies -> numberCompanies; i++){
         if (companies->company[i].category == valueCategory){
             header(companies->company[i].nameCompany);
-
             count++;
         }
     }

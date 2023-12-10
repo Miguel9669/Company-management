@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 
 static char *categoryString(Company company) {
     static char *string[] = {"Micro Empresa", "Pequena e média empresa", "Grande empresa"};
@@ -25,6 +26,7 @@ void showComments(Company *company) {
 void showCompany(Company *company){
     if (company == NULL){
         printf("%s\n", SEARCH_NOT_FOUND);
+        sleep(4);
     } else {
         system("clear");
         header(company -> nameCompany);
@@ -55,6 +57,7 @@ char *inputString(char *txt, int quant) {
     size_t len;
     if (var == NULL) {
         fprintf(stderr, "Erro ao alocar memória\n");
+        sleep(4);
         exit(EXIT_FAILURE);
     }
 
@@ -65,6 +68,7 @@ char *inputString(char *txt, int quant) {
 
         if (fgets(var, quant + 1, stdin) == NULL) {
             printf("Erro na leitura da string.\n");
+            sleep(4);
             free(var);
             exit(EXIT_FAILURE);
         }
@@ -79,8 +83,9 @@ char *inputString(char *txt, int quant) {
             while ((c = getchar()) != '\n' && c != EOF);
         }
 
-        if (len >= quant || len == 0) {
+        if (len >= quant) {
             puts(INVALID_INPUT);
+            sleep(4);
         }
 
 

@@ -5,6 +5,7 @@
 #include "Geral.h"
 #include <stdlib.h>
 #include "constVariables.h"
+#include <unistd.h>
 
 int findCompanyIndexByNif(const Companies *companies, int nif) {
     for (int i = 0; i < companies->numberCompanies; ++i) {
@@ -52,14 +53,10 @@ void createCompany(Companies *companies) {
     do {
         companies->company[companies->numberCompanies].nif = inputNumber(MSG_GET_NIF);
 
-        if (verifyNif(companies->company[companies->numberCompanies].nif) == -1) {
-            puts(ERROR_NIF);
+        if (verifyNif(companies->company[companies->numberCompanies].nif) == -1 || isCompanyExists(companies, "", companies->company[companies->numberCompanies].nif)) {
+            puts(verifyNif(companies->company[companies->numberCompanies].nif) == -1 ? ERROR_NIF : EXISTENT_NIF);
+            sleep(4);
         }
-
-        if (isCompanyExists(companies, "", companies->company[companies->numberCompanies].nif)) {
-            puts(EXISTENT_NIF);
-        }
-
     } while (verifyNif(companies->company[companies->numberCompanies].nif) == -1 || isCompanyExists(companies, "", companies->company[companies->numberCompanies].nif));
     cleanBuffer();
     atividade = inputString(MSG_GET_ACTIVITY, 10);
@@ -88,7 +85,7 @@ void deleteCompany(Companies *companies) {
 
         if (index == -1) {
             printf("Company not found: %d\n", nif);
-            return;
+            sleep(4);
         }
 
         companies->company[index].nif = 0;
@@ -101,6 +98,7 @@ void deleteCompany(Companies *companies) {
         companies->numberCompanies--;
     } else {
         printf("No companies to delete.\n");
+        sleep(4);
     }
 }
 
@@ -115,12 +113,14 @@ void modifyCompany(Companies *companies) {
 
         if (index == -1) {
             printf("Company not found: %d\n", nif);
+            sleep(4);
             return;
         }
 
         do {
-            menuModify = ShowMenuAndGetOption(MENU_MODIFY, 0, 5, false, true, MODIFY_MENU);
-
+            showCompany(&(companies->company[index]));
+            menuModify = ShowMenuAndGetOption(MENU_MODIFY, 0, 6, false, true, MODIFY_MENU);
+            cleanBuffer();
             switch (menuModify) {
                 case 1:
                     strcpy(newName, inputString("New name: ", MAX_NAME_COMPANY));
@@ -142,16 +142,22 @@ void modifyCompany(Companies *companies) {
                     strcpy(newCodigoPostal, inputString("New Postal Code: ", MAX_CODIGO));
                     strcpy(companies->company[index].local.codigoPostal, newCodigoPostal);
                     break;
+                case 6:
+                    system("clear");
+                    companies->company[index].category = ShowMenuAndGetOption(MENU_SEARCH_BY_CATEGORY, 1, 3, true, false, "");
+                    break;
                 case 0:
                     printf("Leaving!.\n");
                     break;
                 default:
                     printf("Invalid option, try again!.\n");
+                    sleep(4);
             }
         } while (menuModify != 0);
 
     } else {
         printf("No companies to modify.\n");
+        sleep(4);
     }
 }
 
