@@ -3,6 +3,7 @@
 #include "structs.h"
 #include <string.h>
 #include "Geral.h"
+#include <stdlib.h>
 #include "constVariables.h"
 
 int findCompanyIndexByNif(const Companies *companies, int nif) {
@@ -14,10 +15,9 @@ int findCompanyIndexByNif(const Companies *companies, int nif) {
     return -1;
 }
 
-int isCompanyExists(const Companies *companies, const char *name, int nif, const char *postalCode) {
+int isCompanyExists(const Companies *companies, const char *name, int nif) {
     for (int i = 0; i < companies->numberCompanies; ++i) {
-        if (strcmp(companies->company[i].nameCompany, name) == 0 || companies->company[i].nif == nif ||
-            strcmp(companies->company[i].local.codigoPostal, postalCode) == 0) {
+        if (strcmp(companies->company[i].nameCompany, name) == 0 || companies->company[i].nif == nif) {
             return 1;
         }
     }
@@ -26,18 +26,25 @@ int isCompanyExists(const Companies *companies, const char *name, int nif, const
 
 void createCompany(Companies *companies) {
     int nif;
-    char companyName[MAX_NAME_COMPANY], codPostal[MAX_CODIGO];
+    char *companyName = NULL;
+    char *atividade = NULL;
+    char *adress = NULL;
+    char *city = NULL;
+    char *codPostal = NULL;
+    cleanBuffer();
+    companyName = inputString(MSG_GET_NAME, MAX_NAME_COMPANY);
 
-    // Verify Name
-    strcpy(companies->company[companies->numberCompanies].nameCompany, inputString(MSG_GET_NAME, MAX_NAME_COMPANY));
 
-    if (isCompanyExists(companies, companies->company[companies->numberCompanies].nameCompany, 0, "")) {
+    if (isCompanyExists(companies, companies->company[companies->numberCompanies].nameCompany, 0)) {
         do {
+            free(companyName);
             strcpy(companyName, inputString(EXISTENT_COMPANY, MAX_NAME_COMPANY));
-        } while (isCompanyExists(companies, companyName, 0, ""));
+        } while (isCompanyExists(companies, companyName, 0));
 
         strcpy(companies->company[companies->numberCompanies].nameCompany, companyName);
     }
+    strcpy(companies->company[companies->numberCompanies].nameCompany, companyName);
+    free(companyName);
     //Finnish!
 
 
@@ -49,20 +56,25 @@ void createCompany(Companies *companies) {
             puts(ERROR_NIF);
         }
 
-        if (isCompanyExists(companies, "", companies->company[companies->numberCompanies].nif, "")) {
+        if (isCompanyExists(companies, "", companies->company[companies->numberCompanies].nif)) {
             puts(EXISTENT_NIF);
         }
 
-    } while (verifyNif(companies->company[companies->numberCompanies].nif) == -1 || isCompanyExists(companies, "", companies->company[companies->numberCompanies].nif, ""));
-
-    strcpy(companies->company[companies->numberCompanies].activity, inputString(MSG_GET_ACTIVITY, 10));
-    strcpy(companies->company[companies->numberCompanies].local.adress, inputString(MSG_GET_ADRESS, MAX_ADRESS));
-    strcpy(companies->company[companies->numberCompanies].local.city, inputString(MSG_GET_CITY, MAX_CITY));
-    strcpy(companies->company[companies->numberCompanies].local.codigoPostal, inputString(MSG_GET_CODPOSTAL, MAX_CODIGO));
-    companies->company[companies->numberCompanies].category = ShowMenuAndGetOption(MENU_SEARCH_BY_CATEGORY, 1, 3, true);
-
-
-
+    } while (verifyNif(companies->company[companies->numberCompanies].nif) == -1 || isCompanyExists(companies, "", companies->company[companies->numberCompanies].nif));
+    cleanBuffer();
+    atividade = inputString(MSG_GET_ACTIVITY, 10);
+    strcpy(companies->company[companies->numberCompanies].activity, atividade);
+    free(atividade);
+    adress = inputString(MSG_GET_ADRESS, MAX_ADRESS);
+    strcpy(companies->company[companies->numberCompanies].local.adress, adress);
+    free(adress);
+    city = inputString(MSG_GET_CITY, MAX_CITY);
+    strcpy(companies->company[companies->numberCompanies].local.city, city);
+    free(city);
+    codPostal = inputString(MSG_GET_CODPOSTAL, MAX_CODIGO);
+    strcpy(companies->company[companies->numberCompanies].local.codigoPostal, codPostal);
+    free(codPostal);
+    companies->company[companies->numberCompanies].category = ShowMenuAndGetOption(MENU_SEARCH_BY_CATEGORY, 1, 3, true, false, "");
     companies->numberCompanies++;
 }
 
@@ -107,8 +119,7 @@ void modifyCompany(Companies *companies) {
         }
 
         do {
-            header(MODIFY_MENU);
-            menuModify = ShowMenuAndGetOption(MENU_MODIFY, 0, 5, false);
+            menuModify = ShowMenuAndGetOption(MENU_MODIFY, 0, 5, false, true, MODIFY_MENU);
 
             switch (menuModify) {
                 case 1:

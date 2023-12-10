@@ -10,72 +10,108 @@
 int main() {
     Companies companies = {.numberCompanies = 0};
     int menuUserSearch, menuAdmin;
-    char companySearch[MAX_NAME_COMPANY];
     bool quit = false;
-    int companyCategory[100];
+    int companyCategory;
 
     do {
-        switch (ShowMenuAndGetOption(MENU_START, 0, 3, true)) {
+        system("clear");
+        switch (ShowMenuAndGetOption(MENU_START, 0, 3, false, true, "START")) {
             case 0:
+                system("clear");
                 printf("Bye");
                 quit = true;
                 break;
             case 1:
-                header(SEARCH_COMPANY);
-                menuUserSearch = ShowMenuAndGetOption(MENU_USER_SEARCH, 0, 3, false);
+                system("clear");
+                menuUserSearch = ShowMenuAndGetOption(MENU_USER_SEARCH, 0, 3, false, true, SEARCH_COMPANY);
                 switch (menuUserSearch) {
                     case 0:
+                        system("clear");
                         printf("Bye");
                         quit = true;
                         break;
                     case 1:
-                        strcpy(companySearch, inputString("Which company do you want to sheach: ", MAX_NAME_COMPANY));
+                        system("clear");
+                        char *companySearch = NULL;
+                        cleanBuffer();
+                        companySearch = inputString("Which company do you want to search: ", MAX_NAME_COMPANY);
                         Company *foundCompany = searchByName(&companies, companySearch);
+                        free(companySearch);
                         showCompany(foundCompany);
-                        switch (ShowMenuAndGetOption(Menu_user_SEARCH_BY_NAME,-1, 1, true)) {
-                            case 0:
-                                showComments(foundCompany);
-                                break;
-                            case -1:
-                                quit = true;
-                                break;
-                            case 1:
-                                break;
+                        if (foundCompany != NULL) {
+                            switch (ShowMenuAndGetOption(Menu_user_SEARCH_BY_NAME,-1, 1, true, false, "")) {
+                                case 1:
+                                    system("clear");
+                                    showComments(foundCompany);
+                                    break;
+                                case -1:
+                                    system("clear");
+                                    quit = true;
+                                    break;
+                                case 0:
+                                    system("clear");
+                                    break;
+                            }
                         }
                         break;
                     case 2 :
                         system("clear");
-                        switch(ShowMenuAndGetOption(MENU_SEARCH_BY_CATEGORY,1,3,true)){
+                        switch(ShowMenuAndGetOption(MENU_SEARCH_BY_CATEGORY,1,3,true, false, "")){
                             case 1 :
-                                searchByCategory(&companies, 1, &companyCategory);
+                                system("clear");
+                                searchByCategory(&companies, 1);
+                                char *companySearch = NULL;
+                                cleanBuffer();
+                                companySearch = inputString("Which company do you want to sheach: ", MAX_NAME_COMPANY);
+                                Company *foundCompany = searchByName(&companies, companySearch);
+                                free(companySearch);
+                                if (foundCompany == NULL) {
+                                    puts("Error: Please search for a company that exists");
+
+                                } else if (foundCompany->category != 1){
+                                    puts("Error: Please search for a company that's in this category");
+                                } else {
+                                    showCompany(foundCompany);
+                                }
+                                break;
                             case 2 :
-                                searchByCategory(&companies, 2, &companyCategory);
+                                system("clear");
+                                searchByCategory(&companies, 2);
+                                break;
                             case 3 :
-                                searchByCategory(&companies, 3, &companyCategory);
+                                system("clear");
+                                searchByCategory(&companies, 3);
+                                break;
                         }
                 }
                 break;
 
             case 2:
-                header(ADMIN_MENU);
-                menuAdmin = ShowMenuAndGetOption(MENU_ADMIN, 0, 3, false);
+                system("clear");
+                menuAdmin = ShowMenuAndGetOption(MENU_ADMIN, 0, 3, false, true, ADMIN_MENU);
                 switch (menuAdmin) {
                     case 0:
+                        system("clear");
                         printf("Bye");
                         quit = true;
                         break;
                     case 1:
+                        system("clear");
                         createCompany(&companies);
                         break;
                     case 2:
+                        system("clear");
                         modifyCompany(&companies);
                         break;
                     case 3:
+                        system("clear");
                         deleteCompany(&companies);
                         break;
                     case 4:
+                        system("clear");
                         break;
                     case 5:
+                        system("clear");
                         break;
                 }
                 break;

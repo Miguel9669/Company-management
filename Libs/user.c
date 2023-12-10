@@ -35,18 +35,16 @@ Company *searchByName(Companies *companies, char *txt){
     return NULL;
 }
 
-void searchByCategory(Companies *companies, int valueCategory, Company **company){
+void searchByCategory(Companies *companies, int valueCategory){
     int count = 0;
     header("COMPANIES FOUND");
     for (int i = 0; i < companies -> numberCompanies; i++){
         if (companies->company[i].category == valueCategory){
             header(companies->company[i].nameCompany);
-            company[count] = &(companies->company[i]);
+
             count++;
         }
-
-
-
     }
+
 }
 

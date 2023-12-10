@@ -23,7 +23,7 @@
 #define CLASSIFICATION_COMPANY "CLASSIFICATION COMPANY"
 #define COMMENT_COMPANY "COMMENT COMPANY"
 #define SEARCH_NOT_FOUND "We couldn't find that company;"
-
+#define INVALID_INPUT "ERROR: INVALID. PLEASE TRY AGAIN."
 #define MENU_MODIFY "1 Name\n2 Activity\n3 Address\n4 City\n5 Postal Code\n0 Leave"
 #define MODIFY_MENU "exchange company data"
 #define MSG_GET_NIF "Enter the NIF: "

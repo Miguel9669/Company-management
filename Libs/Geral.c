@@ -18,12 +18,15 @@ int lenString(char *variable) {
 void showComments(Company *company) {
     int i = 0;
     printf("%s: %s", company->comments[i].user.name, company->comments[i].commentText);
+    scanf("%d", 6);
+
 }
 
 void showCompany(Company *company){
     if (company == NULL){
         printf("%s\n", SEARCH_NOT_FOUND);
     } else {
+        system("clear");
         header(company -> nameCompany);
         printf("Company Information:\n");
         printf("Name: %s\n", company->nameCompany);
@@ -43,28 +46,49 @@ int inputNumber(char *txt) {
     scanf(" %d", &variable);
     return variable;
 }
-
-char *inputString(char *txt, int quant){
+void cleanBuffer() {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
+}
+char *inputString(char *txt, int quant) {
     char *var = (char *)malloc(quant + 1);
+    size_t len;
     if (var == NULL) {
         fprintf(stderr, "Erro ao alocar memória\n");
         exit(EXIT_FAILURE);
     }
+
     do {
         system("clear");
         printf("%s", txt);
         printf(">>> ");
-        int c;
-        while ((c = getchar()) != '\n' && c != EOF);
-            fgets(var, quant + 1, stdin);
-        if (strlen(var) >= quant) {
-            printf( "Erro: a entrada é muito longa. Tente novamente.\n");
-        }
-    } while (strlen(var) >= quant);
 
+        if (fgets(var, quant + 1, stdin) == NULL) {
+            printf("Erro na leitura da string.\n");
+            free(var);
+            exit(EXIT_FAILURE);
+        }
+
+        len = strlen(var);
+
+        if (len > 0 && var[len - 1] == '\n') {
+            var[len - 1] = '\0';
+        } else {
+            // Limpar o buffer de entrada se necessário
+            int c;
+            while ((c = getchar()) != '\n' && c != EOF);
+        }
+
+        if (len >= quant || len == 0) {
+            puts(INVALID_INPUT);
+        }
+
+
+    } while (len == 0 || len >= quant);  // Continue pedindo entrada até que algo seja digitado
 
     return var;
 }
+
 
 int verifyNumber(int *variable, int min, int max){
 
@@ -91,19 +115,27 @@ int verifyNif(int nif) {
     }
 }
 
-int ShowMenuAndGetOption(char *txt, int min, int max, bool showOption) {
+int ShowMenuAndGetOption(char *txt, int min, int max, bool showOption, bool showHeader, char *txtHeader) {
     int number;
     do {
-        system("clear");
+        if (showHeader){
+            header(txtHeader);
+        }
         if(showOption){
             puts("\n------------------------------------------------------------------");
         }
         puts(txt);
         number = inputNumber("");
+        if (!verifyNumber(&number, min, max)) {
+            system("clear");
+        }
     } while (!verifyNumber(&number, min, max));
     return number;
 }
 
+Company *searchForCompany(int *variable, char *name) {
+
+}
 
 void header(char *txt) {
     puts("\n------------------------------------------------------------------------------------------");
