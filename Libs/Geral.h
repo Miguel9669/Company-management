@@ -4,7 +4,7 @@
 #include "structs.h"
 void showCompany(Company *company);
 int inputNumber(char *txt);
-char *inputString(char *txt, int quant);
+char *inputString(char *txt, int quant, bool cleanConsole);
 int verifyNumber(int *variable, int min, int max);
 int ShowMenuAndGetOption(char *txt, int min, int max, bool showOption, bool showHeader, char *txtHeader);
 void header(char *txt);

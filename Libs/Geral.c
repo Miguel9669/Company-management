@@ -52,7 +52,7 @@ void cleanBuffer() {
     int c;
     while ((c = getchar()) != '\n' && c != EOF);
 }
-char *inputString(char *txt, int quant) {
+char *inputString(char *txt, int quant, bool cleanConsole) {
     char *var = (char *)malloc(quant + 1);
     size_t len;
     if (var == NULL) {
@@ -62,7 +62,10 @@ char *inputString(char *txt, int quant) {
     }
 
     do {
-        system("clear");
+        if(cleanConsole){
+            system("clear");
+        }
+
         printf("%s", txt);
         printf(">>> ");
 

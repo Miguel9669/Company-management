@@ -33,13 +33,13 @@ void createCompany(Companies *companies) {
     char *city = NULL;
     char *codPostal = NULL;
     cleanBuffer();
-    companyName = inputString(MSG_GET_NAME, MAX_NAME_COMPANY);
+    companyName = inputString(MSG_GET_NAME, MAX_NAME_COMPANY, true);
 
 
     if (isCompanyExists(companies, companies->company[companies->numberCompanies].nameCompany, 0)) {
         do {
             free(companyName);
-            strcpy(companyName, inputString(EXISTENT_COMPANY, MAX_NAME_COMPANY));
+            strcpy(companyName, inputString(EXISTENT_COMPANY, MAX_NAME_COMPANY, true));
         } while (isCompanyExists(companies, companyName, 0));
 
         strcpy(companies->company[companies->numberCompanies].nameCompany, companyName);
@@ -51,6 +51,7 @@ void createCompany(Companies *companies) {
 
     //Verify NIF
     do {
+        system("clear");
         companies->company[companies->numberCompanies].nif = inputNumber(MSG_GET_NIF);
 
         if (verifyNif(companies->company[companies->numberCompanies].nif) == -1 || isCompanyExists(companies, "", companies->company[companies->numberCompanies].nif)) {
@@ -59,16 +60,16 @@ void createCompany(Companies *companies) {
         }
     } while (verifyNif(companies->company[companies->numberCompanies].nif) == -1 || isCompanyExists(companies, "", companies->company[companies->numberCompanies].nif));
     cleanBuffer();
-    atividade = inputString(MSG_GET_ACTIVITY, 10);
+    atividade = inputString(MSG_GET_ACTIVITY, 10, true);
     strcpy(companies->company[companies->numberCompanies].activity, atividade);
     free(atividade);
-    adress = inputString(MSG_GET_ADRESS, MAX_ADRESS);
+    adress = inputString(MSG_GET_ADRESS, MAX_ADRESS, true);
     strcpy(companies->company[companies->numberCompanies].local.adress, adress);
     free(adress);
-    city = inputString(MSG_GET_CITY, MAX_CITY);
+    city = inputString(MSG_GET_CITY, MAX_CITY, true);
     strcpy(companies->company[companies->numberCompanies].local.city, city);
     free(city);
-    codPostal = inputString(MSG_GET_CODPOSTAL, MAX_CODIGO);
+    codPostal = inputString(MSG_GET_CODPOSTAL, MAX_CODIGO, true);
     strcpy(companies->company[companies->numberCompanies].local.codigoPostal, codPostal);
     free(codPostal);
     companies->company[companies->numberCompanies].category = ShowMenuAndGetOption(MENU_SEARCH_BY_CATEGORY, 1, 3, true, false, "");

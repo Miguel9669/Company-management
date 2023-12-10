@@ -35,7 +35,7 @@ int main() {
                         system("clear");
                         char *companySearch = NULL;
                         cleanBuffer();
-                        companySearch = inputString("Which company do you want to search: ", MAX_NAME_COMPANY);
+                        companySearch = inputString("Which company do you want to search: ", MAX_NAME_COMPANY, false);
                         Company *foundCompany = searchByName(&companies, companySearch);
                         free(companySearch);
                         showCompany(foundCompany);
@@ -63,7 +63,7 @@ int main() {
                                 searchByCategory(&companies, 1);
                                 char *companySearch = NULL;
                                 cleanBuffer();
-                                companySearch = inputString("Which company do you want to search: ", MAX_NAME_COMPANY);
+                                companySearch = inputString("Which company do you want to search: ", MAX_NAME_COMPANY, false);
                                 Company *foundCompany = searchByName(&companies, companySearch);
                                 free(companySearch);
                                 if (foundCompany == NULL) {
