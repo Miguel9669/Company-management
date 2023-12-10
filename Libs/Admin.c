@@ -124,23 +124,23 @@ void modifyCompany(Companies *companies) {
             cleanBuffer();
             switch (menuModify) {
                 case 1:
-                    strcpy(newName, inputString("New name: ", MAX_NAME_COMPANY));
+                    strcpy(newName, inputString("New name: ", MAX_NAME_COMPANY, true));
                     strcpy(companies->company[index].nameCompany, newName);
                     break;
                 case 2:
-                    strcpy(newActivity, inputString("New activity: ", 10));
+                    strcpy(newActivity, inputString("New activity: ", 10, true));
                     strcpy(companies->company[index].activity, newActivity);
                     break;
                 case 3:
-                    strcpy(newAddress, inputString("New address: ", MAX_ADRESS));
+                    strcpy(newAddress, inputString("New address: ", MAX_ADRESS, true));
                     strcpy(companies->company[index].local.adress, newAddress);
                     break;
                 case 4:
-                    strcpy(newCity, inputString("New city: ", MAX_CITY));
+                    strcpy(newCity, inputString("New city: ", MAX_CITY, true));
                     strcpy(companies->company[index].local.city, newCity);
                     break;
                 case 5:
-                    strcpy(newCodigoPostal, inputString("New Postal Code: ", MAX_CODIGO));
+                    strcpy(newCodigoPostal, inputString("New Postal Code: ", MAX_CODIGO, true));
                     strcpy(companies->company[index].local.codigoPostal, newCodigoPostal);
                     break;
                 case 6:
