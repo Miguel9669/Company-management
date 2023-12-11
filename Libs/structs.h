@@ -25,9 +25,12 @@ typedef struct{
 }Local;
 
 typedef struct{
+    int numberRates;
+    int numberComments;
     int nif;
     char nameCompany[MAX_NAME_COMPANY];
-    Comment comments[100];
+    int *rates;
+    Comment *comments;
     Local local;
     char activity[10];
     Category category;
@@ -35,7 +38,7 @@ typedef struct{
 
 typedef struct{
     int numberCompanies;
-    Company company[5];
+    Company *company;
 }Companies;
 
 #endif //COMPANY_MANAGEMENT_STRUCTS_H

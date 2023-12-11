@@ -9,7 +9,8 @@
 #include <unistd.h>
 
 int main() {
-    Companies companies = {.numberCompanies = 0};
+    Companies companies = {.numberCompanies = 0, .company = NULL};
+    companies.company = (Company *) malloc(companies.numberCompanies * sizeof(Company));
     int menuUserSearch, menuAdmin;
     bool quit = false;
     int companyCategory;
@@ -34,7 +35,6 @@ int main() {
                     case 1:
                         system("clear");
                         char *companySearch = NULL;
-                        cleanBuffer();
                         companySearch = inputString("Which company do you want to search: ", MAX_NAME_COMPANY, false);
                         Company *foundCompany = searchByName(&companies, companySearch);
                         free(companySearch);
@@ -42,6 +42,10 @@ int main() {
                         if (foundCompany != NULL) {
                             switch (ShowMenuAndGetOption(Menu_user_SEARCH_BY_NAME,-1, 1, true, false, "")) {
                                 case 1:
+                                    break;
+                                case 2:
+                                    break;
+                                case 3:
                                     system("clear");
                                     showComments(foundCompany);
                                     break;
@@ -120,5 +124,6 @@ int main() {
                 break;
         }
     } while (!quit);
+    free(companies.company);
 
 }

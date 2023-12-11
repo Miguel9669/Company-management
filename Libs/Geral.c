@@ -46,6 +46,7 @@ int inputNumber(char *txt) {
     printf("%s", txt);
     printf(">>> ");
     scanf(" %d", &variable);
+    cleanBuffer();
     return variable;
 }
 void cleanBuffer() {
@@ -69,22 +70,20 @@ char *inputString(char *txt, int quant, bool cleanConsole) {
         printf("%s", txt);
         printf(">>> ");
 
-        if (fgets(var, quant + 1, stdin) == NULL) {
-            printf("Erro na leitura da string.\n");
-            sleep(4);
-            free(var);
-            exit(EXIT_FAILURE);
+        if (fgets(var, quant + 1, stdin) != NULL) {
+            len = strlen(var);
+            if (len > 1 && var[len - 1] == '\n') {
+                var[len - 1] = '\0';
+            } else {
+                // Limpar o buffer de entrada se necessário
+                int c;
+                while ((c = getchar()) != '\n' && c != EOF);
+            }
         }
 
-        len = strlen(var);
 
-        if (len > 0 && var[len - 1] == '\n') {
-            var[len - 1] = '\0';
-        } else {
-            // Limpar o buffer de entrada se necessário
-            int c;
-            while ((c = getchar()) != '\n' && c != EOF);
-        }
+
+
 
         if (len >= quant) {
             puts(INVALID_INPUT);

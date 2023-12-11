@@ -27,24 +27,26 @@ int isCompanyExists(const Companies *companies, const char *name, int nif) {
 
 void createCompany(Companies *companies) {
     int nif;
+    int numberCompanies = companies->numberCompanies;
     char *companyName = NULL;
     char *atividade = NULL;
     char *adress = NULL;
     char *city = NULL;
     char *codPostal = NULL;
-    cleanBuffer();
-    companyName = inputString(MSG_GET_NAME, MAX_NAME_COMPANY, true);
+    companies->numberCompanies++;
+    companies->company = (Company *) realloc(companies->company, companies->numberCompanies * sizeof(Company));
+    companyName = inputString(MSG_GET_NAME, MAX_NAME, true);
 
 
-    if (isCompanyExists(companies, companies->company[companies->numberCompanies].nameCompany, 0)) {
+    if (isCompanyExists(companies, companyName, 0)) {
         do {
             free(companyName);
             strcpy(companyName, inputString(EXISTENT_COMPANY, MAX_NAME_COMPANY, true));
         } while (isCompanyExists(companies, companyName, 0));
 
-        strcpy(companies->company[companies->numberCompanies].nameCompany, companyName);
+        strcpy(companies->company[numberCompanies].nameCompany, companyName);
     }
-    strcpy(companies->company[companies->numberCompanies].nameCompany, companyName);
+    strcpy(companies->company[numberCompanies].nameCompany, companyName);
     free(companyName);
     //Finnish!
 
@@ -52,27 +54,30 @@ void createCompany(Companies *companies) {
     //Verify NIF
     do {
         system("clear");
-        companies->company[companies->numberCompanies].nif = inputNumber(MSG_GET_NIF);
+        companies->company[numberCompanies].nif = inputNumber(MSG_GET_NIF);
 
-        if (verifyNif(companies->company[companies->numberCompanies].nif) == -1 || isCompanyExists(companies, "", companies->company[companies->numberCompanies].nif)) {
-            puts(verifyNif(companies->company[companies->numberCompanies].nif) == -1 ? ERROR_NIF : EXISTENT_NIF);
+        if (verifyNif(companies->company[numberCompanies].nif) == -1 || isCompanyExists(companies, "", companies->company[companies->numberCompanies].nif)) {
+            puts(verifyNif(companies->company[numberCompanies].nif) == -1 ? ERROR_NIF : EXISTENT_NIF);
             sleep(4);
         }
-    } while (verifyNif(companies->company[companies->numberCompanies].nif) == -1 || isCompanyExists(companies, "", companies->company[companies->numberCompanies].nif));
-    cleanBuffer();
+    } while (verifyNif(companies->company[numberCompanies].nif) == -1 || isCompanyExists(companies, "", companies->company[companies->numberCompanies].nif));
+
     atividade = inputString(MSG_GET_ACTIVITY, 10, true);
-    strcpy(companies->company[companies->numberCompanies].activity, atividade);
+    strcpy(companies->company[numberCompanies].activity, atividade);
     free(atividade);
     adress = inputString(MSG_GET_ADRESS, MAX_ADRESS, true);
-    strcpy(companies->company[companies->numberCompanies].local.adress, adress);
+    strcpy(companies->company[numberCompanies].local.adress, adress);
     free(adress);
     city = inputString(MSG_GET_CITY, MAX_CITY, true);
-    strcpy(companies->company[companies->numberCompanies].local.city, city);
+    strcpy(companies->company[numberCompanies].local.city, city);
     free(city);
     codPostal = inputString(MSG_GET_CODPOSTAL, MAX_CODIGO, true);
-    strcpy(companies->company[companies->numberCompanies].local.codigoPostal, codPostal);
+    strcpy(companies->company[numberCompanies].local.codigoPostal, codPostal);
     free(codPostal);
-    companies->company[companies->numberCompanies].category = ShowMenuAndGetOption(MENU_SEARCH_BY_CATEGORY, 1, 3, true, false, "");
+    companies->company[numberCompanies].comments = NULL;
+    companies->company[numberCompanies].numberComments = 0;
+    system("clear");
+    companies->company[numberCompanies].category = ShowMenuAndGetOption(MENU_SEARCH_BY_CATEGORY, 1, 3, true, false, "");
     companies->numberCompanies++;
 }
 
@@ -97,6 +102,7 @@ void deleteCompany(Companies *companies) {
         strcpy(companies->company[index].local.codigoPostal, "");
         printf("Company deleted successfully.\n");
         companies->numberCompanies--;
+        companies->company = (Company *) realloc(companies->company, companies->numberCompanies * sizeof(Company));
     } else {
         printf("No companies to delete.\n");
         sleep(4);
