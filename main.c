@@ -86,12 +86,10 @@ int main() {
                                             puts("Error: Please search for a company that's in this category");
                                             sleep(4);
                                         } else {
-                                            if (foundCompany != NULL) {
-                                                do{
-                                                    showCompany(foundCompany);
-                                                    insideCompany(&user, foundCompany, &back);
-                                                } while (back != true);
-                                            }
+                                            do{
+                                                showCompany(foundCompany);
+                                                insideCompany(&user, foundCompany, &back);
+                                            } while (back != true);
                                         }
                                     } while (foundCompany == NULL && foundCompany->category != 3 && back != true);
                                     break;
@@ -106,13 +104,11 @@ int main() {
                                             puts("Error: Please search for a company that's in this category");
                                             sleep(4);
                                         } else {
-                                           if (foundCompany != NULL) {
-                                               do{
-                                                   showCompany(foundCompany);
-                                                   insideCompany(&user, foundCompany, &back);
-                                               } while (back != true);
-                                           }
-                                        }
+                                           do{
+                                               showCompany(foundCompany);
+                                               insideCompany(&user, foundCompany, &back);
+                                           } while (back != true);
+                                       }
                                     } while (foundCompany == NULL && foundCompany->category != 3 && back != true);
                                     break;
                                 case 3 :
@@ -126,12 +122,10 @@ int main() {
                                             puts("Error: Please search for a company that's in this category");
                                             sleep(4);
                                         } else {
-                                            if (foundCompany != NULL) {
-                                                do{
-                                                    showCompany(foundCompany);
-                                                    insideCompany(&user, foundCompany, &back);
-                                                } while (back != true);
-                                            }
+                                            do{
+                                                showCompany(foundCompany);
+                                                insideCompany(&user, foundCompany, &back);
+                                            } while (back != true);
                                         }
                                     } while (foundCompany == NULL && foundCompany->category != 3 && back != true);
                                     break;
