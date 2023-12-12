@@ -16,8 +16,8 @@ int findCompanyIndexByNif(const Companies *companies, int nif) {
     return -1;
 }
 
-int isCompanyExists(const Companies *companies, const char *name, int nif) {
-    for (int i = 0; i < companies->numberCompanies; ++i) {
+int isCompanyExists(const Companies *companies, char *name, int nif, int numberCompanies) {
+    for (int i = 0; i < numberCompanies; ++i) {
         if (strcmp(companies->company[i].nameCompany, name) == 0 || companies->company[i].nif == nif) {
             return 1;
         }
@@ -35,16 +35,19 @@ void createCompany(Companies *companies) {
     char *codPostal = NULL;
     companies->numberCompanies++;
     companies->company = (Company *) realloc(companies->company, companies->numberCompanies * sizeof(Company));
+    if (companies->company == NULL) {
+        fprintf(stderr, "Erro ao alocar memória\n");
+        sleep(4);
+        exit(EXIT_FAILURE);
+    }
     companyName = inputString(MSG_GET_NAME, MAX_NAME, true);
 
 
-    if (isCompanyExists(companies, companyName, 0)) {
+    if (isCompanyExists(companies, companyName, 0, numberCompanies)) {
         do {
             free(companyName);
             strcpy(companyName, inputString(EXISTENT_COMPANY, MAX_NAME_COMPANY, true));
-        } while (isCompanyExists(companies, companyName, 0));
-
-        strcpy(companies->company[numberCompanies].nameCompany, companyName);
+        } while (isCompanyExists(companies, companyName, 0, numberCompanies));
     }
     strcpy(companies->company[numberCompanies].nameCompany, companyName);
     free(companyName);
@@ -56,11 +59,11 @@ void createCompany(Companies *companies) {
         system("clear");
         companies->company[numberCompanies].nif = inputNumber(MSG_GET_NIF);
 
-        if (verifyNif(companies->company[numberCompanies].nif) == -1 || isCompanyExists(companies, "", companies->company[companies->numberCompanies].nif)) {
+        if (verifyNif(companies->company[numberCompanies].nif) == -1 || isCompanyExists(companies, "", companies->company[companies->numberCompanies].nif, numberCompanies)) {
             puts(verifyNif(companies->company[numberCompanies].nif) == -1 ? ERROR_NIF : EXISTENT_NIF);
             sleep(4);
         }
-    } while (verifyNif(companies->company[numberCompanies].nif) == -1 || isCompanyExists(companies, "", companies->company[companies->numberCompanies].nif));
+    } while (verifyNif(companies->company[numberCompanies].nif) == -1 || isCompanyExists(companies, "", companies->company[companies->numberCompanies].nif, numberCompanies));
 
     atividade = inputString(MSG_GET_ACTIVITY, 10, true);
     strcpy(companies->company[numberCompanies].activity, atividade);
@@ -78,7 +81,6 @@ void createCompany(Companies *companies) {
     companies->company[numberCompanies].numberComments = 0;
     system("clear");
     companies->company[numberCompanies].category = ShowMenuAndGetOption(MENU_SEARCH_BY_CATEGORY, 1, 3, true, false, "");
-    companies->numberCompanies++;
 }
 
 

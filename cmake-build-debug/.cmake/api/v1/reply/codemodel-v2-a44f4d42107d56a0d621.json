@@ -9,7 +9,7 @@
 					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
 					"minimumCMakeVersion" : 
 					{
-						"string" : "3.21"
+						"string" : "3.22"
 					},
 					"projectIndex" : 0,
 					"source" : ".",
@@ -49,8 +49,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "C:/Users/anton/OneDrive/Documentos/GitHub/Company-management/cmake-build-debug",
-		"source" : "C:/Users/anton/OneDrive/Documentos/GitHub/Company-management"
+		"build" : "C:/Users/Miguel/Documents/GitHub/Company-management/cmake-build-debug",
+		"source" : "C:/Users/Miguel/Documents/GitHub/Company-management"
 	},
 	"version" : 
 	{
