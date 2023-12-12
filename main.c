@@ -9,14 +9,17 @@
 #include <unistd.h>
 
 int main() {
-    Companies companies = {.numberCompanies = 0, .company = NULL};
-    companies.company = (Company *) malloc(companies.numberCompanies * sizeof(Company));
+    Companies companies = {.numberCompanies = 0, .maxCompanies = 10,
+                           .company = (Company *) malloc(companies.maxCompanies * sizeof(Company))};
+    User user;
+    char *name = NULL, *email = NULL;
     int menuUserSearch, menuAdmin;
     bool quit = false;
     int companyCategory;
 
     do {
         system("clear");
+        printf("%d\n", companies.maxCompanies);
         switch (ShowMenuAndGetOption(MENU_START, 0, 3, false, true, "START")) {
             case 0:
                 system("clear");
@@ -24,6 +27,12 @@ int main() {
                 quit = true;
                 break;
             case 1:
+                name = inputString("Your name: ", MAX_NAME, true);
+                strcpy(user.name, name);
+                free(name);
+                email = inputString("Your email: ", MAX_EMAIL, true);
+                strcpy(user.email, email);
+                free(email);
                 system("clear");
                 menuUserSearch = ShowMenuAndGetOption(MENU_USER_SEARCH, 0, 3, false, true, SEARCH_COMPANY);
                 switch (menuUserSearch) {

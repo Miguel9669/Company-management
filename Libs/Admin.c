@@ -34,11 +34,16 @@ void createCompany(Companies *companies) {
     char *city = NULL;
     char *codPostal = NULL;
     companies->numberCompanies++;
-    companies->company = (Company *) realloc(companies->company, companies->numberCompanies * sizeof(Company));
-    if (companies->company == NULL) {
-        fprintf(stderr, "Erro ao alocar memória\n");
-        sleep(4);
-        exit(EXIT_FAILURE);
+
+    if (companies->numberCompanies == companies->maxCompanies) {
+        Company *pCompany= (Company *) realloc(companies->company, (companies->maxCompanies + 10) * sizeof(Company));
+        if (pCompany != NULL) {
+            companies->company = pCompany;
+            companies->maxCompanies += 10;
+        } else {
+            puts("Error: REALLOC FAIL.");
+            sleep(4);
+        }
     }
     companyName = inputString(MSG_GET_NAME, MAX_NAME, true);
 
@@ -77,13 +82,18 @@ void createCompany(Companies *companies) {
     codPostal = inputString(MSG_GET_CODPOSTAL, MAX_CODIGO, true);
     strcpy(companies->company[numberCompanies].local.codigoPostal, codPostal);
     free(codPostal);
-    companies->company[numberCompanies].comments = NULL;
-    companies->company[numberCompanies].numberComments = 0;
     system("clear");
     companies->company[numberCompanies].category = ShowMenuAndGetOption(MENU_SEARCH_BY_CATEGORY, 1, 3, true, false, "");
+    iniciateCommentsAndRates(companies, numberCompanies);
 }
 
-
+void iniciateCommentsAndRates(Companies *companies, int index) {
+    Company company = companies->company[index];
+    company.maxComments = 5;
+    company.maxRates = 5;
+    company.comments = (Comment *) malloc(company.maxComments * sizeof(Comment));
+    company.rates = (Rate *) malloc(company.maxRates * sizeof(Rate));
+}
 void deleteCompany(Companies *companies) {
     int nif, index;
 
@@ -104,7 +114,10 @@ void deleteCompany(Companies *companies) {
         strcpy(companies->company[index].local.codigoPostal, "");
         printf("Company deleted successfully.\n");
         companies->numberCompanies--;
-        companies->company = (Company *) realloc(companies->company, companies->numberCompanies * sizeof(Company));
+        if (companies->maxCompanies - companies->numberCompanies > 15) {
+            companies->maxCompanies -= 10;
+            companies->company = (Company *) realloc(companies->company, companies->maxCompanies * sizeof(Company));
+        }
     } else {
         printf("No companies to delete.\n");
         sleep(4);

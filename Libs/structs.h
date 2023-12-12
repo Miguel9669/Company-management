@@ -11,7 +11,10 @@ typedef struct {
     char name[MAX_NAME];
     char email[MAX_EMAIL];
 }User;
-
+typedef struct {
+    char name[MAX_NAME];
+    int rate;
+} Rate;
 typedef struct{
     User user;
     char commentText[COMMENT];
@@ -25,11 +28,9 @@ typedef struct{
 }Local;
 
 typedef struct{
-    int numberRates;
-    int numberComments;
-    int nif;
+    int numberRates, numberComments, nif, maxRates, maxComments;
     char nameCompany[MAX_NAME_COMPANY];
-    int *rates;
+    Rate *rates;
     Comment *comments;
     Local local;
     char activity[10];
@@ -37,6 +38,7 @@ typedef struct{
 }Company;
 
 typedef struct{
+    int maxCompanies;
     int numberCompanies;
     Company *company;
 }Companies;
