@@ -45,7 +45,12 @@ int inputNumber(char *txt) {
     int variable;
     printf("%s", txt);
     printf(">>> ");
-    scanf(" %d", &variable);
+    while (scanf(" %d", &variable) != 1) {
+        puts("ERROR: Only numbers.");
+        sleep(4);
+        cleanBuffer();
+        return -1;
+    }
     cleanBuffer();
     return variable;
 }
@@ -99,7 +104,7 @@ char *inputString(char *txt, int quant, bool cleanConsole) {
 
 int verifyNumber(int *variable, int min, int max){
 
-    if ((*variable < min) || (*variable > max)){
+    if ((*variable < min) || (*variable > max) || *variable == -1){
         return 0;
     } else {
         return 1;
