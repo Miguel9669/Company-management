@@ -9,6 +9,7 @@
 #include "Geral.h"
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 
 int lenCharArray(char *array){
@@ -39,10 +40,32 @@ void searchByCategory(Companies *companies, int valueCategory){
     header("COMPANIES FOUND");
     for (int i = 0; i < companies -> numberCompanies; i++){
         if (companies->company[i].category == valueCategory){
-            header(companies->company[i].nameCompany);
+            printf("%d: %s\n", i + 1, companies->company[i].nameCompany);
             count++;
         }
     }
+}
 
+void comentar(User *user, Company *company) {
+    if (company->maxComments - company->numberComments == 1) {
+        Comment *pComment= (Comment *) realloc(company->comments, (company->maxComments + 10) * sizeof(Comment));
+        if (pComment != NULL) {
+            company->comments = pComment;
+            company->maxComments += 10;
+        } else {
+            printf("ERROR: Failed in realloc comment");
+        }
+    }
+    strcpy(company->comments->user.name, user->name);
+    strcpy(company->comments->user.email, user->email);
+    system("clear");
+    header("COMMENT");
+    char *title = inputString("Title: ", TITLE, false);
+    strcpy(company->comments[company->numberComments].title, title);
+    free(title);
+    char *comment = inputString("Comment: ", COMMENT, false);
+    strcpy(company->comments[company->numberComments].commentText, comment);
+    free(comment);
+    company->numberComments++;
 }
 

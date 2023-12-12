@@ -17,10 +17,10 @@ int lenString(char *variable) {
     }
 }
 void showComments(Company *company) {
-    int i = 0;
-    printf("%s: %s", company->comments[i].user.name, company->comments[i].commentText);
-    scanf("%d", 6);
-
+    for (int i = 0; i < company->numberComments; ++i) {
+        printf("%s: %s", company->comments[i].user.name, company->comments[i].commentText);
+    }
+    sleep(4);
 }
 
 void showCompany(Company *company){

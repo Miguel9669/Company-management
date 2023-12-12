@@ -84,15 +84,21 @@ void createCompany(Companies *companies) {
     free(codPostal);
     system("clear");
     companies->company[numberCompanies].category = ShowMenuAndGetOption(MENU_SEARCH_BY_CATEGORY, 1, 3, true, false, "");
-    iniciateCommentsAndRates(companies, numberCompanies);
+    iniciateCommentsAndRates(&companies->company[numberCompanies]);
 }
 
-void iniciateCommentsAndRates(Companies *companies, int index) {
-    Company company = companies->company[index];
-    company.maxComments = 5;
-    company.maxRates = 5;
-    company.comments = (Comment *) malloc(company.maxComments * sizeof(Comment));
-    company.rates = (Rate *) malloc(company.maxRates * sizeof(Rate));
+void iniciateCommentsAndRates(Company *company) {
+    company->numberComments = 0;
+    company->numberRates = 0;
+    company->maxComments = 5;
+    company->maxRates = 5;
+    company->comments = (Comment *)malloc(company->maxComments * sizeof(Comment));
+    company->rates = (Rate *)malloc(company->maxRates * sizeof(Rate));
+
+    if (company->comments == NULL || company->rates == NULL) {
+        fprintf(stderr, "Erro ao alocar memória para comentários ou avaliações\n");
+        exit(EXIT_FAILURE);
+    }
 }
 void deleteCompany(Companies *companies) {
     int nif, index;

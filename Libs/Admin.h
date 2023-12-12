@@ -12,7 +12,7 @@ int findCompanyIndexByNif(const Companies *companies, int nif);
 int isCompanyExists(const Companies *companies, char *name, int nif, int numberCompanies);
 void deleteCompany(Companies *companies);
 void modifyCompany(Companies *companies);
-void iniciateCommentsAndRates(Companies *companies, int index);
+void iniciateCommentsAndRates(Company *company);
 
 
 #endif
