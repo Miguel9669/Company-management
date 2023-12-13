@@ -18,16 +18,16 @@ int lenString(char *variable) {
 }
 void showComments(Company *company) {
     for (int i = 0; i < company->numberComments; ++i) {
-        printf("%s: %s", company->comments[i].user.name, company->comments[i].commentText);
+        printf("\n%s: %s(%s)", company->comments[i].user.name, company->comments[i].title, company->comments[i].commentText);
     }
     sleep(4);
 }
 
-void showCompany(Company *company){
+void showCompany(Company *company, bool showAnyway){
     if (company == NULL){
         printf("%s\n", SEARCH_NOT_FOUND);
         sleep(4);
-    } else {
+    } else if (company->active == true){
         system("clear");
         header(company -> nameCompany);
         printf("Company Information:\n");
@@ -38,6 +38,20 @@ void showCompany(Company *company){
         printf("City: %s\n", company->local.city);
         printf("Postal Code: %s\n", company->local.codigoPostal);
         printf("Category: %s\n", categoryString(*company));
+    } else {
+        if (showAnyway == true) {
+            system("clear");
+            header(company -> nameCompany);
+            printf("Company Information:\n");
+            printf("Name: %s\n", company->nameCompany);
+            printf("NIF: %d\n", company->nif);
+            printf("Activity: %s\n", company->activity);
+            printf("Address: %s\n", company->local.adress);
+            printf("City: %s\n", company->local.city);
+            printf("Postal Code: %s\n", company->local.codigoPostal);
+            printf("Category: %s\n", categoryString(*company));
+        }else
+            puts(SEARCH_NOT_FOUND);
     }
 }
 

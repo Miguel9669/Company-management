@@ -30,6 +30,7 @@ typedef struct{
 typedef struct{
     int numberRates, numberComments, nif, maxRates, maxComments;
     char nameCompany[MAX_NAME_COMPANY];
+    bool active;
     Rate *rates;
     Comment *comments;
     Local local;

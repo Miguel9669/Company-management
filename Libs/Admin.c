@@ -85,6 +85,7 @@ void createCompany(Companies *companies) {
     system("clear");
     companies->company[numberCompanies].category = ShowMenuAndGetOption(MENU_SEARCH_BY_CATEGORY, 1, 3, true, false, "");
     iniciateCommentsAndRates(&companies->company[numberCompanies]);
+    companies->company[numberCompanies].active = true;
 }
 
 void iniciateCommentsAndRates(Company *company) {
@@ -144,7 +145,7 @@ void modifyCompany(Companies *companies) {
         }
 
         do {
-            showCompany(&(companies->company[index]));
+            showCompany(&(companies->company[index]), true);
             menuModify = ShowMenuAndGetOption(MENU_MODIFY, 0, 6, false, true, MODIFY_MENU);
             cleanBuffer();
             switch (menuModify) {

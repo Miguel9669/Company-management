@@ -2,7 +2,7 @@
 #ifndef COMPANY_MANAGEMENT_GERAL_H
 #define COMPANY_MANAGEMENT_GERAL_H
 #include "structs.h"
-void showCompany(Company *company);
+void showCompany(Company *company, bool showAnyway);
 int inputNumber(char *txt);
 char *inputString(char *txt, int quant, bool cleanConsole);
 int verifyNumber(int *variable, int min, int max);

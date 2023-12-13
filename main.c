@@ -46,10 +46,8 @@ int main() {
             case 1:
                 name = inputString("Your name: ", MAX_NAME, true);
                 strcpy(user.name, name);
-                free(name);
                 email = inputString("Your email: ", MAX_EMAIL, true);
                 strcpy(user.email, email);
-                free(email);
                 system("clear");
                 do{
                     menuUserSearch = ShowMenuAndGetOption(MENU_USER_SEARCH, 0, 3, false, true, SEARCH_COMPANY);
@@ -58,6 +56,8 @@ int main() {
                             system("clear");
                             printf("Bye");
                             quit = true;
+                            free(name);
+                            free(email);
                             break;
                         case 1:
                             system("clear");
@@ -67,7 +67,7 @@ int main() {
                             free(companySearch);
                             if (foundCompany != NULL) {
                                 do{
-                                    showCompany(foundCompany);
+                                    showCompany(foundCompany, false);
                                     insideCompany(&user, foundCompany, &back);
                                 } while (back != true);
                             }
@@ -87,7 +87,7 @@ int main() {
                                             sleep(4);
                                         } else {
                                             do{
-                                                showCompany(foundCompany);
+                                                showCompany(foundCompany, false);
                                                 insideCompany(&user, foundCompany, &back);
                                             } while (back != true);
                                         }
@@ -105,7 +105,7 @@ int main() {
                                             sleep(4);
                                         } else {
                                            do{
-                                               showCompany(foundCompany);
+                                               showCompany(foundCompany, false);
                                                insideCompany(&user, foundCompany, &back);
                                            } while (back != true);
                                        }
@@ -123,7 +123,7 @@ int main() {
                                             sleep(4);
                                         } else {
                                             do{
-                                                showCompany(foundCompany);
+                                                showCompany(foundCompany, false);
                                                 insideCompany(&user, foundCompany, &back);
                                             } while (back != true);
                                         }

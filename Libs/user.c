@@ -39,9 +39,11 @@ void searchByCategory(Companies *companies, int valueCategory){
     int count = 0;
     header("COMPANIES FOUND");
     for (int i = 0; i < companies -> numberCompanies; i++){
-        if (companies->company[i].category == valueCategory){
+        if (companies->company[i].category == valueCategory || companies->company[i].active == true){
             printf("%d: %s\n", i + 1, companies->company[i].nameCompany);
             count++;
+        } else {
+            puts(SEARCH_NOT_FOUND);
         }
     }
 }
@@ -56,8 +58,8 @@ void comentar(User *user, Company *company) {
             printf("ERROR: Failed in realloc comment");
         }
     }
-    strcpy(company->comments->user.name, user->name);
-    strcpy(company->comments->user.email, user->email);
+    strcpy(company->comments[company->numberComments].user.name, user->name);
+    strcpy(company->comments[company->numberComments].user.email, user->email);
     system("clear");
     header("COMMENT");
     char *title = inputString("Title: ", TITLE, false);
