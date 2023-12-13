@@ -10,13 +10,58 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-
+#include "Menus.h"
 
 int lenCharArray(char *array){
     int count = 0;
     do{
         count++;
     } while (array[count] != '\n');
+}
+void handleUser(User *user, bool *quit, Companies *companies) {
+    header("USER");
+    getString(user->name, "Your name: ", MAX_NAME);
+    getString(user->email, "Your email: ", MAX_EMAIL);
+    bool back;
+    do {
+        back = false;
+        menuUserSearch(&back, companies, user);
+    } while (back != true);
+}
+void handleUserSearchByName(Companies *companies, User *user){
+    Company *foundCompany = searchCompanyByName(companies);
+    bool back;
+    if (foundCompany != NULL) {
+        do{
+            back = false;
+            showCompany(foundCompany, false);
+            menuCompany(user, foundCompany, &back);
+        } while (back != true);
+    }
+}
+void handleUserSearchByCategory(Companies *companies, User *user){
+    menuSearchByCategory(companies, user);
+}
+void handleUserSelectByCategory(Companies *companies, User *user, int valueCategory){
+    int count = numberCompaniesInCategory(companies, valueCategory);
+    if (count > 0) {
+        searchByCategory(companies, valueCategory);
+        Company *foundCompany = searchCompanyByName(companies);
+        if (foundCompany->category != valueCategory || foundCompany == NULL){
+            puts("Error: Please search for a company that's in this category");
+        } else {
+            bool back;
+            do{
+                back = false;
+                showCompany(foundCompany, false);
+                menuCompany(user, foundCompany, &back);
+            } while (back != true);
+        }
+    } else {
+        puts(SEARCH_NOT_FOUND_IN_CATEGORY);
+    }
+
+
 }
 void runArrayAndChangeString(char *variable, char *array){
     int len = lenCharArray(array);
@@ -25,26 +70,22 @@ void runArrayAndChangeString(char *variable, char *array){
     }
 }
 
-Company *searchByName(Companies *companies, char *txt){
+Company *searchCompanyByName(Companies *companies){
+    char companySearchName[MAX_NAME_COMPANY];
+    getString(companySearchName, "Which company do you want to search: ", MAX_NAME_COMPANY);
     for (int i = 0; i < companies -> numberCompanies; i++){
-        if (strcmp(companies->company[i].nameCompany, txt) == 0){
+        if (strcmp(companies->company[i].nameCompany, companySearchName) == 0){
             return &(companies -> company[i]);
         }
-
     }
     return NULL;
 }
 
 void searchByCategory(Companies *companies, int valueCategory){
-    int count = 0;
     header("COMPANIES FOUND");
-    for (int i = 0; i < companies -> numberCompanies; i++){
-        if (companies->company[i].category == valueCategory || companies->company[i].active == true){
-            printf("%d: %s\n", i + 1, companies->company[i].nameCompany);
-            count++;
-        } else {
-            puts(SEARCH_NOT_FOUND);
-        }
+    for (int i = 0; i < companies->numberCompanies; ++i) {
+        printf("-> %s", companies->company[i].nameCompany);
+
     }
 }
 

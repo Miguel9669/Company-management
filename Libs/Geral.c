@@ -87,8 +87,6 @@ char *inputString(char *txt, int quant, bool cleanConsole) {
         }
 
         printf("%s", txt);
-        printf(">>> ");
-
         if (fgets(var, quant + 1, stdin) != NULL) {
             len = strlen(var);
             if (len > 1 && var[len - 1] == '\n') {
@@ -99,11 +97,6 @@ char *inputString(char *txt, int quant, bool cleanConsole) {
                 while ((c = getchar()) != '\n' && c != EOF);
             }
         }
-
-
-
-
-
         if (len >= quant) {
             puts(INVALID_INPUT);
             sleep(4);
@@ -141,7 +134,7 @@ int verifyNif(int nif) {
     }
 }
 
-int ShowMenuAndGetOption(char *txt, int min, int max, bool showOption, bool showHeader, char *txtHeader) {
+int GetOption(char *txt, int min, int max, bool showOption, bool showHeader, char *txtHeader) {
     int number;
     do {
         if (showHeader){
@@ -158,11 +151,20 @@ int ShowMenuAndGetOption(char *txt, int min, int max, bool showOption, bool show
     } while (!verifyNumber(&number, min, max));
     return number;
 }
-
-Company *searchForCompany(int *variable, char *name) {
-
+int numberCompaniesInCategory(Companies *companies, int valueCategory) {
+    int count = 0;
+    for (int i = 0; i < companies -> numberCompanies; i++){
+        if (companies->company[i].category == valueCategory || companies->company[i].active == true){
+            count++;
+        }
+    }
+    return count;
 }
-
+void getString(char *dest, char *txt, int charLen){
+    char *variable = inputString(txt, charLen, false);
+    strcpy(dest, variable);
+    free(variable);
+}
 void header(char *txt) {
     puts("\n------------------------------------------------------------------------------------------");
     printf("                      %s\n", txt);

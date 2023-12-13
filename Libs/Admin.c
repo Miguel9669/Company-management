@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include "constVariables.h"
 #include <unistd.h>
-
+#include "Menus.h"
 int findCompanyIndexByNif(const Companies *companies, int nif) {
     for (int i = 0; i < companies->numberCompanies; ++i) {
         if (companies->company[i].nif == nif) {
@@ -15,7 +15,13 @@ int findCompanyIndexByNif(const Companies *companies, int nif) {
     }
     return -1;
 }
-
+void handleAdmin(Companies *companies){
+    bool back;
+    do {
+        back = false;
+        menuAdmin(&back, companies);
+    } while (back != true);
+}
 int isCompanyExists(const Companies *companies, char *name, int nif, int numberCompanies) {
     for (int i = 0; i < numberCompanies; ++i) {
         if (strcmp(companies->company[i].nameCompany, name) == 0 || companies->company[i].nif == nif) {
@@ -83,7 +89,7 @@ void createCompany(Companies *companies) {
     strcpy(companies->company[numberCompanies].local.codigoPostal, codPostal);
     free(codPostal);
     system("clear");
-    companies->company[numberCompanies].category = ShowMenuAndGetOption(MENU_SEARCH_BY_CATEGORY, 1, 3, true, false, "");
+    companies->company[numberCompanies].category = GetOption(MENU_SEARCH_BY_CATEGORY, 1, 3, true, false, "");
     iniciateCommentsAndRates(&companies->company[numberCompanies]);
     companies->company[numberCompanies].active = true;
 }
@@ -146,7 +152,7 @@ void modifyCompany(Companies *companies) {
 
         do {
             showCompany(&(companies->company[index]), true);
-            menuModify = ShowMenuAndGetOption(MENU_MODIFY, 0, 6, false, true, MODIFY_MENU);
+            menuModify = GetOption(MENU_MODIFY, 0, 6, false, true, MODIFY_MENU);
             cleanBuffer();
             switch (menuModify) {
                 case 1:
@@ -171,7 +177,7 @@ void modifyCompany(Companies *companies) {
                     break;
                 case 6:
                     system("clear");
-                    companies->company[index].category = ShowMenuAndGetOption(MENU_SEARCH_BY_CATEGORY, 1, 3, true, false, "");
+                    companies->company[index].category = GetOption(MENU_SEARCH_BY_CATEGORY, 1, 3, true, false, "");
                     break;
                 case 0:
                     printf("Leaving!.\n");
