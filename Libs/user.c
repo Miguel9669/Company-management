@@ -51,7 +51,7 @@ void comentar(User *user, Company *company) {
         Comment *pComment= (Comment *) realloc(company->comments, (company->maxComments + 10) * sizeof(Comment));
         if (pComment != NULL) {
             company->comments = pComment;
-            company->maxComments += 10;
+            company->maxComments *= 2;
         } else {
             printf("ERROR: Failed in realloc comment");
         }

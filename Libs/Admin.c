@@ -39,7 +39,7 @@ void createCompany(Companies *companies) {
         Company *pCompany= (Company *) realloc(companies->company, (companies->maxCompanies + 10) * sizeof(Company));
         if (pCompany != NULL) {
             companies->company = pCompany;
-            companies->maxCompanies += 10;
+            companies->maxCompanies *= 2;
         } else {
             puts("Error: REALLOC FAIL.");
             sleep(4);
@@ -64,11 +64,11 @@ void createCompany(Companies *companies) {
         system("clear");
         companies->company[numberCompanies].nif = inputNumber(MSG_GET_NIF);
 
-        if (verifyNif(companies->company[numberCompanies].nif) == -1 || isCompanyExists(companies, "", companies->company[companies->numberCompanies].nif, numberCompanies)) {
+        if (verifyNif(companies->company[numberCompanies].nif) == -1 || isCompanyExists(companies, "", companies->company[numberCompanies].nif, numberCompanies) == 1) {
             puts(verifyNif(companies->company[numberCompanies].nif) == -1 ? ERROR_NIF : EXISTENT_NIF);
             sleep(4);
         }
-    } while (verifyNif(companies->company[numberCompanies].nif) == -1 || isCompanyExists(companies, "", companies->company[companies->numberCompanies].nif, numberCompanies));
+    } while (verifyNif(companies->company[numberCompanies].nif) == -1 || isCompanyExists(companies, "", companies->company[numberCompanies].nif, numberCompanies) == 1);
 
     atividade = inputString(MSG_GET_ACTIVITY, 10, true);
     strcpy(companies->company[numberCompanies].activity, atividade);
@@ -111,19 +111,17 @@ void deleteCompany(Companies *companies) {
             printf("Company not found: %d\n", nif);
             sleep(4);
         }
-
-        companies->company[index].nif = 0;
-        strcpy(companies->company[index].nameCompany, "");
-        strcpy(companies->company[index].activity,"");
-        strcpy(companies->company[index].local.adress, "");
-        strcpy(companies->company[index].local.city, "");
-        strcpy(companies->company[index].local.codigoPostal, "");
+        for (int i = index; i < companies->numberCompanies; ++i) {
+            companies->company[i] = companies->company[i + 1];
+        }
+        companies->company[companies->numberCompanies].nif = 0;
+        strcpy(companies->company[companies->numberCompanies].nameCompany, "");
+        strcpy(companies->company[companies->numberCompanies].activity,"");
+        strcpy(companies->company[companies->numberCompanies].local.adress, "");
+        strcpy(companies->company[companies->numberCompanies].local.city, "");
+        strcpy(companies->company[companies->numberCompanies].local.codigoPostal, "");
         printf("Company deleted successfully.\n");
         companies->numberCompanies--;
-        if (companies->maxCompanies - companies->numberCompanies > 15) {
-            companies->maxCompanies -= 10;
-            companies->company = (Company *) realloc(companies->company, companies->maxCompanies * sizeof(Company));
-        }
     } else {
         printf("No companies to delete.\n");
         sleep(4);
