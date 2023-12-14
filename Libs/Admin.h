@@ -8,8 +8,6 @@
 
 #include "structs.h"
 void createCompany(Companies *companies);
-int findCompanyIndexByNif(const Companies *companies, int nif);
-int isCompanyExists(const Companies *companies, char *name, int nif, int numberCompanies);
 void deleteCompany(Companies *companies);
 void modifyCompany(Companies *companies);
 void handleAdmin(Companies *companies);

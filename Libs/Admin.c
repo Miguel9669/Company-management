@@ -7,14 +7,7 @@
 #include "constVariables.h"
 #include <unistd.h>
 #include "Menus.h"
-int findCompanyIndexByNif(const Companies *companies, int nif) {
-    for (int i = 0; i < companies->numberCompanies; ++i) {
-        if (companies->company[i].nif == nif) {
-            return i;
-        }
-    }
-    return -1;
-}
+
 void handleAdmin(Companies *companies){
     bool back;
     do {
@@ -22,23 +15,11 @@ void handleAdmin(Companies *companies){
         menuAdmin(&back, companies);
     } while (back != true);
 }
-int isCompanyExists(const Companies *companies, char *name, int nif, int numberCompanies) {
-    for (int i = 0; i < numberCompanies; ++i) {
-        if (strcmp(companies->company[i].nameCompany, name) == 0 || companies->company[i].nif == nif) {
-            return 1;
-        }
-    }
-    return 0;
-}
+
 
 void createCompany(Companies *companies) {
-    int nif;
     int numberCompanies = companies->numberCompanies;
-    char *companyName = NULL;
-    char *atividade = NULL;
-    char *adress = NULL;
-    char *city = NULL;
-    char *codPostal = NULL;
+    Company *company = &(companies->company[numberCompanies]);
     companies->numberCompanies++;
 
     if (companies->numberCompanies == companies->maxCompanies) {
@@ -48,50 +29,33 @@ void createCompany(Companies *companies) {
             companies->maxCompanies *= 2;
         } else {
             puts("Error: REALLOC FAIL.");
-            sleep(4);
         }
     }
-    companyName = inputString(MSG_GET_NAME, MAX_NAME, true);
+    getString(company->nameCompany, MSG_GET_NAME, MAX_NAME_COMPANY);
 
-
-    if (isCompanyExists(companies, companyName, 0, numberCompanies)) {
+    if (isCompanyExists(companies, company->nameCompany, 0, numberCompanies)) {
         do {
-            free(companyName);
-            strcpy(companyName, inputString(EXISTENT_COMPANY, MAX_NAME_COMPANY, true));
-        } while (isCompanyExists(companies, companyName, 0, numberCompanies));
+            getString(company->nameCompany, MSG_GET_NAME, MAX_NAME_COMPANY);
+        } while (isCompanyExists(companies, company->nameCompany, 0, numberCompanies));
     }
-    strcpy(companies->company[numberCompanies].nameCompany, companyName);
-    free(companyName);
-    //Finnish!
 
-
-    //Verify NIF
     do {
         system("clear");
         companies->company[numberCompanies].nif = inputNumber(MSG_GET_NIF);
 
-        if (verifyNif(companies->company[numberCompanies].nif) == -1 || isCompanyExists(companies, "", companies->company[numberCompanies].nif, numberCompanies) == 1) {
-            puts(verifyNif(companies->company[numberCompanies].nif) == -1 ? ERROR_NIF : EXISTENT_NIF);
-            sleep(4);
+        if (verifyNif(company->nif) == -1 || isCompanyExists(companies, "", company->nif, numberCompanies) == 1) {
+            puts(verifyNif(company->nif) == -1 ? ERROR_NIF : EXISTENT_NIF);
         }
-    } while (verifyNif(companies->company[numberCompanies].nif) == -1 || isCompanyExists(companies, "", companies->company[numberCompanies].nif, numberCompanies) == 1);
+    } while (verifyNif(company->nif) == -1 || isCompanyExists(companies, "", company->nif, numberCompanies) == 1);
 
-    atividade = inputString(MSG_GET_ACTIVITY, 10, true);
-    strcpy(companies->company[numberCompanies].activity, atividade);
-    free(atividade);
-    adress = inputString(MSG_GET_ADRESS, MAX_ADRESS, true);
-    strcpy(companies->company[numberCompanies].local.adress, adress);
-    free(adress);
-    city = inputString(MSG_GET_CITY, MAX_CITY, true);
-    strcpy(companies->company[numberCompanies].local.city, city);
-    free(city);
-    codPostal = inputString(MSG_GET_CODPOSTAL, MAX_CODIGO, true);
-    strcpy(companies->company[numberCompanies].local.codigoPostal, codPostal);
-    free(codPostal);
-    system("clear");
-    companies->company[numberCompanies].category = GetOption(MENU_SEARCH_BY_CATEGORY, 1, 3, true, false, "");
-    iniciateCommentsAndRates(&companies->company[numberCompanies]);
-    companies->company[numberCompanies].active = true;
+    getString(company->activity, MSG_GET_ACTIVITY, 10);
+    getString(company->local.adress, MSG_GET_ADRESS, MAX_ADRESS);
+    getString(company->local.city, MSG_GET_CITY, MAX_CITY);
+    getString(company->local.codigoPostal, MSG_GET_CODPOSTAL, MAX_CODIGO);
+
+    company->category = GetOption(MENU_SEARCH_BY_CATEGORY, 1, 3, false, false, "");
+    iniciateCommentsAndRates(company);
+    company->active = true;
 }
 
 void iniciateCommentsAndRates(Company *company) {
@@ -111,6 +75,7 @@ void deleteCompany(Companies *companies) {
     int nif, index;
 
     if (companies->numberCompanies > 0) {
+        Company *company = &(companies->company[companies->numberCompanies]);
         nif = inputNumber(MSG_GET_NIF);
         index = findCompanyIndexByNif(companies, nif);
 
@@ -121,12 +86,12 @@ void deleteCompany(Companies *companies) {
         for (int i = index; i < companies->numberCompanies; ++i) {
             companies->company[i] = companies->company[i + 1];
         }
-        companies->company[companies->numberCompanies].nif = 0;
-        strcpy(companies->company[companies->numberCompanies].nameCompany, "");
-        strcpy(companies->company[companies->numberCompanies].activity,"");
-        strcpy(companies->company[companies->numberCompanies].local.adress, "");
-        strcpy(companies->company[companies->numberCompanies].local.city, "");
-        strcpy(companies->company[companies->numberCompanies].local.codigoPostal, "");
+        company->nif = 0;
+        strcpy(company->nameCompany, "");
+        strcpy(company->activity,"");
+        strcpy(company->local.adress, "");
+        strcpy(company->local.city, "");
+        strcpy(company->local.codigoPostal, "");
         printf("Company deleted successfully.\n");
         companies->numberCompanies--;
     } else {
@@ -155,23 +120,23 @@ void modifyCompany(Companies *companies) {
             menuModify = GetOption(MENU_MODIFY, 0, 7, false, true, MODIFY_MENU);
             switch (menuModify) {
                 case 1:
-                    strcpy(newName, inputString("New name: ", MAX_NAME_COMPANY, true));
+                    getString(newName, "New name: ", MAX_NAME_COMPANY);
                     strcpy(companies->company[index].nameCompany, newName);
                     break;
                 case 2:
-                    strcpy(newActivity, inputString("New activity: ", 10, true));
+                    getString(newActivity, "New activity: ", 10);
                     strcpy(companies->company[index].activity, newActivity);
                     break;
                 case 3:
-                    strcpy(newAddress, inputString("New address: ", MAX_ADRESS, true));
+                    getString(newAddress, "New address: ", MAX_ADRESS);
                     strcpy(companies->company[index].local.adress, newAddress);
                     break;
                 case 4:
-                    strcpy(newCity, inputString("New city: ", MAX_CITY, true));
+                    getString(newCity, "New city: ", MAX_CITY);
                     strcpy(companies->company[index].local.city, newCity);
                     break;
                 case 5:
-                    strcpy(newCodigoPostal, inputString("New Postal Code: ", MAX_CODIGO, true));
+                    getString(newCodigoPostal, "New Postal Code: ", MAX_CODIGO);
                     strcpy(companies->company[index].local.codigoPostal, newCodigoPostal);
                     break;
                 case 6:
@@ -191,7 +156,6 @@ void modifyCompany(Companies *companies) {
 
     } else {
         printf("No companies to modify.\n");
-        sleep(4);
     }
 }
 

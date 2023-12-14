@@ -46,8 +46,7 @@ void showCompany(Company *company){
 
 int inputNumber(char *txt) {
     int variable;
-    printf("%s", txt);
-    printf(">>> ");
+    printf("%s\n", txt);
     while (scanf(" %d", &variable) != 1) {
         puts("ERROR: Only numbers.");
         sleep(4);
@@ -109,15 +108,13 @@ int verifyNumber(int *variable, int min, int max){
 
 int verifyNif(int nif) {
     int count = 0;
-    int Nif = nif;
-
     while (nif > 0) {
         nif /= 10;
         count++;
     }
 
     if (count == 9) {
-        return Nif;
+        return nif;
     } else {
         return -1;
     }
@@ -139,6 +136,22 @@ int GetOption(char *txt, int min, int max, bool showOption, bool showHeader, cha
         }
     } while (!verifyNumber(&number, min, max));
     return number;
+}
+int isCompanyExists(const Companies *companies, char *name, int nif, int numberCompanies) {
+    for (int i = 0; i < numberCompanies; ++i) {
+        if (strcmp(companies->company[i].nameCompany, name) == 0 || companies->company[i].nif == nif) {
+            return 1;
+        }
+    }
+    return 0;
+}
+int findCompanyIndexByNif(const Companies *companies, int nif) {
+    for (int i = 0; i < companies->numberCompanies; ++i) {
+        if (companies->company[i].nif == nif) {
+            return i;
+        }
+    }
+    return -1;
 }
 int numberCompaniesInCategory(Companies *companies, int valueCategory) {
     int count = 0;

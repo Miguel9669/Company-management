@@ -12,12 +12,6 @@
 #include <stdlib.h>
 #include "Menus.h"
 
-int lenCharArray(char *array){
-    int count = 0;
-    do{
-        count++;
-    } while (array[count] != '\n');
-}
 void handleUser(User *user, bool *quit, Companies *companies) {
     header("USER");
     getString(user->name, "Your name: ", MAX_NAME);
@@ -73,12 +67,6 @@ void handleUserSelectByCategory(Companies *companies, User *user, int valueCateg
     }
 
 
-}
-void runArrayAndChangeString(char *variable, char *array){
-    int len = lenCharArray(array);
-    for(int i = 0; i < len; i++){
-        variable[i] = array[i];
-    }
 }
 
 Company *searchCompanyByName(Companies *companies){

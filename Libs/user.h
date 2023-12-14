@@ -6,8 +6,6 @@
 #define COMPANY_MANAGEMENT_USER_H
 #include "structs.h"
 
-int lenCharArray(char *array);
-void runArrayAndChangeString(char *variable, char *array);
 Company *searchCompanyByName(Companies *companies);
 void searchByCategory(Companies *companies, int valueCategory);
 void comentar(User *user, Company *company);
