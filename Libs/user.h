@@ -5,7 +5,6 @@
 #ifndef COMPANY_MANAGEMENT_USER_H
 #define COMPANY_MANAGEMENT_USER_H
 #include "structs.h"
-
 Company *searchCompanyByName(Companies *companies);
 void searchByCategory(Companies *companies, int valueCategory);
 void comentar(User *user, Company *company);

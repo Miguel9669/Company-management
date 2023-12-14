@@ -49,7 +49,6 @@ int inputNumber(char *txt) {
     printf("%s\n", txt);
     while (scanf(" %d", &variable) != 1) {
         puts("ERROR: Only numbers.");
-        sleep(4);
         cleanBuffer();
         return -1;
     }
