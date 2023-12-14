@@ -10,12 +10,7 @@ static char *categoryString(Company company) {
     return string[company.category - 1];
 }
 
-int lenString(char *variable) {
-    int count = 0;
-    while (variable[count] != '\0') {
-        count++;
-    }
-}
+
 void showComments(Company *company) {
     for (int i = 0; i < company->numberComments; ++i) {
         printf("\n%s: %s(%s)", company->comments[i].user.name, company->comments[i].title, company->comments[i].commentText);
@@ -59,7 +54,7 @@ void cleanBuffer() {
     int c;
     while ((c = getchar()) != '\n' && c != EOF);
 }
-char *inputString(char *txt, int quant, bool cleanConsole) {
+char *inputString(char *txt, int quant) {
     char *var = (char *)malloc(quant + 1);
     size_t len;
     if (var == NULL) {
@@ -69,9 +64,6 @@ char *inputString(char *txt, int quant, bool cleanConsole) {
     }
 
     do {
-        if(cleanConsole){
-            system("clear");
-        }
 
         printf("%s", txt);
         if (fgets(var, quant + 1, stdin) != NULL) {
@@ -162,7 +154,7 @@ int numberCompaniesInCategory(Companies *companies, int valueCategory) {
     return count;
 }
 void getString(char *dest, char *txt, int charLen){
-    char *variable = inputString(txt, charLen, false);
+    char *variable = inputString(txt, charLen);
     strcpy(dest, variable);
     free(variable);
 }

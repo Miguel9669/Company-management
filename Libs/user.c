@@ -89,6 +89,7 @@ void searchByCategory(Companies *companies, int valueCategory){
 }
 
 void comentar(User *user, Company *company) {
+    Comment *companyComments = &(company->comments[company->numberComments]);
     if (company->maxComments - company->numberComments == 1) {
         Comment *pComment= (Comment *) realloc(company->comments, (company->maxComments + 10) * sizeof(Comment));
         if (pComment != NULL) {
@@ -98,16 +99,11 @@ void comentar(User *user, Company *company) {
             printf("ERROR: Failed in realloc comment");
         }
     }
-    strcpy(company->comments[company->numberComments].user.name, user->name);
-    strcpy(company->comments[company->numberComments].user.email, user->email);
-    system("clear");
+    strcpy(companyComments->user.name, user->name);
+    strcpy(companyComments->user.email, user->email);
     header("COMMENT");
-    char *title = inputString("Title: ", TITLE, false);
-    strcpy(company->comments[company->numberComments].title, title);
-    free(title);
-    char *comment = inputString("Comment: ", COMMENT, false);
-    strcpy(company->comments[company->numberComments].commentText, comment);
-    free(comment);
+    getString(companyComments->title, "Title: ", TITLE);
+    getString(companyComments->commentText, "Comment: ", COMMENT);
     company->numberComments++;
 }
 
