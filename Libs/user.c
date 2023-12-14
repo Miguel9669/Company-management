@@ -34,8 +34,14 @@ void handleUserSearchByName(Companies *companies, User *user){
     if (foundCompany != NULL) {
         do{
             back = false;
-            showCompany(foundCompany, false);
-            menuCompany(user, foundCompany, &back);
+            if (foundCompany->active) {
+                showCompany(foundCompany);
+                menuCompany(user, foundCompany, &back);
+            } else {
+                puts(SEARCH_NOT_FOUND);
+                break;
+            }
+
         } while (back != true);
     }
 }
@@ -53,8 +59,13 @@ void handleUserSelectByCategory(Companies *companies, User *user, int valueCateg
             bool back;
             do{
                 back = false;
-                showCompany(foundCompany, false);
-                menuCompany(user, foundCompany, &back);
+                if (foundCompany->active) {
+                    showCompany(foundCompany);
+                    menuCompany(user, foundCompany, &back);
+                } else {
+                    puts(SEARCH_NOT_FOUND);
+                    break;
+                }
             } while (back != true);
         }
     } else {

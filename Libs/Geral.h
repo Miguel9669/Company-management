@@ -2,7 +2,7 @@
 #ifndef COMPANY_MANAGEMENT_GERAL_H
 #define COMPANY_MANAGEMENT_GERAL_H
 #include "structs.h"
-void showCompany(Company *company, bool showAnyway);
+void showCompany(Company *company);
 int inputNumber(char *txt);
 char *inputString(char *txt, int quant, bool cleanConsole);
 int verifyNumber(int *variable, int min, int max);
@@ -14,5 +14,5 @@ int lenString(char *variable);
 void cleanBuffer();
 void getString(char *dest, char *txt, int charLen);
 int numberCompaniesInCategory(Companies *companies, int valueCategory);
-
+char *boolString(bool variable);
 #endif //COMPANY_MANAGEMENT_GERAL_H

@@ -25,7 +25,7 @@
 #define SEARCH_NOT_FOUND "We couldn't find that company;"
 #define SEARCH_NOT_FOUND_IN_CATEGORY "We couldn't find any company!!"
 #define INVALID_INPUT "ERROR: INVALID. PLEASE TRY AGAIN."
-#define MENU_MODIFY "1 Name\n2 Activity\n3 Address\n4 City\n5 Postal Code\n6 Category\n0 Leave"
+#define MENU_MODIFY "1 Name\n2 Activity\n3 Address\n4 City\n5 Postal Code\n6 Category\n7 Ser active ou inactive\n0 Leave"
 #define MODIFY_MENU "exchange company data"
 #define MSG_GET_NIF "Enter the NIF: "
 #define MSG_GET_NAME "Enter the company name: "

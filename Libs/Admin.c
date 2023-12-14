@@ -151,9 +151,8 @@ void modifyCompany(Companies *companies) {
         }
 
         do {
-            showCompany(&(companies->company[index]), true);
-            menuModify = GetOption(MENU_MODIFY, 0, 6, false, true, MODIFY_MENU);
-            cleanBuffer();
+            showCompany(&(companies->company[index]));
+            menuModify = GetOption(MENU_MODIFY, 0, 7, false, true, MODIFY_MENU);
             switch (menuModify) {
                 case 1:
                     strcpy(newName, inputString("New name: ", MAX_NAME_COMPANY, true));
@@ -176,8 +175,10 @@ void modifyCompany(Companies *companies) {
                     strcpy(companies->company[index].local.codigoPostal, newCodigoPostal);
                     break;
                 case 6:
-                    system("clear");
                     companies->company[index].category = GetOption(MENU_SEARCH_BY_CATEGORY, 1, 3, true, false, "");
+                    break;
+                case 7:
+                    companies->company[index].active = companies->company[index].active == true ? false : true;
                     break;
                 case 0:
                     printf("Leaving!.\n");

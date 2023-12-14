@@ -22,37 +22,26 @@ void showComments(Company *company) {
     }
     sleep(4);
 }
-
-void showCompany(Company *company, bool showAnyway){
-    if (company == NULL){
-        printf("%s\n", SEARCH_NOT_FOUND);
-        sleep(4);
-    } else if (company->active == true){
-        system("clear");
-        header(company -> nameCompany);
-        printf("Company Information:\n");
-        printf("Name: %s\n", company->nameCompany);
-        printf("NIF: %d\n", company->nif);
-        printf("Activity: %s\n", company->activity);
-        printf("Address: %s\n", company->local.adress);
-        printf("City: %s\n", company->local.city);
-        printf("Postal Code: %s\n", company->local.codigoPostal);
-        printf("Category: %s\n", categoryString(*company));
-    } else {
-        if (showAnyway == true) {
-            system("clear");
-            header(company -> nameCompany);
-            printf("Company Information:\n");
-            printf("Name: %s\n", company->nameCompany);
-            printf("NIF: %d\n", company->nif);
-            printf("Activity: %s\n", company->activity);
-            printf("Address: %s\n", company->local.adress);
-            printf("City: %s\n", company->local.city);
-            printf("Postal Code: %s\n", company->local.codigoPostal);
-            printf("Category: %s\n", categoryString(*company));
-        }else
-            puts(SEARCH_NOT_FOUND);
+char *boolString(bool variable){
+    switch (variable) {
+        case 0:
+            return "false";
+        case 1:
+            return "true";
     }
+}
+void showCompany(Company *company){
+    system("clear");
+    header(company -> nameCompany);
+    printf("Company Information:\n");
+    printf("Name: %s\n", company->nameCompany);
+    printf("NIF: %d\n", company->nif);
+    printf("Activity: %s\n", company->activity);
+    printf("Address: %s\n", company->local.adress);
+    printf("City: %s\n", company->local.city);
+    printf("Postal Code: %s\n", company->local.codigoPostal);
+    printf("Category: %s\n", categoryString(*company));
+    printf("Active: %s", boolString(company->active));
 }
 
 int inputNumber(char *txt) {
@@ -154,7 +143,7 @@ int GetOption(char *txt, int min, int max, bool showOption, bool showHeader, cha
 int numberCompaniesInCategory(Companies *companies, int valueCategory) {
     int count = 0;
     for (int i = 0; i < companies -> numberCompanies; i++){
-        if (companies->company[i].category == valueCategory || companies->company[i].active == true){
+        if (companies->company[i].category == valueCategory && companies->company[i].active == true){
             count++;
         }
     }
