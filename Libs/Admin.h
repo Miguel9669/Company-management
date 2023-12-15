@@ -7,11 +7,11 @@
 #define ERROR_NIF "NIF need to be between 100000000 - 999999999: "
 
 #include "structs.h"
-void createCompany(Companies *companies);
+void createCompany(Companies *companies, Activities *activities);
 void deleteCompany(Companies *companies);
 void modifyCompany(Companies *companies);
-void handleAdmin(Companies *companies);
+void handleAdmin(Companies *companies, Activities *activities);
 void iniciateCommentsAndRates(Company *company);
-
+void creatActivity(Activities *activities);
 
 #endif

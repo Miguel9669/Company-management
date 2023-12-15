@@ -8,22 +8,22 @@
 #include <unistd.h>
 #include "Menus.h"
 
-void handleAdmin(Companies *companies){
+void handleAdmin(Companies *companies, Activities *activities){
     bool back;
     do {
         back = false;
-        menuAdmin(&back, companies);
+        menuAdmin(&back, companies, activities);
     } while (back != true);
 }
 
 
-void createCompany(Companies *companies) {
+void createCompany(Companies *companies, Activities *activities) {
     int numberCompanies = companies->numberCompanies;
     Company *company = &(companies->company[numberCompanies]);
     companies->numberCompanies++;
 
     if (companies->numberCompanies == companies->maxCompanies) {
-        Company *pCompany= (Company *) realloc(companies->company, (companies->maxCompanies + 10) * sizeof(Company));
+        Company *pCompany= (Company *) realloc(companies->company, (companies->maxCompanies) * 2 * sizeof(Company));
         if (pCompany != NULL) {
             companies->company = pCompany;
             companies->maxCompanies *= 2;
@@ -40,20 +40,22 @@ void createCompany(Companies *companies) {
     }
 
     do {
-        system("clear");
-        companies->company[numberCompanies].nif = inputNumber(MSG_GET_NIF);
+        company->nif = inputNumber(MSG_GET_NIF);
 
         if (verifyNif(company->nif) == -1 || isCompanyExists(companies, "", company->nif, numberCompanies) == 1) {
             puts(verifyNif(company->nif) == -1 ? ERROR_NIF : EXISTENT_NIF);
         }
     } while (verifyNif(company->nif) == -1 || isCompanyExists(companies, "", company->nif, numberCompanies) == 1);
-
-    getString(company->activity, MSG_GET_ACTIVITY, 10);
+    int optionActivity;
+    do{
+        optionActivity = menuBranchActivity(activities, companies);
+    } while (optionActivity < 1);
+    strcat(company->activity, activities->activities[optionActivity - 1].activity);
     getString(company->local.adress, MSG_GET_ADRESS, MAX_ADRESS);
     getString(company->local.city, MSG_GET_CITY, MAX_CITY);
     getString(company->local.codigoPostal, MSG_GET_CODPOSTAL, MAX_CODIGO);
 
-    company->category = GetOption(MENU_SEARCH_BY_CATEGORY, 1, 3, false, false, "");
+    company->category = GetOption(MENU_SEARCH_BY_CATEGORY, 1, 3, true, false, "");
     iniciateCommentsAndRates(company);
     company->active = true;
 }
@@ -92,6 +94,7 @@ void deleteCompany(Companies *companies) {
         strcpy(company->local.adress, "");
         strcpy(company->local.city, "");
         strcpy(company->local.codigoPostal, "");
+        company->active = false;
         printf("Company deleted successfully.\n");
         companies->numberCompanies--;
     } else {
@@ -99,51 +102,56 @@ void deleteCompany(Companies *companies) {
         sleep(4);
     }
 }
-
+void creatActivity(Activities *activities){
+    if (activities->numberActivities == activities->maxActivities) {
+        Activity *pActivities = (Activity *) realloc(activities->activities,activities->maxActivities * 2 * sizeof(Activity));
+        if(pActivities == NULL){
+            puts("Error: Realloc Activity failed!!");
+        } else {
+            activities->activities = pActivities;
+            activities->maxActivities *= 2;
+        }
+    }
+    getString(activities->activities[activities->numberActivities].activity, "Name of the Activity: ", ACTIVITY);
+    activities->numberActivities++;
+}
 
 void modifyCompany(Companies *companies) {
     int nif, index, menuModify;
-    char newName[MAX_NAME_COMPANY], newActivity[10], newAddress[MAX_ADRESS], newCity[MAX_CITY], newCodigoPostal[MAX_CODIGO];
-
+    char newName[MAX_NAME_COMPANY], newActivity[ACTIVITY], newAddress[MAX_ADRESS], newCity[MAX_CITY], newCodigoPostal[MAX_CODIGO];
     if (companies->numberCompanies > 0) {
         nif = inputNumber(MSG_GET_NIF);
         index = findCompanyIndexByNif(companies, nif);
-
+        Company *company = &(companies->company[index]);
         if (index == -1) {
             printf("Company not found: %d\n", nif);
-            sleep(4);
             return;
         }
 
         do {
-            showCompany(&(companies->company[index]));
+            showCompany(company);
             menuModify = GetOption(MENU_MODIFY, 0, 7, false, true, MODIFY_MENU);
             switch (menuModify) {
                 case 1:
-                    getString(newName, "New name: ", MAX_NAME_COMPANY);
-                    strcpy(companies->company[index].nameCompany, newName);
+                    getString(company->nameCompany, "New name: ", MAX_NAME_COMPANY);
                     break;
                 case 2:
-                    getString(newActivity, "New activity: ", 10);
-                    strcpy(companies->company[index].activity, newActivity);
+                    getString(company->activity, "New activity: ", 10);
                     break;
                 case 3:
-                    getString(newAddress, "New address: ", MAX_ADRESS);
-                    strcpy(companies->company[index].local.adress, newAddress);
+                    getString(company->local.adress, "New address: ", MAX_ADRESS);
                     break;
                 case 4:
-                    getString(newCity, "New city: ", MAX_CITY);
-                    strcpy(companies->company[index].local.city, newCity);
+                    getString(company->local.city, "New city: ", MAX_CITY);
                     break;
                 case 5:
-                    getString(newCodigoPostal, "New Postal Code: ", MAX_CODIGO);
-                    strcpy(companies->company[index].local.codigoPostal, newCodigoPostal);
+                    getString(company->local.codigoPostal, "New Postal Code: ", MAX_CODIGO);
                     break;
                 case 6:
-                    companies->company[index].category = GetOption(MENU_SEARCH_BY_CATEGORY, 1, 3, true, false, "");
+                    company->category = GetOption(MENU_SEARCH_BY_CATEGORY, 1, 3, true, false, "");
                     break;
                 case 7:
-                    companies->company[index].active = companies->company[index].active == true ? false : true;
+                    company->active = companies->company[index].active == true ? false : true;
                     break;
                 case 0:
                     printf("Leaving!.\n");

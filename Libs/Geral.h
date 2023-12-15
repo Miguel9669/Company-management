@@ -5,6 +5,7 @@
 void showCompany(Company *company);
 int inputNumber(char *txt);
 char *inputString(char *txt, int quant);
+void showCompaniesInActivity(Activities *activities);
 int verifyNumber(int *variable, int min, int max);
 int GetOption(char *txt, int min, int max, bool showOption, bool showHeader, char *txtHeader);
 void header(char *txt);

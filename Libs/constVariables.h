@@ -10,14 +10,15 @@
 #define MENU_USER_SEARCH "1 Name\n2 Category\n3 Activity Industry\n0 Quit\n"
 #define MENU_INSIDE_COMPANY "1 Make a comment\n2 Rate company\n3 See comments \n0 Go back\n"
 #define MENU_SEARCH_BY_CATEGORY "1 Micro Company\n2 Medium and Small Company\n3 Large Company\n"
-#define MAX_NAME 30
-#define MAX_EMAIL 60
+#define MAX_NAME 60
+#define MAX_EMAIL 100
 #define COMMENT 200
 #define TITLE 40
+#define ACTIVITY 40
 #define MAX_CODIGO 8
-#define MAX_ADRESS 40
-#define MAX_CITY 20
-#define MAX_NAME_COMPANY 20
+#define MAX_ADRESS 60
+#define MAX_CITY 40
+#define MAX_NAME_COMPANY 70
 #define SEARCH_COMPANY "SEARCH COMPANY"
 #define ADMIN_MENU "Admin Menu"
 #define CLASSIFICATION_COMPANY "CLASSIFICATION COMPANY"

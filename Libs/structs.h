@@ -7,6 +7,15 @@
 #include "constVariables.h"
 typedef enum {false, true} bool;
 typedef enum {MICRO = 1, PME, LARGE_COMPANY} Category;
+
+typedef struct {
+    char activity[ACTIVITY];
+}Activity;
+typedef struct {
+    int maxActivities;
+    int numberActivities;
+    Activity *activities;
+}Activities;
 typedef struct {
     char name[MAX_NAME];
     char email[MAX_EMAIL];

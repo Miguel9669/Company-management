@@ -90,7 +90,7 @@ char *inputString(char *txt, int quant) {
 
 int verifyNumber(int *variable, int min, int max){
 
-    if ((*variable < min) || (*variable > max) || *variable == -1){
+    if ((*variable < min) || (*variable > max)){
         return 0;
     } else {
         return 1;
@@ -110,7 +110,19 @@ int verifyNif(int nif) {
         return -1;
     }
 }
+void showCompaniesInActivity(Activities *activities){
+    if (activities->numberActivities > 0){
+        for (int i = 0; i < activities->numberActivities; i++) {
+            printf("%d", i + 1);
+            printf(" %s", activities->activities[activities->numberActivities - 1].activity);
+            printf("\n");
+        }
+        printf("0 Creat a new one");
+    } else {
+        puts("There is no activity to select!!\n0 Creat a new one");
+    }
 
+}
 int GetOption(char *txt, int min, int max, bool showOption, bool showHeader, char *txtHeader) {
     int number;
     do {

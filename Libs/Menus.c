@@ -8,7 +8,8 @@
 #include "Admin.h"
 #include <stdlib.h>
 #include <stdio.h>
-void menuStart(User *user, bool *quit, Companies *companies) {
+#include "string.h"
+void menuStart(User *user, bool *quit, Companies *companies, Activities *activities) {
     int opcao = GetOption(MENU_START, 0, 3, false, true, "START");
     switch (opcao) {
         case 0:
@@ -19,7 +20,7 @@ void menuStart(User *user, bool *quit, Companies *companies) {
             handleUser(user, quit, companies);
             break;
         case 2:
-            handleAdmin(companies);
+            handleAdmin(companies, activities);
             break;
         case 3:
             break;
@@ -44,7 +45,7 @@ void menuUserSearch(bool *quit, Companies *companies, User *user) {
     }
 }
 
-void menuAdmin(bool *quit, Companies *companies) {
+void menuAdmin(bool *quit, Companies *companies, Activities *activities) {
     int opcao = GetOption(MENU_ADMIN, 0, 5, false, true, ADMIN_MENU);
     switch (opcao) {
         case 0:
@@ -52,7 +53,7 @@ void menuAdmin(bool *quit, Companies *companies) {
             *quit = true;
             break;
         case 1:
-            createCompany(companies);
+            createCompany(companies, activities);
             break;
         case 2:
             modifyCompany(companies);
@@ -76,11 +77,9 @@ void menuCompany(User *user, Company *foundCompany, bool *back){
         case 2:
             break;
         case 3:
-            system("clear");
             showComments(foundCompany);
             break;
         case 0:
-            system("clear");
             *back = true;
             break;
     }
@@ -100,5 +99,17 @@ void menuSearchByCategory(Companies *companies, User *user){
             break;
     }
 }
+
+int menuBranchActivity(Activities *activities, Companies *companies) {
+    showCompaniesInActivity(activities);
+    int opcao = GetOption("", 0, activities->numberActivities, false, false, "");
+    switch (opcao) {
+        case 0:
+            creatActivity(activities);
+            break;
+    }
+    return opcao;
+}
+
 
 
