@@ -49,7 +49,7 @@ void createCompany(Companies *companies, Activities *activities) {
     } while (verifyNif(company->nif) == -1 || isCompanyExists(companies, "", company->nif, numberCompanies) == 1);
     int optionActivity;
     do{
-        optionActivity = menuBranchActivity(activities, companies);
+        optionActivity = menuBranchActivity(activities);
     } while (optionActivity < 1);
     strcpy(company->activity, activities->activities[optionActivity - 1].activity);
     getString(company->local.adress, MSG_GET_ADRESS, MAX_ADRESS);

@@ -100,9 +100,14 @@ void menuSearchByCategory(Companies *companies, User *user){
     }
 }
 
-int menuBranchActivity(Activities *activities, Companies *companies) {
-    showCompaniesInActivity(activities);
-    int opcao = GetOption("", 0, activities->numberActivities, false, false, "");
+int menuBranchActivity(Activities *activities) {
+    int opcao;
+    do{
+        header("SELECT ACTIVITY");
+        showCompaniesInActivity(activities);
+        opcao = inputNumber("");
+    } while (!verifyNumber(&opcao, 0, activities->numberActivities));
+
     switch (opcao) {
         case 0:
             creatActivity(activities);

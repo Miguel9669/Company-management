@@ -10,5 +10,5 @@ void menuUserSearch(bool *quit, Companies *companies, User *user);
 void menuAdmin(bool *quit, Companies *companies, Activities *activities);
 void menuCompany(User *user, Company *foundCompany, bool *back);
 void menuSearchByCategory(Companies *companies, User *user);
-int menuBranchActivity(Activities *activities, Companies *companies);
+int menuBranchActivity(Activities *activities);
 #endif //COMPANY_MANAGEMENT_MENUS_H

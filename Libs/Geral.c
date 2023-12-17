@@ -135,7 +135,7 @@ int GetOption(char *txt, int min, int max, bool showOption, bool showHeader, cha
         puts(txt);
         number = inputNumber("");
         if (!verifyNumber(&number, min, max)) {
-            system("clear");
+            puts("Invalid option!");
         }
     } while (!verifyNumber(&number, min, max));
     return number;
