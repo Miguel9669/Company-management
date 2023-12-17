@@ -47,10 +47,7 @@ void createCompany(Companies *companies, Activities *activities) {
             puts(verifyNif(company->nif) == -1 ? ERROR_NIF : EXISTENT_NIF);
         }
     } while (verifyNif(company->nif) == -1 || isCompanyExists(companies, "", company->nif, numberCompanies) == 1);
-    int optionActivity;
-    do{
-        optionActivity = menuBranchActivity(activities);
-    } while (optionActivity < 1);
+    int optionActivity = menuBranchActivity(activities);
     strcpy(company->activity, activities->activities[optionActivity - 1].activity);
     getString(company->local.adress, MSG_GET_ADRESS, MAX_ADRESS);
     getString(company->local.city, MSG_GET_CITY, MAX_CITY);
