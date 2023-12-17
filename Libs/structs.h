@@ -43,7 +43,7 @@ typedef struct{
     Rate *rates;
     Comment *comments;
     Local local;
-    char activity[10];
+    char activity[ACTIVITY];
     Category category;
 }Company;
 

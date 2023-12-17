@@ -114,7 +114,7 @@ void showCompaniesInActivity(Activities *activities){
     if (activities->numberActivities > 0){
         for (int i = 0; i < activities->numberActivities; i++) {
             printf("%d", i + 1);
-            printf(" %s", activities->activities[activities->numberActivities - 1].activity);
+            printf(" %s", activities->activities[i].activity);
             printf("\n");
         }
         printf("0 Creat a new one");
@@ -143,6 +143,14 @@ int GetOption(char *txt, int min, int max, bool showOption, bool showHeader, cha
 int isCompanyExists(const Companies *companies, char *name, int nif, int numberCompanies) {
     for (int i = 0; i < numberCompanies; ++i) {
         if (strcmp(companies->company[i].nameCompany, name) == 0 || companies->company[i].nif == nif) {
+            return 1;
+        }
+    }
+    return 0;
+}
+int isActivtyExist(Activities *activities, char *name) {
+    for (int i = 0; i < activities->numberActivities; ++i) {
+        if (strcmp(activities->activities[i].activity, name) == 0) {
             return 1;
         }
     }

@@ -34,6 +34,7 @@ void createCompany(Companies *companies, Activities *activities) {
     getString(company->nameCompany, MSG_GET_NAME, MAX_NAME_COMPANY);
 
     if (isCompanyExists(companies, company->nameCompany, 0, numberCompanies)) {
+        puts("There is a company with that name!!");
         do {
             getString(company->nameCompany, MSG_GET_NAME, MAX_NAME_COMPANY);
         } while (isCompanyExists(companies, company->nameCompany, 0, numberCompanies));
@@ -50,7 +51,7 @@ void createCompany(Companies *companies, Activities *activities) {
     do{
         optionActivity = menuBranchActivity(activities, companies);
     } while (optionActivity < 1);
-    strcat(company->activity, activities->activities[optionActivity - 1].activity);
+    strcpy(company->activity, activities->activities[optionActivity - 1].activity);
     getString(company->local.adress, MSG_GET_ADRESS, MAX_ADRESS);
     getString(company->local.city, MSG_GET_CITY, MAX_CITY);
     getString(company->local.codigoPostal, MSG_GET_CODPOSTAL, MAX_CODIGO);
@@ -113,6 +114,12 @@ void creatActivity(Activities *activities){
         }
     }
     getString(activities->activities[activities->numberActivities].activity, "Name of the Activity: ", ACTIVITY);
+    if (isActivtyExist(activities, activities->activities[activities->numberActivities].activity)) {
+        puts("There is an Activity with that name!!");
+        do {
+            getString(activities->activities[activities->numberActivities].activity, "Name of the Activity: ", ACTIVITY);
+        } while (isActivtyExist(activities, activities->activities[activities->numberActivities].activity));
+    }
     activities->numberActivities++;
 }
 

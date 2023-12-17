@@ -17,4 +17,5 @@ int numberCompaniesInCategory(Companies *companies, int valueCategory);
 char *boolString(bool variable);
 int findCompanyIndexByNif(const Companies *companies, int nif);
 int isCompanyExists(const Companies *companies, char *name, int nif, int numberCompanies);
+int isActivtyExist(Activities *activities, char *name);
 #endif //COMPANY_MANAGEMENT_GERAL_H
