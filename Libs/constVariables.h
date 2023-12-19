@@ -6,7 +6,7 @@
 #define COMPANY_MANAGEMENT_CONSTVARIABLES_H
 
 #define MENU_START "1 User\n2 Admin\n3 Company\n0 Quit\n"
-#define MENU_ADMIN "1 Create\n2 Edit\n3 Remove\n4 Active ou Inactive\n5 Delete/Hide comments\n0 Quit"
+#define MENU_ADMIN "1 Create\n2 Edit\n3 Remove\n4 Active/Inactive/Delete Activity\n5 Delete/Hide comments\n0 Quit"
 #define MENU_USER_SEARCH "1 Name\n2 Category\n3 Activity Industry\n0 Quit\n"
 #define MENU_INSIDE_COMPANY "1 Make a comment\n2 Rate company\n3 See comments \n0 Go back\n"
 #define MENU_SEARCH_BY_CATEGORY "1 Micro Company\n2 Medium and Small Company\n3 Large Company\n"

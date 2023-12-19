@@ -10,13 +10,13 @@ static char *categoryString(Company company) {
     return string[company.category - 1];
 }
 
-
 void showComments(Company *company) {
     for (int i = 0; i < company->numberComments; ++i) {
         printf("\n%s: %s(%s)", company->comments[i].user.name, company->comments[i].title, company->comments[i].commentText);
     }
     sleep(4);
 }
+
 char *boolString(bool variable){
     switch (variable) {
         case 0:
@@ -25,6 +25,7 @@ char *boolString(bool variable){
             return "true";
     }
 }
+
 void showCompany(Company *company){
     system("clear");
     header(company -> nameCompany);
@@ -36,7 +37,8 @@ void showCompany(Company *company){
     printf("City: %s\n", company->local.city);
     printf("Postal Code: %s\n", company->local.codigoPostal);
     printf("Category: %s\n", categoryString(*company));
-    printf("Active: %s", boolString(company->active));
+    printf("Active: %s\n", boolString(company->active));
+    printf("Rating average: %.2f\n", companyAverageRating(company));
 }
 
 int inputNumber(char *txt) {
@@ -50,10 +52,12 @@ int inputNumber(char *txt) {
     cleanBuffer();
     return variable;
 }
+
 void cleanBuffer() {
     int c;
     while ((c = getchar()) != '\n' && c != EOF);
 }
+
 char *inputString(char *txt, int quant) {
     char *var = (char *)malloc(quant + 1);
     size_t len;
@@ -87,7 +91,6 @@ char *inputString(char *txt, int quant) {
     return var;
 }
 
-
 int verifyNumber(int *variable, int min, int max){
 
     if ((*variable < min) || (*variable > max)){
@@ -110,6 +113,7 @@ int verifyNif(int nif) {
         return -1;
     }
 }
+
 void showCompaniesInActivity(Activities *activities){
     if (activities->numberActivities > 0){
         for (int i = 0; i < activities->numberActivities; i++) {
@@ -117,12 +121,12 @@ void showCompaniesInActivity(Activities *activities){
             printf(" %s", activities->activities[i].activity);
             printf("\n");
         }
-        printf("0 Creat a new one");
     } else {
-        puts("There is no activity to select!!\n0 Creat a new one");
+        puts("There is no activity to select!!");
     }
 
 }
+
 int GetOption(char *txt, int min, int max, bool showOption, bool showHeader, char *txtHeader) {
     int number;
     do {
@@ -140,6 +144,7 @@ int GetOption(char *txt, int min, int max, bool showOption, bool showHeader, cha
     } while (!verifyNumber(&number, min, max));
     return number;
 }
+
 int isCompanyExists(const Companies *companies, char *name, int nif, int numberCompanies) {
     for (int i = 0; i < numberCompanies; ++i) {
         if (strcmp(companies->company[i].nameCompany, name) == 0 || companies->company[i].nif == nif) {
@@ -148,7 +153,8 @@ int isCompanyExists(const Companies *companies, char *name, int nif, int numberC
     }
     return 0;
 }
-int isActivtyExist(Activities *activities, char *name) {
+
+int isActivityExist(Activities *activities, char *name) {
     for (int i = 0; i < activities->numberActivities; ++i) {
         if (strcmp(activities->activities[i].activity, name) == 0) {
             return 1;
@@ -156,6 +162,7 @@ int isActivtyExist(Activities *activities, char *name) {
     }
     return 0;
 }
+
 int findCompanyIndexByNif(const Companies *companies, int nif) {
     for (int i = 0; i < companies->numberCompanies; ++i) {
         if (companies->company[i].nif == nif) {
@@ -164,6 +171,7 @@ int findCompanyIndexByNif(const Companies *companies, int nif) {
     }
     return -1;
 }
+
 int numberCompaniesInCategory(Companies *companies, int valueCategory) {
     int count = 0;
     for (int i = 0; i < companies -> numberCompanies; i++){
@@ -173,13 +181,29 @@ int numberCompaniesInCategory(Companies *companies, int valueCategory) {
     }
     return count;
 }
+
 void getString(char *dest, char *txt, int charLen){
     char *variable = inputString(txt, charLen);
     strcpy(dest, variable);
     free(variable);
 }
+
 void header(char *txt) {
     puts("\n------------------------------------------------------------------------------------------");
     printf("                      %s\n", txt);
     puts("------------------------------------------------------------------------------------------");
 }
+
+double companyAverageRating(Company *company) {
+    int i;
+    double sum = 0.0, averageRating;
+    if (company->numberRates == 0) {
+        return 0;
+    }
+    for (i = 0; i < company->numberRates; i++) {
+        sum += company->rates[i].rate;
+    }
+    averageRating = sum / company->numberRates;
+    return averageRating;
+}
+

@@ -62,6 +62,7 @@ void menuAdmin(bool *quit, Companies *companies, Activities *activities) {
             deleteCompany(companies);
             break;
         case 4:
+            handleAdminActivity(activities, companies);
             break;
         case 5:
             break;
@@ -72,9 +73,10 @@ void menuCompany(User *user, Company *foundCompany, bool *back){
     int opcao = GetOption(MENU_INSIDE_COMPANY,0, 3, true, false, "");
     switch (opcao) {
         case 1:
-            comentar(user, foundCompany);
+            comment(user, foundCompany);
             break;
         case 2:
+            rating(user, foundCompany);
             break;
         case 3:
             showComments(foundCompany);
@@ -105,6 +107,7 @@ int menuBranchActivity(Activities *activities) {
     do{
         header("SELECT ACTIVITY");
         showCompaniesInActivity(activities);
+        printf("0 Creat a new one");
         opcao = inputNumber("");
     } while (!verifyNumber(&opcao, 0, activities->numberActivities));
 
@@ -116,5 +119,42 @@ int menuBranchActivity(Activities *activities) {
     return opcao;
 }
 
+int menuShowActivityAdmin(Activities *activities) {
+    int opcao;
+    do{
+        header("SELECT ACTIVITY");
+        showCompaniesInActivity(activities);
+        opcao = inputNumber("");
+    } while (!verifyNumber(&opcao, 0, activities->numberActivities));
+    return opcao;
+}
+
+void menuActionAdminActivity(Activities *activities, int index, Companies *companies){
+    int opcao;
+    printf("%d", index);
+    Activity *activity = &(activities->activities[index]);
+    do {
+        header(activities->activities[index].activity);
+        if (activity->Active == false) {
+            puts("0 Active");
+        } else {
+            puts("0 Inactive");
+        }
+        puts("-1 Delete");
+        opcao = inputNumber("");
+    } while (!verifyNumber(&opcao, -1, 0));
+    switch (opcao) {
+        case 0:
+            if (activity->Active == false) {
+                inactiveActivity(activity, companies);
+            } else {
+                activeActivity(activity, companies);
+            }
+            break;
+        case -1:
+            deleteActivity(activities, index - 1);
+            break;
+    }
+}
 
 

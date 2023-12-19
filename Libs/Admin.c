@@ -16,7 +16,6 @@ void handleAdmin(Companies *companies, Activities *activities){
     } while (back != true);
 }
 
-
 void createCompany(Companies *companies, Activities *activities) {
     int numberCompanies = companies->numberCompanies;
     Company *company = &(companies->company[numberCompanies]);
@@ -47,7 +46,13 @@ void createCompany(Companies *companies, Activities *activities) {
             puts(verifyNif(company->nif) == -1 ? ERROR_NIF : EXISTENT_NIF);
         }
     } while (verifyNif(company->nif) == -1 || isCompanyExists(companies, "", company->nif, numberCompanies) == 1);
-    int optionActivity = menuBranchActivity(activities);
+
+    int optionActivity;
+
+    do {
+        optionActivity = menuBranchActivity(activities);
+    } while (optionActivity == 0);
+
     strcpy(company->activity, activities->activities[optionActivity - 1].activity);
     getString(company->local.adress, MSG_GET_ADRESS, MAX_ADRESS);
     getString(company->local.city, MSG_GET_CITY, MAX_CITY);
@@ -71,6 +76,7 @@ void iniciateCommentsAndRates(Company *company) {
         exit(EXIT_FAILURE);
     }
 }
+
 void deleteCompany(Companies *companies) {
     int nif, index;
 
@@ -100,6 +106,7 @@ void deleteCompany(Companies *companies) {
         sleep(4);
     }
 }
+
 void creatActivity(Activities *activities){
     if (activities->numberActivities == activities->maxActivities) {
         Activity *pActivities = (Activity *) realloc(activities->activities,activities->maxActivities * 2 * sizeof(Activity));
@@ -111,13 +118,48 @@ void creatActivity(Activities *activities){
         }
     }
     getString(activities->activities[activities->numberActivities].activity, "Name of the Activity: ", ACTIVITY);
-    if (isActivtyExist(activities, activities->activities[activities->numberActivities].activity)) {
+    if (isActivityExist(activities, activities->activities[activities->numberActivities].activity)) {
         puts("There is an Activity with that name!!");
         do {
             getString(activities->activities[activities->numberActivities].activity, "Name of the Activity: ", ACTIVITY);
-        } while (isActivtyExist(activities, activities->activities[activities->numberActivities].activity));
+        } while (isActivityExist(activities, activities->activities[activities->numberActivities].activity));
     }
+    activities->activities[activities->numberActivities].Active = true;
     activities->numberActivities++;
+}
+
+void inactiveActivity(Activity *activity, Companies *companies) {
+    activity->Active = false;
+    for (int i = 0; i < companies->numberCompanies; i++) {
+        if (strcmp(companies->company[i].activity, activity->activity) == 0) {
+            companies->company[i].active = false;
+        }
+    }
+}
+
+void activeActivity(Activity *activity, Companies *companies) {
+    activity->Active = true;
+    for (int i = 0; i < companies->numberCompanies; i++) {
+        if (strcmp(companies->company[i].activity, activity->activity) == 0) {
+            companies->company[i].active = true;
+        }
+    }
+}
+
+void handleAdminActivity(Activities *activities, Companies *companies) {
+    int optionActivity;
+    do {
+        optionActivity = menuShowActivityAdmin(activities);
+        menuActionAdminActivity(&activities->activities[optionActivity - 1], optionActivity - 1, activities);
+    } while (optionActivity != 0);
+
+}
+
+void deleteActivity(Activities *activities, int index) {
+    for (int i = index; i < activities->numberActivities - 1; i++) {
+        activities->activities[i] = activities->activities[i + 1];
+    }
+    activities->numberActivities--;
 }
 
 void modifyCompany(Companies *companies) {

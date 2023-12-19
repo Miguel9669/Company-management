@@ -13,5 +13,9 @@ void modifyCompany(Companies *companies);
 void handleAdmin(Companies *companies, Activities *activities);
 void iniciateCommentsAndRates(Company *company);
 void creatActivity(Activities *activities);
+void inactiveActivity(Activity *activity, Companies *companies);
+void deleteActivity(Activities *activities, int index);
+void activeActivity(Activity *activity, Companies *companies);
+void handleAdminActivity(Activities *activities, Companies *companies);
 
 #endif

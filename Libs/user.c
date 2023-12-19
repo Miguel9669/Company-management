@@ -1,7 +1,3 @@
-//
-// Created by anton on 06/12/2023.
-//
-
 #include "user.h"
 #include "constVariables.h"
 #include "structs.h"
@@ -22,6 +18,7 @@ void handleUser(User *user, bool *quit, Companies *companies) {
         menuUserSearch(&back, companies, user);
     } while (back != true);
 }
+
 void handleUserSearchByName(Companies *companies, User *user){
     Company *foundCompany = searchCompanyByName(companies);
     bool back;
@@ -39,9 +36,11 @@ void handleUserSearchByName(Companies *companies, User *user){
         } while (back != true);
     }
 }
+
 void handleUserSearchByCategory(Companies *companies, User *user){
     menuSearchByCategory(companies, user);
 }
+
 void handleUserSelectByCategory(Companies *companies, User *user, int valueCategory){
     int count = numberCompaniesInCategory(companies, valueCategory);
     if (count > 0) {
@@ -65,8 +64,6 @@ void handleUserSelectByCategory(Companies *companies, User *user, int valueCateg
     } else {
         puts(SEARCH_NOT_FOUND_IN_CATEGORY);
     }
-
-
 }
 
 Company *searchCompanyByName(Companies *companies){
@@ -88,7 +85,7 @@ void searchByCategory(Companies *companies, int valueCategory){
     }
 }
 
-void comentar(User *user, Company *company) {
+void comment(User *user, Company *company) {
     Comment *companyComments = &(company->comments[company->numberComments]);
     if (company->maxComments - company->numberComments == 1) {
         Comment *pComment= (Comment *) realloc(company->comments, (company->maxComments + 10) * sizeof(Comment));
@@ -107,3 +104,26 @@ void comentar(User *user, Company *company) {
     company->numberComments++;
 }
 
+void rating(User *user, Company *company) {
+    int userRating;
+
+    do {
+        userRating = inputNumber(USER_RATING_TXT);
+        if (userRating >= 1 && userRating <= 5) {
+            if (company->maxRates - company->numberRates == 1) {
+                Rate *pRate = (Rate *) realloc(company->rates,(company->maxRates + 10) * sizeof(Rate));
+                if (pRate != NULL) {
+                    company->rates = pRate;
+                    company->maxRates *= 2;
+                } else {
+                    printf("ERROR: Failed in realloc rating");
+                    return;
+                }
+            }
+            company->rates[company->numberRates].rate = userRating;
+            company->numberRates++;
+        } else {
+            printf("Invalid rating!\n");
+        }
+    } while (userRating < 1 || userRating > 5);
+}
