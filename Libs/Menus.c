@@ -57,7 +57,7 @@ void menuAdmin(bool *quit, Companies *companies, Activities *activities) {
             createCompany(companies, activities);
             break;
         case 2:
-            modifyCompany(companies);
+            modifyCompany(companies, activities);
             break;
         case 3:
             deleteCompany(companies);

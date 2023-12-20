@@ -165,11 +165,12 @@ void deleteActivity(Activities *activities, int index) {
     activities->numberActivities--;
 }
 
-void modifyCompany(Companies *companies) {
-    int nif, index, menuModify;
+void modifyCompany(Companies *companies, Activities *activities) {
+    int nif, index, menuModify, optionActivity;;
     char newName[MAX_NAME_COMPANY], newActivity[ACTIVITY], newAddress[MAX_ADRESS], newCity[MAX_CITY], newCodigoPostal[MAX_CODIGO];
     if (companies->numberCompanies > 0) {
         nif = inputNumber(MSG_GET_NIF);
+        int numberCompanies = companies->numberCompanies;
         index = findCompanyIndexByNif(companies, nif);
         Company *company = &(companies->company[index]);
         if (index == -1) {
@@ -182,10 +183,22 @@ void modifyCompany(Companies *companies) {
             menuModify = GetOption(MENU_MODIFY, 0, 7, false, true, MODIFY_MENU);
             switch (menuModify) {
                 case 1:
-                    getString(company->nameCompany, "New name: ", MAX_NAME_COMPANY);
+                    getString(newName, MSG_GET_NAME, MAX_NAME_COMPANY);
+
+                    if (isCompanyExists(companies, newName, 0, numberCompanies)) {
+                        do {
+                            puts("There is a company with that name!!");
+                            getString(newName, MSG_GET_NAME, MAX_NAME_COMPANY);
+                        } while (isCompanyExists(companies, newName, 0, numberCompanies));
+                    }
+                    strcpy(company->nameCompany, newName);
                     break;
                 case 2:
-                    getString(company->activity, "New activity: ", 10);
+                    do {
+                        optionActivity = menuBranchActivity(activities);
+                    } while (optionActivity == 0);
+
+                    strcpy(company->activity, activities->activities[optionActivity - 1].activity);
                     break;
                 case 3:
                     getString(company->local.adress, "New address: ", MAX_ADRESS);

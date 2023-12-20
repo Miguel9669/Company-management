@@ -9,7 +9,7 @@
 #include "structs.h"
 void createCompany(Companies *companies, Activities *activities);
 void deleteCompany(Companies *companies);
-void modifyCompany(Companies *companies);
+void modifyCompany(Companies *companies, Activities *activities);
 void handleAdmin(Companies *companies, Activities *activities);
 void iniciateCommentsAndRates(Company *company);
 void creatActivity(Activities *activities);
