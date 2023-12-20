@@ -55,6 +55,8 @@ void handleUserSearchByActivity(Companies *companies, Activities *activities, Us
                 menuCompany(user, foundCompany, &back);
             } while (back != true);
         }
+    } else {
+        puts("No company here!!");
     }
 
 }
@@ -85,7 +87,7 @@ void handleUserSelectByCategory(Companies *companies, User *user, int valueCateg
 
 Company *searchCompanyByName(Companies *companies){
     char companySearchName[MAX_NAME_COMPANY];
-    getString(companySearchName, "Which company do you want to search: ", MAX_NAME_COMPANY);
+    getString(companySearchName, "\nWhich company do you want to search: ", MAX_NAME_COMPANY);
     for (int i = 0; i < companies -> numberCompanies; i++){
         if (strcmp(companies->company[i].nameCompany, companySearchName) == 0){
             return &(companies -> company[i]);

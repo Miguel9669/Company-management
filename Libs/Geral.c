@@ -117,7 +117,7 @@ int showCompaniesInActivity(Activities *activities, Companies *companies, int in
     int count = 0;
     if (isCompanyExistInActivity(&(activities->activities[index]), companies)) {
         for (int i = 0; i < companies->numberCompanies; i++) {
-            if (strcmp(activities->activities[index].activity, companies->company[i].activity) == 0) {
+            if (strcmp(activities->activities[index].activity, companies->company[i].activity) == 0 && companies->company[i].active) {
                 printf("%d ", i);
                 printf("%s", companies->company[i].nameCompany);
                 count++;
