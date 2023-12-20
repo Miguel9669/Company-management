@@ -148,9 +148,12 @@ void activeActivity(Activity *activity, Companies *companies) {
 
 void handleAdminActivity(Activities *activities, Companies *companies) {
     int optionActivity;
+    bool back;
     do {
+        back = false;
         optionActivity = menuShowActivityAdmin(activities);
-        menuActionAdminActivity(&activities->activities[optionActivity - 1], optionActivity - 1, activities);
+        if (optionActivity != 0)
+            menuActionAdminActivity(activities, optionActivity - 1, companies);
     } while (optionActivity != 0);
 
 }

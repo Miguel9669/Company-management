@@ -8,14 +8,14 @@
 #include <stdlib.h>
 #include "Menus.h"
 
-void handleUser(User *user, bool *quit, Companies *companies) {
+void handleUser(User *user, bool *quit, Companies *companies, Activities *activities) {
     header("USER");
     getString(user->name, "Your name: ", MAX_NAME);
     getString(user->email, "Your email: ", MAX_EMAIL);
     bool back;
     do {
         back = false;
-        menuUserSearch(&back, companies, user);
+        menuUserSearch(&back, companies, user, activities);
     } while (back != true);
 }
 
@@ -40,7 +40,24 @@ void handleUserSearchByName(Companies *companies, User *user){
 void handleUserSearchByCategory(Companies *companies, User *user){
     menuSearchByCategory(companies, user);
 }
+void handleUserSearchByActivity(Companies *companies, Activities *activities, User *user) {
+    int optionActivity = menuShowActivityAdmin(activities);
+    int numberCompaniesInActivity = showCompaniesInActivity(activities, companies, optionActivity - 1);
+    if (numberCompaniesInActivity > 0) {
+        Company *foundCompany = searchCompanyByName(companies);
+        if (foundCompany == NULL || strcmp(foundCompany->activity, activities->activities[optionActivity - 1].activity) != 0 ){
+            puts("Error: Please search for a company that's in this category");
+        } else {
+            bool back;
+            do{
+                back = false;
+                showCompany(foundCompany);
+                menuCompany(user, foundCompany, &back);
+            } while (back != true);
+        }
+    }
 
+}
 void handleUserSelectByCategory(Companies *companies, User *user, int valueCategory){
     int count = numberCompaniesInCategory(companies, valueCategory);
     if (count > 0) {

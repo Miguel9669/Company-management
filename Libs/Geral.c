@@ -113,13 +113,39 @@ int verifyNif(int nif) {
         return -1;
     }
 }
-
-void showCompaniesInActivity(Activities *activities){
+int showCompaniesInActivity(Activities *activities, Companies *companies, int index) {
+    int count = 0;
+    if (isCompanyExistInActivity(&(activities->activities[index]), companies)) {
+        for (int i = 0; i < companies->numberCompanies; i++) {
+            if (strcmp(activities->activities[index].activity, companies->company[i].activity) == 0) {
+                printf("%d ", i);
+                printf("%s", companies->company[i].nameCompany);
+                count++;
+            }
+        }
+    }
+    return count;
+}
+void showActivity(Activities *activities, bool admin){
+    int count = 0;
     if (activities->numberActivities > 0){
         for (int i = 0; i < activities->numberActivities; i++) {
-            printf("%d", i + 1);
-            printf(" %s", activities->activities[i].activity);
-            printf("\n");
+            if (activities->activities[i].Active) {
+                count++;
+                printf("%d", i + 1);
+                printf(" %s", activities->activities[i].activity);
+                printf("\n");
+            } else {
+                if (admin) {
+                    count++;
+                    printf("%d", i + 1);
+                    printf(" %s", activities->activities[i].activity);
+                    printf("\n");
+                }
+            }
+        }
+        if (count == 0) {
+            puts("There is no activity to select!!");
         }
     } else {
         puts("There is no activity to select!!");
@@ -181,7 +207,14 @@ int numberCompaniesInCategory(Companies *companies, int valueCategory) {
     }
     return count;
 }
-
+int isCompanyExistInActivity(Activity *activity, const Companies *companies) {
+    for (int i = 0; i < companies->numberCompanies; ++i) {
+        if (strcmp(companies->company[i].activity, activity->activity) == 0) {
+            return 1;
+        }
+    }
+    return 0;
+}
 void getString(char *dest, char *txt, int charLen){
     char *variable = inputString(txt, charLen);
     strcpy(dest, variable);

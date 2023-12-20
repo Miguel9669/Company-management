@@ -17,7 +17,7 @@ void menuStart(User *user, bool *quit, Companies *companies, Activities *activit
             *quit = true;
             break;
         case 1:
-            handleUser(user, quit, companies);
+            handleUser(user, quit, companies, activities);
             break;
         case 2:
             handleAdmin(companies, activities);
@@ -27,7 +27,7 @@ void menuStart(User *user, bool *quit, Companies *companies, Activities *activit
     }
 }
 
-void menuUserSearch(bool *quit, Companies *companies, User *user) {
+void menuUserSearch(bool *quit, Companies *companies, User *user, Activities *activities) {
     int opcao = GetOption(MENU_USER_SEARCH, 0, 3, false, true, SEARCH_COMPANY);
     switch (opcao) {
         case 0:
@@ -41,6 +41,7 @@ void menuUserSearch(bool *quit, Companies *companies, User *user) {
             handleUserSearchByCategory(companies, user);
             break;
         case 3:
+            handleUserSearchByActivity(companies, activities, user);
             break;
     }
 }
@@ -106,7 +107,7 @@ int menuBranchActivity(Activities *activities) {
     int opcao;
     do{
         header("SELECT ACTIVITY");
-        showCompaniesInActivity(activities);
+        showActivity(activities, false);
         printf("0 Creat a new one");
         opcao = inputNumber("");
     } while (!verifyNumber(&opcao, 0, activities->numberActivities));
@@ -123,7 +124,8 @@ int menuShowActivityAdmin(Activities *activities) {
     int opcao;
     do{
         header("SELECT ACTIVITY");
-        showCompaniesInActivity(activities);
+        showActivity(activities, true);
+        puts("0 Sair");
         opcao = inputNumber("");
     } while (!verifyNumber(&opcao, 0, activities->numberActivities));
     return opcao;
@@ -131,28 +133,35 @@ int menuShowActivityAdmin(Activities *activities) {
 
 void menuActionAdminActivity(Activities *activities, int index, Companies *companies){
     int opcao;
-    printf("%d", index);
     Activity *activity = &(activities->activities[index]);
     do {
-        header(activities->activities[index].activity);
+        header(activity->activity);
+        printf("%d\n", activity->Active);
         if (activity->Active == false) {
             puts("0 Active");
         } else {
             puts("0 Inactive");
         }
         puts("-1 Delete");
+        puts("-2 Leave");
         opcao = inputNumber("");
-    } while (!verifyNumber(&opcao, -1, 0));
+    } while (opcao != 0 && opcao != -1 && opcao != -2);
     switch (opcao) {
         case 0:
             if (activity->Active == false) {
-                inactiveActivity(activity, companies);
-            } else {
                 activeActivity(activity, companies);
+            } else {
+                inactiveActivity(activity, companies);
             }
             break;
         case -1:
-            deleteActivity(activities, index - 1);
+            if (isCompanyExistInActivity(&activities->activities[index], companies) == 1){
+                puts("You cant delete this Activity, because there are companies associated to this activity!");
+            } else {
+                deleteActivity(activities, index);
+            }
+            break;
+        case -2:
             break;
     }
 }
