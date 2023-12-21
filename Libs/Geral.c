@@ -11,8 +11,15 @@ static char *categoryString(Company company) {
 }
 
 void showComments(Company *company) {
+    printf("Comments for Company with NIF %d:\n", company->nif);
     for (int i = 0; i < company->numberComments; ++i) {
-        printf("\n Comment Number: %d, User: %s Title:%s Comment - %s", i, company->comments[i].user.name, company->comments[i].title, company->comments[i].commentText);
+        if (!company->comments[i].commentHide) {
+            printf("\nComment Number: %d, User: %s, Title: %s, Comment: %s\n",
+                   i,
+                   company->comments[i].user.name,
+                   company->comments[i].title,
+                   company->comments[i].commentText);
+        }
     }
     sleep(4);
 }

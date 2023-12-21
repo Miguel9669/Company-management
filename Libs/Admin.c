@@ -296,9 +296,10 @@ void hideComments(Companies *companies) {
 
         for (i = 0; i < company->numberComments; i++) {
             if (i == index) {
-                company->comments[index].commentHide = false;
+                company->comments[i].commentHide = false;
             }
         }
+
     } else {
         printf("No companies found!");
     }
