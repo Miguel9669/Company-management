@@ -155,7 +155,6 @@ void handleAdminActivity(Activities *activities, Companies *companies) {
         if (optionActivity != 0)
             menuActionAdminActivity(activities, optionActivity - 1, companies);
     } while (optionActivity != 0);
-
 }
 
 void deleteActivity(Activities *activities, int index) {
@@ -261,7 +260,53 @@ void deleteComment(Companies *companies) {
             company->comments[i] = company->comments[i + 1];
         }
         company->numberComments--;
+    } else {
+        printf("No companies found!");
     }
 }
+
+void hideComments(Companies *companies) {
+    int nif, index, i;
+    Company *company;
+
+    if (companies->numberCompanies > 0) {
+        nif = inputNumber(OPERATING_NIF_COMPANY);
+        index = findCompanyIndexByNif(companies, nif);
+
+        if (index == -1) {
+            printf("Company not found: %d\n", nif);
+            return;
+        }
+
+        company = &(companies->company[index]);
+
+        if (company->numberComments == 0) {
+            printf("No comments! Returning...\n");
+            return;
+        }
+
+        showComments(company);
+        printf("\n");
+        index = inputNumber(DISABLE_COMMENT);
+
+        if (index < 0 || index >= company->numberComments) {
+            printf("Invalid comment number!\n");
+            return;
+        }
+
+        for (i = 0; i < company->numberComments; i++) {
+            if (i == index) {
+                company->comments[i].commentHide->hideComment = false;
+            }
+        }
+    } else {
+        printf("No companies found!");
+    }
+}
+
+
+
+
+
 
 

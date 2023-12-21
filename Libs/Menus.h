@@ -1,7 +1,3 @@
-//
-// Created by anton on 13/12/2023.
-//
-
 #ifndef COMPANY_MANAGEMENT_MENUS_H
 #define COMPANY_MANAGEMENT_MENUS_H
 #include "structs.h"

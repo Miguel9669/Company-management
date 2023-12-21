@@ -34,6 +34,7 @@
 #define MSG_GET_ADRESS "Enter the company address: "
 #define MSG_GET_CITY "Enter the company city: "
 #define MSG_GET_CODPOSTAL "Enter the company Postal Code: "
+#define MENU_COMMENTS "1 Delete commentary\n2 Hide commentary\n0 Quit\n"
 
 
 

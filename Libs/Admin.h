@@ -6,6 +6,7 @@
 #define OPERATING_NIF_COMPANY "Target the NIF of the company you intend to operate: "
 #define ERROR_NIF "NIF need to be between 100000000 - 999999999: "
 #define COMMENT_NUMBER "Which comment you want to delete"
+#define DISABLE_COMMENT "Which comment you want to disable"
 
 #include "structs.h"
 void createCompany(Companies *companies, Activities *activities);
@@ -19,5 +20,6 @@ void deleteActivity(Activities *activities, int index);
 void activeActivity(Activity *activity, Companies *companies);
 void handleAdminActivity(Activities *activities, Companies *companies);
 void deleteComment(Companies *companies);
+void hideComments(Companies *companies);
 
 #endif

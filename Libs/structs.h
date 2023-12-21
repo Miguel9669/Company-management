@@ -29,10 +29,15 @@ typedef struct {
     int rate;
 } Rate;
 
+typedef struct {
+    bool hideComment;
+}CommentHide;
+
 typedef struct{
     User user;
     char commentText[COMMENT];
     char title[TITLE];
+    CommentHide *commentHide;
 } Comment;
 
 typedef struct{

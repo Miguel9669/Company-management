@@ -44,8 +44,9 @@ void menuUserSearch(bool *quit, Companies *companies, User *user, Activities *ac
 }
 
 void menuAdmin(bool *quit, Companies *companies, Activities *activities) {
-    int opcao = GetOption(MENU_ADMIN, 0, 5, false, true, ADMIN_MENU);
-    switch (opcao) {
+    int option1 = GetOption(MENU_ADMIN, 0, 5, false, true, ADMIN_MENU);
+    int option2;
+    switch (option1) {
         case 0:
             puts("BYE");
             *quit = true;
@@ -63,7 +64,19 @@ void menuAdmin(bool *quit, Companies *companies, Activities *activities) {
             handleAdminActivity(activities, companies);
             break;
         case 5:
-            deleteComment(companies);
+            option2 = GetOption(MENU_COMMENTS,0,2,false,true,ADMIN_MENU);
+            switch (option2) {
+                case 0:
+                    puts("BYE");
+                    *quit = true;
+                    break;
+                case 1:
+                    deleteComment(companies);
+                    break;
+                case 2:
+                    hideComments(companies);
+                    break;
+            }
             break;
     }
 }
