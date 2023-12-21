@@ -296,7 +296,7 @@ void hideComments(Companies *companies) {
 
         for (i = 0; i < company->numberComments; i++) {
             if (i == index) {
-                company->comments[i].commentHide->hideComment = false;
+                company->comments[index].commentHide = false;
             }
         }
     } else {
