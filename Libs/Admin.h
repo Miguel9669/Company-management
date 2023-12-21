@@ -3,8 +3,9 @@
 
 #define EXISTENT_COMPANY "Existent company, Try again: "
 #define EXISTENT_NIF "Existent nif, Try again: "
-#define EXISTENT_POSTAL "Existent Postal Code, Try again: "
+#define OPERATING_NIF_COMPANY "Target the NIF of the company you intend to operate: "
 #define ERROR_NIF "NIF need to be between 100000000 - 999999999: "
+#define COMMENT_NUMBER "Which comment you want to delete"
 
 #include "structs.h"
 void createCompany(Companies *companies, Activities *activities);
@@ -17,5 +18,6 @@ void inactiveActivity(Activity *activity, Companies *companies);
 void deleteActivity(Activities *activities, int index);
 void activeActivity(Activity *activity, Companies *companies);
 void handleAdminActivity(Activities *activities, Companies *companies);
+void deleteComment(Companies *companies);
 
 #endif

@@ -12,7 +12,7 @@ static char *categoryString(Company company) {
 
 void showComments(Company *company) {
     for (int i = 0; i < company->numberComments; ++i) {
-        printf("\n%s: %s(%s)", company->comments[i].user.name, company->comments[i].title, company->comments[i].commentText);
+        printf("\n Comment Number: %d, User: %s Title:%s Comment - %s", i, company->comments[i].user.name, company->comments[i].title, company->comments[i].commentText);
     }
     sleep(4);
 }

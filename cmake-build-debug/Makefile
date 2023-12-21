@@ -176,6 +176,30 @@ Libs/Geral.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Company_management.dir\build.make CMakeFiles/Company_management.dir/Libs/Geral.c.s
 .PHONY : Libs/Geral.c.s
 
+Libs/Menus.obj: Libs/Menus.c.obj
+.PHONY : Libs/Menus.obj
+
+# target to build an object file
+Libs/Menus.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Company_management.dir\build.make CMakeFiles/Company_management.dir/Libs/Menus.c.obj
+.PHONY : Libs/Menus.c.obj
+
+Libs/Menus.i: Libs/Menus.c.i
+.PHONY : Libs/Menus.i
+
+# target to preprocess a source file
+Libs/Menus.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Company_management.dir\build.make CMakeFiles/Company_management.dir/Libs/Menus.c.i
+.PHONY : Libs/Menus.c.i
+
+Libs/Menus.s: Libs/Menus.c.s
+.PHONY : Libs/Menus.s
+
+# target to generate assembly for a file
+Libs/Menus.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Company_management.dir\build.make CMakeFiles/Company_management.dir/Libs/Menus.c.s
+.PHONY : Libs/Menus.c.s
+
 Libs/user.obj: Libs/user.c.obj
 .PHONY : Libs/user.obj
 
@@ -239,6 +263,9 @@ help:
 	@echo ... Libs/Geral.obj
 	@echo ... Libs/Geral.i
 	@echo ... Libs/Geral.s
+	@echo ... Libs/Menus.obj
+	@echo ... Libs/Menus.i
+	@echo ... Libs/Menus.s
 	@echo ... Libs/user.obj
 	@echo ... Libs/user.i
 	@echo ... Libs/user.s

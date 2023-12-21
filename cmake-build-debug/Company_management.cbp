@@ -88,6 +88,12 @@
 		<Unit filename="C:/Users/Miguel/Documents/GitHub/Company-management/Libs/Geral.h">
 			<Option target="Company_management"/>
 		</Unit>
+		<Unit filename="C:/Users/Miguel/Documents/GitHub/Company-management/Libs/Menus.c">
+			<Option target="Company_management"/>
+		</Unit>
+		<Unit filename="C:/Users/Miguel/Documents/GitHub/Company-management/Libs/Menus.h">
+			<Option target="Company_management"/>
+		</Unit>
 		<Unit filename="C:/Users/Miguel/Documents/GitHub/Company-management/Libs/constVariables.h">
 			<Option target="Company_management"/>
 		</Unit>

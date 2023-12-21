@@ -125,7 +125,6 @@ void comment(User *user, Company *company) {
 
 void rating(User *user, Company *company) {
     int userRating;
-
     do {
         userRating = inputNumber(USER_RATING_TXT);
         if (userRating >= 1 && userRating <= 5) {

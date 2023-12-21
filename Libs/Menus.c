@@ -1,7 +1,3 @@
-//
-// Created by anton on 13/12/2023.
-//
-
 #include "Menus.h"
 #include "Geral.h"
 #include "user.h"
@@ -9,6 +5,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "string.h"
+
 void menuStart(User *user, bool *quit, Companies *companies, Activities *activities) {
     int opcao = GetOption(MENU_START, 0, 3, false, true, "START");
     switch (opcao) {
@@ -66,6 +63,7 @@ void menuAdmin(bool *quit, Companies *companies, Activities *activities) {
             handleAdminActivity(activities, companies);
             break;
         case 5:
+            deleteComment(companies);
             break;
     }
 }
