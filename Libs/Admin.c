@@ -67,13 +67,16 @@ void iniciateCommentsAndRates(Company *company) {
     company->numberComments = 0;
     company->numberRates = 0;
     company->maxComments = 5;
-    company->maxRates = 5;
     company->comments = (Comment *)malloc(company->maxComments * sizeof(Comment));
     company->rates = (Rate *)malloc(company->maxRates * sizeof(Rate));
 
     if (company->comments == NULL || company->rates == NULL) {
         fprintf(stderr, "Erro ao alocar memória para comentários ou avaliações\n");
         exit(EXIT_FAILURE);
+    }
+
+    for (int i = 0; i < company->maxComments; ++i) {
+        company->comments[i].commentHide = true;
     }
 }
 
