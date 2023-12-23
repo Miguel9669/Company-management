@@ -49,12 +49,12 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "C:/Users/Miguel/Documents/GitHub/Company-management/cmake-build-debug",
-		"source" : "C:/Users/Miguel/Documents/GitHub/Company-management"
+		"build" : "C:/Users/anton/Documents/GitHub/Company-management/cmake-build-debug",
+		"source" : "C:/Users/anton/Documents/GitHub/Company-management"
 	},
 	"version" : 
 	{
 		"major" : 2,
-		"minor" : 5
+		"minor" : 6
 	}
 }

@@ -11,13 +11,15 @@ static char *categoryString(Company company) {
 }
 
 void showComments(Company *company) {
+    int count = 1;
     for (int i = 0; i < company->numberComments; ++i) {
         if ((company->comments[i].commentHide)) {
             printf("\nComment Number: %d, User: %s, Title: %s, Comment: %s\n",
-                   i,
+                   count,
                    company->comments[i].user.name,
                    company->comments[i].title,
                    company->comments[i].commentText);
+            count++;
         }
     }
     sleep(4);
@@ -124,7 +126,7 @@ int showCompaniesInActivity(Activities *activities, Companies *companies, int in
     if (isCompanyExistInActivity(&(activities->activities[index]), companies)) {
         for (int i = 0; i < companies->numberCompanies; i++) {
             if (strcmp(activities->activities[index].activity, companies->company[i].activity) == 0 && companies->company[i].active) {
-                printf("%d ", i);
+                printf("%d ", count + 1);
                 printf("%s", companies->company[i].nameCompany);
                 count++;
             }
@@ -133,14 +135,15 @@ int showCompaniesInActivity(Activities *activities, Companies *companies, int in
     return count;
 }
 void showActivity(Activities *activities, bool admin){
-    int count = 0;
+    int count = 1;
     if (activities->numberActivities > 0){
         for (int i = 0; i < activities->numberActivities; i++) {
             if (activities->activities[i].Active) {
                 count++;
-                printf("%d", i + 1);
+                printf("%d", count);
                 printf(" %s", activities->activities[i].activity);
                 printf("\n");
+                count++;
             } else {
                 if (admin) {
                     count++;
