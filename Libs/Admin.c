@@ -55,8 +55,13 @@ void createCompany(Companies *companies, Activities *activities) {
 
     strcpy(company->activity, activities->activities[optionActivity - 1].activity);
     getString(company->local.adress, MSG_GET_ADRESS, MAX_ADRESS);
-    getString(company->local.city, MSG_GET_CITY, MAX_CITY);
-    getString(company->local.codigoPostal, MSG_GET_CODPOSTAL, MAX_CODIGO);
+
+    do {
+        getString(company->local.codigoPostal, MSG_GET_CODPOSTAL, MAX_CODIGO);
+        if (!verifyPostalCode(company->local.codigoPostal)) {
+            puts("Postal Code invalid!");
+        }
+    } while (verifyPostalCode(company->local.codigoPostal));
 
     company->category = GetOption(MENU_SEARCH_BY_CATEGORY, 1, 3, true, false, "");
     iniciateCommentsAndRates(company);
@@ -209,7 +214,12 @@ void modifyCompany(Companies *companies, Activities *activities) {
                     getString(company->local.city, "New city: ", MAX_CITY);
                     break;
                 case 5:
-                    getString(company->local.codigoPostal, "New Postal Code: ", MAX_CODIGO);
+                    do {
+                        getString(company->local.codigoPostal, MSG_GET_CODPOSTAL, MAX_CODIGO);
+                        if (!verifyPostalCode(company->local.codigoPostal)) {
+                            puts("Postal Code invalid!");
+                        }
+                    } while (verifyPostalCode(company->local.codigoPostal));
                     break;
                 case 6:
                     company->category = GetOption(MENU_SEARCH_BY_CATEGORY, 1, 3, true, false, "");

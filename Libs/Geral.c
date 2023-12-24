@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-
+#include <ctype.h>
 static char *categoryString(Company company) {
     static char *string[] = {"Micro Empresa", "Pequena e média empresa", "Grande empresa"};
     return string[company.category - 1];
@@ -120,6 +120,14 @@ int verifyNif(int nif) {
     } else {
         return -1;
     }
+}
+int verifyPostalCode(char *postalCode) {
+    if (strlen(postalCode) == 9 && isdigit(postalCode[0] && postalCode[1] && postalCode[2] && postalCode[3] && postalCode[4])) {
+        if (postalCode[5] == '-' && isdigit(postalCode[6] && postalCode[7] && postalCode[8])) {
+            return 1;
+        }
+    }
+    return 0;
 }
 int showCompaniesInActivity(Activities *activities, Companies *companies, int index) {
     int count = 0;
