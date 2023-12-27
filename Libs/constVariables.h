@@ -15,7 +15,7 @@
 #define COMMENT 200
 #define TITLE 40
 #define ACTIVITY 40
-#define MAX_CODIGO 8
+#define MAX_CODIGO 9
 #define MAX_ADRESS 60
 #define MAX_CITY 40
 #define MAX_NAME_COMPANY 70

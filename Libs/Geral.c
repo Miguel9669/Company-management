@@ -88,13 +88,12 @@ char *inputString(char *txt, int quant) {
                 while ((c = getchar()) != '\n' && c != EOF);
             }
         }
-        if (len >= quant) {
+        if (len > quant) {
             puts(INVALID_INPUT);
-            sleep(4);
         }
 
 
-    } while (len == 0 || len >= quant);  // Continue pedindo entrada até que algo seja digitado
+    } while (len == 0 || len > quant);  // Continue pedindo entrada até que algo seja digitado
 
     return var;
 }
@@ -122,8 +121,8 @@ int verifyNif(int nif) {
     }
 }
 int verifyPostalCode(char *postalCode) {
-    if (strlen(postalCode) == 9 && isdigit(postalCode[0] && postalCode[1] && postalCode[2] && postalCode[3] && postalCode[4])) {
-        if (postalCode[5] == '-' && isdigit(postalCode[6] && postalCode[7] && postalCode[8])) {
+    if (strlen(postalCode) == 8 && isdigit(postalCode[0]) && isdigit(postalCode[1]) && isdigit(postalCode[2]) && isdigit(postalCode[3])) {
+        if (postalCode[4] == '-' && isdigit(postalCode[5]) && isdigit(postalCode[6]) && isdigit(postalCode[7])) {
             return 1;
         }
     }
