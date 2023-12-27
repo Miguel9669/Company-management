@@ -5,7 +5,16 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "string.h"
-
+int menushowActivity(Activities *activities, bool admin, char *txt) {
+    int opcao;
+    do{
+        header("SELECT ACTIVITY");
+        showActivity(activities, admin);
+        printf("%s", txt);
+        opcao = inputNumber("");
+    } while (!verifyNumber(&opcao, 0, activities->numberActivities));
+    return opcao;
+}
 void menuStart(User *user, bool *quit, Companies *companies, Activities *activities) {
     int opcao = GetOption(MENU_START, 0, 3, false, true, "START");
     switch (opcao) {
@@ -115,31 +124,18 @@ void menuSearchByCategory(Companies *companies, User *user){
 }
 
 int menuBranchActivity(Activities *activities) {
-    int opcao;
-    do{
-        header("SELECT ACTIVITY");
-        showActivity(activities, false);
-        printf("0 Creat a new one");
-        opcao = inputNumber("");
-    } while (!verifyNumber(&opcao, 0, activities->numberActivities));
+    int option = menushowActivity(activities, false, "0 Creat a new one");
 
-    switch (opcao) {
+    switch (option) {
         case 0:
             creatActivity(activities);
-            break;
     }
-    return opcao;
+    return option;
 }
 
-int menuShowActivityAdmin(Activities *activities) {
-    int opcao;
-    do{
-        header("SELECT ACTIVITY");
-        showActivity(activities, true);
-        puts("0 Sair");
-        opcao = inputNumber("");
-    } while (!verifyNumber(&opcao, 0, activities->numberActivities));
-    return opcao;
+
+int menuShowActivity(Activities *activities, bool admin, char *txt) {
+    return menushowActivity(activities, admin, txt);
 }
 
 void menuActionAdminActivity(Activities *activities, int index, Companies *companies){
@@ -176,5 +172,58 @@ void menuActionAdminActivity(Activities *activities, int index, Companies *compa
             break;
     }
 }
+int menuModify(Companies *companies, int index, Activities *activities) {
+    char newName[MAX_NAME_COMPANY];
+    int optionActivity;
+    int numberCompanies = companies->numberCompanies;
+    Company *company = &companies->company[index];
+    showCompany(company);
+    int menuModify = GetOption(MENU_MODIFY, 0, 7, false, true, MODIFY_MENU);
+    switch (menuModify) {
+        case 1:
+            getString(newName, MSG_GET_NAME, MAX_NAME_COMPANY);
 
+            if (isCompanyExists(companies, newName, 0, numberCompanies)) {
+                do {
+                    puts("There is a company with that name!!");
+                    getString(newName, MSG_GET_NAME, MAX_NAME_COMPANY);
+                } while (isCompanyExists(companies, newName, 0, numberCompanies));
+            }
+            strcpy(company->nameCompany, newName);
+            break;
+        case 2:
+            do {
+                optionActivity = menuShowActivity(activities, true, "0 sair");
+            } while (optionActivity == 0);
+
+            strcpy(company->activity, activities->activities[optionActivity - 1].activity);
+            break;
+        case 3:
+            getString(company->local.adress, "New address: ", MAX_ADRESS);
+            break;
+        case 4:
+            getString(company->local.city, "New city: ", MAX_CITY);
+            break;
+        case 5:
+            do {
+                getString(company->local.codigoPostal, MSG_GET_CODPOSTAL, MAX_CODIGO);
+                if (!verifyPostalCode(company->local.codigoPostal)) {
+                    puts("Postal Code invalid!");
+                }
+            } while (!verifyPostalCode(company->local.codigoPostal));
+            break;
+        case 6:
+            company->category = GetOption(MENU_SEARCH_BY_CATEGORY, 1, 3, true, false, "");
+            break;
+        case 7:
+            company->active = companies->company[index].active == true ? false : true;
+            break;
+        case 0:
+            printf("Leaving!.\n");
+            break;
+        default:
+            printf("Invalid option, try again!.\n");
+    }
+    return menuModify;
+}
 

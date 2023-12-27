@@ -41,7 +41,7 @@ void handleUserSearchByCategory(Companies *companies, User *user){
     menuSearchByCategory(companies, user);
 }
 void handleUserSearchByActivity(Companies *companies, Activities *activities, User *user) {
-    int optionActivity = menuShowActivityAdmin(activities);
+    int optionActivity = menuShowActivity(activities, false, "0 Sair");
     int numberCompaniesInActivity = showCompaniesInActivity(activities, companies, optionActivity - 1);
     if (numberCompaniesInActivity > 0) {
         Company *foundCompany = searchCompanyByName(companies);

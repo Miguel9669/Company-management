@@ -8,5 +8,6 @@ void menuCompany(User *user, Company *foundCompany, bool *back);
 void menuSearchByCategory(Companies *companies, User *user);
 int menuBranchActivity(Activities *activities);
 void menuActionAdminActivity(Activities *activities, int index, Companies *companies);
-int menuShowActivityAdmin(Activities *activities);
+int menuShowActivity(Activities *activities, bool admin, char *txt);
+int menuModify(Companies *companies, int index, Activities *activities);
 #endif //COMPANY_MANAGEMENT_MENUS_H

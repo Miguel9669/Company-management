@@ -146,7 +146,6 @@ void showActivity(Activities *activities, bool admin){
     if (activities->numberActivities > 0){
         for (int i = 0; i < activities->numberActivities; i++) {
             if (activities->activities[i].Active) {
-                count++;
                 printf("%d", count);
                 printf(" %s", activities->activities[i].activity);
                 printf("\n");
