@@ -8,10 +8,35 @@
 #include <stdlib.h>
 #include "Menus.h"
 
+bool isValidEmail(const char *email) {
+    const char *atSymbol = strchr(email, '@');
+    if (atSymbol == NULL || atSymbol == email) {
+        return false;
+    }
+
+    const char *dotSymbol = strchr(atSymbol, '.');
+    if (dotSymbol == NULL || dotSymbol == atSymbol + 1) {
+        return false;
+    }
+
+    if (dotSymbol[1] == '\0') {
+        return false;
+    }
+
+    return true;
+}
+
 void handleUser(User *user, bool *quit, Companies *companies, Activities *activities) {
     header("USER");
-    getString(user->name, "Your name: ", MAX_NAME);
-    getString(user->email, "Your email: ", MAX_EMAIL);
+    getString(user->name, GET_USER_NAME, MAX_NAME);
+
+    do {
+        getString( user->email, GET_USER_EMAIL, MAX_EMAIL);
+        if (!isValidEmail(user->email)) {
+            printf("INVALID_EMAIL");
+        }
+    } while (!isValidEmail(user->email));
+
     bool back;
     do {
         back = false;

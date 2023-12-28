@@ -18,4 +18,5 @@ void handleUserSearchByCategory(Companies *companies, User *user);
 void handleUserSelectByCategory(Companies *companies, User *user, int valueCategory);
 void rating(User *user, Company *company);
 void handleUserSearchByActivity(Companies *companies, Activities *activities, User *user);
+bool isValidEmail(const char *email);
 #endif //COMPANY_MANAGEMENT_USER_H

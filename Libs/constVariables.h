@@ -34,6 +34,9 @@
 #define MSG_GET_CITY "Enter the company city: "
 #define MSG_GET_CODPOSTAL "Enter the company Postal Code: "
 #define MENU_COMMENTS "1 Delete commentary\n2 Hide commentary\n0 Quit\n"
+#define INVALID_EMAIL "Invalid email structure. Please try again.\n"
+#define GET_USER_EMAIL "Your email: "
+#define GET_USER_NAME "Your name: "
 
 
 
