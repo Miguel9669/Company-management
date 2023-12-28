@@ -1,6 +1,8 @@
 file(REMOVE_RECURSE
   "CMakeFiles/Company_management.dir/Libs/Admin.c.obj"
   "CMakeFiles/Company_management.dir/Libs/Admin.c.obj.d"
+  "CMakeFiles/Company_management.dir/Libs/Company.c.obj"
+  "CMakeFiles/Company_management.dir/Libs/Company.c.obj.d"
   "CMakeFiles/Company_management.dir/Libs/Geral.c.obj"
   "CMakeFiles/Company_management.dir/Libs/Geral.c.obj.d"
   "CMakeFiles/Company_management.dir/Libs/Menus.c.obj"

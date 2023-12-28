@@ -14,4 +14,6 @@ add_executable(Company_management main.c
         Libs/constVariables.h
         Libs/Menus.c
         Libs/Menus.h
+        Libs/Company.c
+        Libs/Company.h
 )

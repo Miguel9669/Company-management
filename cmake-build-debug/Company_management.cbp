@@ -8,108 +8,114 @@
 		<Option virtualFolders="CMake Files\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="C:/Users/anton/Documents/GitHub/Company-management/cmake-build-debug"/>
+				<Option working_dir="C:/Users/Miguel/Documents/GitHub/Company-management/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="C:/Users/anton/AppData/Local/Programs/CLion/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/anton/Documents/GitHub/Company-management/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="C:/Users/anton/AppData/Local/Programs/CLion/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/anton/Documents/GitHub/Company-management/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/Users/anton/AppData/Local/Programs/CLion/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/anton/Documents/GitHub/Company-management/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/Users/anton/AppData/Local/Programs/CLion/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/anton/Documents/GitHub/Company-management/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/PROGRA~1/JETBRA~1/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/Miguel/Documents/GitHub/Company-management/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="C:/PROGRA~1/JETBRA~1/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/Miguel/Documents/GitHub/Company-management/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/JETBRA~1/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/Miguel/Documents/GitHub/Company-management/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/JETBRA~1/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/Miguel/Documents/GitHub/Company-management/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="Company_management">
-				<Option output="C:/Users/anton/Documents/GitHub/Company-management/cmake-build-debug/Company_management.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="C:/Users/anton/Documents/GitHub/Company-management/cmake-build-debug"/>
+				<Option output="C:/Users/Miguel/Documents/GitHub/Company-management/cmake-build-debug/Company_management.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/Miguel/Documents/GitHub/Company-management/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="C:/Users/anton/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include"/>
-					<Add directory="C:/Users/anton/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include"/>
-					<Add directory="C:/Users/anton/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed"/>
-					<Add directory="C:/Users/anton/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/include"/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2023.2.2/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include"/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2023.2.2/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include"/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2023.2.2/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed"/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2023.2.2/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="C:/Users/anton/AppData/Local/Programs/CLion/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/anton/Documents/GitHub/Company-management/cmake-build-debug/Makefile&quot;  VERBOSE=1 Company_management"/>
-					<CompileFile command="C:/Users/anton/AppData/Local/Programs/CLion/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/anton/Documents/GitHub/Company-management/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/Users/anton/AppData/Local/Programs/CLion/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/anton/Documents/GitHub/Company-management/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/Users/anton/AppData/Local/Programs/CLion/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/anton/Documents/GitHub/Company-management/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/PROGRA~1/JETBRA~1/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/Miguel/Documents/GitHub/Company-management/cmake-build-debug/Makefile&quot;  VERBOSE=1 Company_management"/>
+					<CompileFile command="C:/PROGRA~1/JETBRA~1/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/Miguel/Documents/GitHub/Company-management/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/JETBRA~1/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/Miguel/Documents/GitHub/Company-management/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/JETBRA~1/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/Miguel/Documents/GitHub/Company-management/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="Company_management/fast">
-				<Option output="C:/Users/anton/Documents/GitHub/Company-management/cmake-build-debug/Company_management.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="C:/Users/anton/Documents/GitHub/Company-management/cmake-build-debug"/>
+				<Option output="C:/Users/Miguel/Documents/GitHub/Company-management/cmake-build-debug/Company_management.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/Miguel/Documents/GitHub/Company-management/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="C:/Users/anton/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include"/>
-					<Add directory="C:/Users/anton/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include"/>
-					<Add directory="C:/Users/anton/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed"/>
-					<Add directory="C:/Users/anton/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/include"/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2023.2.2/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include"/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2023.2.2/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include"/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2023.2.2/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed"/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2023.2.2/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="C:/Users/anton/AppData/Local/Programs/CLion/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/anton/Documents/GitHub/Company-management/cmake-build-debug/Makefile&quot;  VERBOSE=1 Company_management/fast"/>
-					<CompileFile command="C:/Users/anton/AppData/Local/Programs/CLion/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/anton/Documents/GitHub/Company-management/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/Users/anton/AppData/Local/Programs/CLion/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/anton/Documents/GitHub/Company-management/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/Users/anton/AppData/Local/Programs/CLion/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/anton/Documents/GitHub/Company-management/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/PROGRA~1/JETBRA~1/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/Miguel/Documents/GitHub/Company-management/cmake-build-debug/Makefile&quot;  VERBOSE=1 Company_management/fast"/>
+					<CompileFile command="C:/PROGRA~1/JETBRA~1/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/Miguel/Documents/GitHub/Company-management/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/JETBRA~1/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/Miguel/Documents/GitHub/Company-management/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/JETBRA~1/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/Miguel/Documents/GitHub/Company-management/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="C:/Users/anton/Documents/GitHub/Company-management/cmake-build-debug"/>
+				<Option working_dir="C:/Users/Miguel/Documents/GitHub/Company-management/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="C:/Users/anton/AppData/Local/Programs/CLion/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/anton/Documents/GitHub/Company-management/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="C:/Users/anton/AppData/Local/Programs/CLion/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/anton/Documents/GitHub/Company-management/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/Users/anton/AppData/Local/Programs/CLion/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/anton/Documents/GitHub/Company-management/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/Users/anton/AppData/Local/Programs/CLion/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/anton/Documents/GitHub/Company-management/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/PROGRA~1/JETBRA~1/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/Miguel/Documents/GitHub/Company-management/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="C:/PROGRA~1/JETBRA~1/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/Miguel/Documents/GitHub/Company-management/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/JETBRA~1/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/Miguel/Documents/GitHub/Company-management/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/JETBRA~1/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/Miguel/Documents/GitHub/Company-management/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="C:/Users/anton/Documents/GitHub/Company-management/cmake-build-debug"/>
+				<Option working_dir="C:/Users/Miguel/Documents/GitHub/Company-management/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="C:/Users/anton/AppData/Local/Programs/CLion/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/anton/Documents/GitHub/Company-management/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="C:/Users/anton/AppData/Local/Programs/CLion/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/anton/Documents/GitHub/Company-management/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/Users/anton/AppData/Local/Programs/CLion/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/anton/Documents/GitHub/Company-management/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/Users/anton/AppData/Local/Programs/CLion/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/anton/Documents/GitHub/Company-management/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/PROGRA~1/JETBRA~1/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/Miguel/Documents/GitHub/Company-management/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="C:/PROGRA~1/JETBRA~1/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/Miguel/Documents/GitHub/Company-management/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/JETBRA~1/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/Miguel/Documents/GitHub/Company-management/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/JETBRA~1/CLION2~1.2/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/Miguel/Documents/GitHub/Company-management/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="C:/Users/anton/Documents/GitHub/Company-management/Libs/Admin.c">
+		<Unit filename="C:/Users/Miguel/Documents/GitHub/Company-management/Libs/Admin.c">
 			<Option target="Company_management"/>
 		</Unit>
-		<Unit filename="C:/Users/anton/Documents/GitHub/Company-management/Libs/Admin.h">
+		<Unit filename="C:/Users/Miguel/Documents/GitHub/Company-management/Libs/Admin.h">
 			<Option target="Company_management"/>
 		</Unit>
-		<Unit filename="C:/Users/anton/Documents/GitHub/Company-management/Libs/Geral.c">
+		<Unit filename="C:/Users/Miguel/Documents/GitHub/Company-management/Libs/Company.c">
 			<Option target="Company_management"/>
 		</Unit>
-		<Unit filename="C:/Users/anton/Documents/GitHub/Company-management/Libs/Geral.h">
+		<Unit filename="C:/Users/Miguel/Documents/GitHub/Company-management/Libs/Company.h">
 			<Option target="Company_management"/>
 		</Unit>
-		<Unit filename="C:/Users/anton/Documents/GitHub/Company-management/Libs/Menus.c">
+		<Unit filename="C:/Users/Miguel/Documents/GitHub/Company-management/Libs/Geral.c">
 			<Option target="Company_management"/>
 		</Unit>
-		<Unit filename="C:/Users/anton/Documents/GitHub/Company-management/Libs/Menus.h">
+		<Unit filename="C:/Users/Miguel/Documents/GitHub/Company-management/Libs/Geral.h">
 			<Option target="Company_management"/>
 		</Unit>
-		<Unit filename="C:/Users/anton/Documents/GitHub/Company-management/Libs/constVariables.h">
+		<Unit filename="C:/Users/Miguel/Documents/GitHub/Company-management/Libs/Menus.c">
 			<Option target="Company_management"/>
 		</Unit>
-		<Unit filename="C:/Users/anton/Documents/GitHub/Company-management/Libs/structs.h">
+		<Unit filename="C:/Users/Miguel/Documents/GitHub/Company-management/Libs/Menus.h">
 			<Option target="Company_management"/>
 		</Unit>
-		<Unit filename="C:/Users/anton/Documents/GitHub/Company-management/Libs/user.c">
+		<Unit filename="C:/Users/Miguel/Documents/GitHub/Company-management/Libs/constVariables.h">
 			<Option target="Company_management"/>
 		</Unit>
-		<Unit filename="C:/Users/anton/Documents/GitHub/Company-management/Libs/user.h">
+		<Unit filename="C:/Users/Miguel/Documents/GitHub/Company-management/Libs/structs.h">
 			<Option target="Company_management"/>
 		</Unit>
-		<Unit filename="C:/Users/anton/Documents/GitHub/Company-management/main.c">
+		<Unit filename="C:/Users/Miguel/Documents/GitHub/Company-management/Libs/user.c">
 			<Option target="Company_management"/>
 		</Unit>
-		<Unit filename="C:/Users/anton/Documents/GitHub/Company-management/CMakeLists.txt">
+		<Unit filename="C:/Users/Miguel/Documents/GitHub/Company-management/Libs/user.h">
+			<Option target="Company_management"/>
+		</Unit>
+		<Unit filename="C:/Users/Miguel/Documents/GitHub/Company-management/main.c">
+			<Option target="Company_management"/>
+		</Unit>
+		<Unit filename="C:/Users/Miguel/Documents/GitHub/Company-management/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
 	</Project>

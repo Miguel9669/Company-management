@@ -6,18 +6,18 @@
 #include <stdio.h>
 #include "string.h"
 int menushowActivity(Activities *activities, bool admin, char *txt) {
-    int opcao;
+    int option;
     do{
         header("SELECT ACTIVITY");
         showActivity(activities, admin);
         printf("%s", txt);
-        opcao = inputNumber("");
-    } while (!verifyNumber(&opcao, 0, activities->numberActivities));
-    return opcao;
+        option = inputNumber("");
+    } while (!verifyNumber(&option, 0, activities->numberActivities));
+    return option;
 }
 void menuStart(User *user, bool *quit, Companies *companies, Activities *activities) {
-    int opcao = GetOption(MENU_START, 0, 3, false, true, "START");
-    switch (opcao) {
+    int option = GetOption(MENU_START, 0, 3, false, true, "START");
+    switch (option) {
         case 0:
             puts("BYE");
             *quit = true;
@@ -34,8 +34,8 @@ void menuStart(User *user, bool *quit, Companies *companies, Activities *activit
 }
 
 void menuUserSearch(bool *quit, Companies *companies, User *user, Activities *activities) {
-    int opcao = GetOption(MENU_USER_SEARCH, 0, 3, false, true, SEARCH_COMPANY);
-    switch (opcao) {
+    int option = GetOption(MENU_USER_SEARCH, 0, 3, false, true, SEARCH_COMPANY);
+    switch (option) {
         case 0:
             puts("BYE");
             *quit = true;
@@ -90,9 +90,29 @@ void menuAdmin(bool *quit, Companies *companies, Activities *activities) {
     }
 }
 
+void menuCompanies(bool *quit, Companies *companies, Activities *activities) {
+    int option = GetOption(MENU_COMPANY, 0, 4, true, false, COMPANY_MENU);
+    switch (option) {
+        case 0:
+            puts("BYE");
+            *quit = true;
+            break;
+        case 1:
+            modifyCompany(companies, activities);
+            break;
+        case 2:
+            break;
+        case 3:
+            hideComments(companies);
+            break;
+        case 4:
+            break;
+    }
+}
+
 void menuCompany(User *user, Company *foundCompany, bool *back){
-    int opcao = GetOption(MENU_INSIDE_COMPANY,0, 3, true, false, "");
-    switch (opcao) {
+    int option = GetOption(MENU_INSIDE_COMPANY,0, 3, true, false, "");
+    switch (option) {
         case 1:
             comment(user, foundCompany);
             break;
@@ -109,8 +129,8 @@ void menuCompany(User *user, Company *foundCompany, bool *back){
 }
 
 void menuSearchByCategory(Companies *companies, User *user){
-    int opcao = GetOption(MENU_SEARCH_BY_CATEGORY,1,3,true, false, "");
-    switch(opcao){
+    int option = GetOption(MENU_SEARCH_BY_CATEGORY,1,3,true, false, "");
+    switch(option){
         case 1 :
             handleUserSelectByCategory(companies, user, 1);
             break;
@@ -139,7 +159,7 @@ int menuShowActivity(Activities *activities, bool admin, char *txt) {
 }
 
 void menuActionAdminActivity(Activities *activities, int index, Companies *companies){
-    int opcao;
+    int option;
     Activity *activity = &(activities->activities[index]);
     do {
         header(activity->activity);
@@ -151,9 +171,9 @@ void menuActionAdminActivity(Activities *activities, int index, Companies *compa
         }
         puts("-1 Delete");
         puts("-2 Leave");
-        opcao = inputNumber("");
-    } while (opcao != 0 && opcao != -1 && opcao != -2);
-    switch (opcao) {
+        option = inputNumber("");
+    } while (option != 0 && option != -1 && option != -2);
+    switch (option) {
         case 0:
             if (activity->Active == false) {
                 activeActivity(activity, companies);
@@ -193,7 +213,7 @@ int menuModify(Companies *companies, int index, Activities *activities) {
             break;
         case 2:
             do {
-                optionActivity = menuShowActivity(activities, true, "0 sair");
+                optionActivity = menuShowActivity(activities, true, "0 Leave");
             } while (optionActivity == 0);
 
             strcpy(company->activity, activities->activities[optionActivity - 1].activity);
