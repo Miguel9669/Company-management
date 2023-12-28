@@ -2,9 +2,10 @@
 #include "Geral.h"
 #include "user.h"
 #include "Admin.h"
-#include <stdlib.h>
 #include <stdio.h>
 #include "string.h"
+#include "Company.h"
+
 int menushowActivity(Activities *activities, bool admin, char *txt) {
     int option;
     do{
@@ -15,6 +16,7 @@ int menushowActivity(Activities *activities, bool admin, char *txt) {
     } while (!verifyNumber(&option, 0, activities->numberActivities));
     return option;
 }
+
 void menuStart(User *user, bool *quit, Companies *companies, Activities *activities) {
     int option = GetOption(MENU_START, 0, 3, false, true, "START");
     switch (option) {
@@ -29,6 +31,7 @@ void menuStart(User *user, bool *quit, Companies *companies, Activities *activit
             handleAdmin(companies, activities);
             break;
         case 3:
+            handleCompany(companies, activities);
             break;
     }
 }
@@ -101,6 +104,7 @@ void menuCompanies(bool *quit, Companies *companies, Activities *activities) {
             modifyCompany(companies, activities);
             break;
         case 2:
+            showCommentsCompany(companies);
             break;
         case 3:
             hideComments(companies);
@@ -153,7 +157,6 @@ int menuBranchActivity(Activities *activities) {
     return option;
 }
 
-
 int menuShowActivity(Activities *activities, bool admin, char *txt) {
     return menushowActivity(activities, admin, txt);
 }
@@ -192,6 +195,7 @@ void menuActionAdminActivity(Activities *activities, int index, Companies *compa
             break;
     }
 }
+
 int menuModify(Companies *companies, int index, Activities *activities) {
     char newName[MAX_NAME_COMPANY];
     int optionActivity;

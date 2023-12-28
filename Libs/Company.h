@@ -3,5 +3,7 @@
 #include "structs.h"
 
 void handleCompany(Companies *companies, Activities *activities);
+void showCommentsCompany(Companies *companies);
+void menuCompanies(bool *quit, Companies *companies, Activities *activities);
 
 #endif

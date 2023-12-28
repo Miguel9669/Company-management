@@ -5,6 +5,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <ctype.h>
+
 static char *categoryString(Company company) {
     static char *string[] = {"Micro Empresa", "Pequena e média empresa", "Grande empresa"};
     return string[company.category - 1];

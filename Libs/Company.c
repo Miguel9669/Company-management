@@ -1,13 +1,11 @@
 #include "Company.h"
-#include "Admin.h"
 #include <stdio.h>
 #include "structs.h"
-#include <string.h>
 #include "Geral.h"
-#include <stdlib.h>
 #include "constVariables.h"
-#include <unistd.h>
 #include "Menus.h"
+#include "user.h"
+
 
 void handleCompany(Companies *companies, Activities *activities){
     bool back;
@@ -16,3 +14,13 @@ void handleCompany(Companies *companies, Activities *activities){
         menuCompanies(&back, companies, activities);
     } while (back != true);
 }
+
+void showCommentsCompany(Companies *companies) {
+    Company *foundCompany = searchCompanyByName(companies);
+    if (foundCompany == NULL) {
+        printf("No company with that name!");
+        return;
+    }
+    showComments(foundCompany);
+}
+
