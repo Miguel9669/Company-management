@@ -113,6 +113,12 @@ void handleUserSelectByCategory(Companies *companies, User *user, int valueCateg
 
 Company *searchCompanyByName(Companies *companies){
     char companySearchName[MAX_NAME_COMPANY];
+
+    if (companies->numberCompanies <= 0) {
+        printf("No companies");
+        return NULL;
+    }
+
     getString(companySearchName, "\nWhich company do you want to search: ", MAX_NAME_COMPANY);
     for (int i = 0; i < companies -> numberCompanies; i++){
         if (strcmp(companies->company[i].nameCompany, companySearchName) == 0){

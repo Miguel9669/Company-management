@@ -1,7 +1,3 @@
-//
-// Created by anton on 06/12/2023.
-//
-
 #ifndef COMPANY_MANAGEMENT_STRUCTS_H
 #define COMPANY_MANAGEMENT_STRUCTS_H
 #include "constVariables.h"

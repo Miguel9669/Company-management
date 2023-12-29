@@ -10,12 +10,15 @@
 #include "Libs/Menus.h"
 
 int main() {
-    Companies companies = {.numberCompanies = 0,
-                           .maxCompanies = 10,
+    int numberCompanies = getNumberFromFile(FILE_NUMBER_COMPANIES_NAME);
+    int numberActivities = getNumberFromFile(FILE_NUMBER_ACTIVITIES_NAME);
+    printf("--%d", numberCompanies);
+    Companies companies = {.numberCompanies = numberCompanies,
+                           .maxCompanies = numberCompanies == 0 ? 10 : numberCompanies * 2,
                            .company = (Company *) malloc(companies.maxCompanies * sizeof(Company))};
     Activities activities = {
-            .numberActivities = 0,
-            .maxActivities = 5,
+            .numberActivities = numberActivities,
+            .maxActivities = numberActivities == 0 ? 5 : numberActivities * 2,
             .activities = (Activity *) malloc(activities.maxActivities * sizeof(Activity))};
     User user;
     bool quit;

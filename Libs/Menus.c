@@ -98,6 +98,7 @@ void menuComments(Company *company) {
             break;
     }
 }
+
 void menuCompanies(bool *quit, Companies *companies, Activities *activities) {
     int option = GetOption(MENU_COMPANY, 0, 4, true, false, COMPANY_MENU);
     switch (option) {

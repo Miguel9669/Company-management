@@ -10,11 +10,32 @@ static char *categoryString(Company company) {
     static char *string[] = {"Micro Empresa", "Pequena e média empresa", "Grande empresa"};
     return string[company.category - 1];
 }
-
+int getNumberFromFile(char *txt) {
+    int var = 0;
+    FILE *numberCompanies = fopen(txt, "rb");
+    if (numberCompanies == NULL) {
+        numberCompanies = fopen(txt, "wb");
+        fwrite(&var, sizeof(int), 1, numberCompanies);
+        fclose(numberCompanies);
+        numberCompanies = fopen(txt, "rb+");
+    }
+    fread(&var, sizeof(int), 1, numberCompanies);
+    fclose(numberCompanies);
+    return var;
+}
+void updateNumberFromFile(int number, char *txt) {
+    FILE *var = fopen(txt, "rb+");
+    if (var == NULL) {
+        puts("We couldn't find that file!!");
+    }
+    fseek(var, 0, SEEK_SET);
+    fwrite(&number, sizeof(int), 1, var);
+    fclose(var);
+}
 int showComments(Company *company, bool admin) {
     int count = 1;
     for (int i = 0; i < company->numberComments; ++i) {
-        if ((company->comments[i].commentHide)) {
+        if ((company->comments[i].commentHide && !admin)) {
             printf("\nComment Number: %d, Title: %s\n",
                    count,
                    company->comments[i].title);
@@ -34,7 +55,7 @@ int showComments(Company *company, bool admin) {
         int opcao;
         do {
             header(company->comments[commentSelected - 1].title);
-            printf("User: %s\nContent: %s\n----------------------------------------------------------------",
+            printf("User: %s\nContent: %s\n----------------------------------------------------------------\n",
                    company->comments[commentSelected - 1].user,
                    company->comments[commentSelected - 1].commentText);
             if (!admin) {

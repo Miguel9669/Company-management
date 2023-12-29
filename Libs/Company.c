@@ -2,10 +2,11 @@
 #include <stdio.h>
 #include "structs.h"
 #include "Geral.h"
+#include "Admin.h"
+#include <string.h>
 #include "constVariables.h"
 #include "Menus.h"
 #include "user.h"
-
 
 void handleCompany(Companies *companies, Activities *activities){
     bool back;
@@ -23,4 +24,5 @@ void showCommentsCompany(Companies *companies) {
     }
     showComments(foundCompany, true);
 }
+
 

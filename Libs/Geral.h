@@ -22,4 +22,6 @@ double companyAverageRating(Company *company);
 int isCompanyExistInActivity(Activity *activity, const Companies *companies);
 int showCompaniesInActivity(Activities *activities, Companies *companies, int index);
 int verifyPostalCode(char *postalCode);
+int getNumberFromFile(char *txt);
+void updateNumberFromFile(int number, char *txt);
 #endif //COMPANY_MANAGEMENT_GERAL_H

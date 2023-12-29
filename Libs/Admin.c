@@ -67,6 +67,7 @@ void createCompany(Companies *companies, Activities *activities) {
     company->category = GetOption(MENU_SEARCH_BY_CATEGORY, 1, 3, true, false, "");
     iniciateCommentsAndRates(company);
     company->active = true;
+    updateNumberFromFile(companies->numberCompanies, FILE_NUMBER_COMPANIES_NAME);
 }
 
 void iniciateCommentsAndRates(Company *company) {
@@ -82,7 +83,7 @@ void iniciateCommentsAndRates(Company *company) {
     }
 
     for (int i = 0; i < company->maxComments; ++i) {
-        company->comments[i].commentHide = true;
+        company->comments[i].commentHide = false;
     }
 }
 
@@ -105,6 +106,7 @@ void deleteCompany(Companies *companies, int index) {
     company->active = false;
     printf("Company deleted successfully.\n");
     companies->numberCompanies--;
+    updateNumberFromFile(companies->numberCompanies, FILE_NUMBER_COMPANIES_NAME);
 }
 
 void creatActivity(Activities *activities){
@@ -126,6 +128,7 @@ void creatActivity(Activities *activities){
     }
     activities->activities[activities->numberActivities].Active = true;
     activities->numberActivities++;
+    updateNumberFromFile(activities->numberActivities, FILE_NUMBER_ACTIVITIES_NAME);
 }
 
 void inactiveActivity(Activity *activity, Companies *companies) {
@@ -165,6 +168,7 @@ void deleteActivity(Activities *activities, int index) {
         activities->activities[i] = activities->activities[i + 1];
     }
     activities->numberActivities--;
+    updateNumberFromFile(activities->numberActivities, FILE_NUMBER_ACTIVITIES_NAME);
 }
 
 void modifyCompany(Companies *companies, Activities *activities) {
@@ -195,7 +199,6 @@ void deleteComment(Company *company, int index) {
         company->comments[i] = company->comments[i + 1];
     }
     company->numberComments--;
-
 }
 
 void hideComments(Company *company, int index) {

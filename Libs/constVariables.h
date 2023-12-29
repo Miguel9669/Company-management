@@ -1,7 +1,3 @@
-//
-// Created by anton on 06/12/2023.
-//
-
 #ifndef COMPANY_MANAGEMENT_CONSTVARIABLES_H
 #define COMPANY_MANAGEMENT_CONSTVARIABLES_H
 
@@ -37,7 +33,8 @@
 #define INVALID_EMAIL "Invalid email structure. Please try again.\n"
 #define GET_USER_EMAIL "Your email: "
 #define GET_USER_NAME "Your name: "
-
+#define FILE_NUMBER_COMPANIES_NAME "numberCompanies.bin"
+#define FILE_NUMBER_ACTIVITIES_NAME "numberActivities.bin"
 
 
 
