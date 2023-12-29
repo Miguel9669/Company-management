@@ -139,7 +139,7 @@ void searchByCategory(Companies *companies, int valueCategory){
 void comment(User *user, Company *company) {
     Comment *companyComments = &(company->comments[company->numberComments]);
     if (company->maxComments - company->numberComments == 1) {
-        Comment *pComment= (Comment *) realloc(company->comments, (company->maxComments + 10) * sizeof(Comment));
+        Comment *pComment = (Comment *) realloc(company->comments, company->maxComments * 2 * sizeof(Comment));
         if (pComment != NULL) {
             company->comments = pComment;
             company->maxComments *= 2;
@@ -161,7 +161,7 @@ void rating(User *user, Company *company) {
         userRating = inputNumber(USER_RATING_TXT);
         if (userRating >= 1 && userRating <= 5) {
             if (company->maxRates - company->numberRates == 1) {
-                Rate *pRate = (Rate *) realloc(company->rates,(company->maxRates + 10) * sizeof(Rate));
+                Rate *pRate = (Rate *) realloc(company->rates, company->maxRates * 2 * sizeof(Rate));
                 if (pRate != NULL) {
                     company->rates = pRate;
                     company->maxRates *= 2;

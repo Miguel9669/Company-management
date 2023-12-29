@@ -1,4 +1,4 @@
-ToolSet: w64 11.0 (local)@C:\Users\anton\AppData\Local\Programs\CLion\bin\mingw
+ToolSet: 3.4.9 (local)@C:\cygwin64
 Options: 
 
-Options:-DCMAKE_MAKE_PROGRAM=C:/Users/anton/AppData/Local/Programs/CLion/bin/ninja/win/x64/ninja.exe
+Options:-DCMAKE_MAKE_PROGRAM=/cygdrive/c/Users/anton/AppData/Local/Programs/CLion/bin/ninja/cygwin/x64/ninja.exe

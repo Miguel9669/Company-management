@@ -30,5 +30,5 @@ int main() {
     } while (quit != true);
     free(activities.activities);
     free(companies.company);
-
+    return 0;
 }

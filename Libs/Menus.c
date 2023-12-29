@@ -254,6 +254,7 @@ int menuModify(Companies *companies, int index, Activities *activities) {
             deleteCompany(companies, index);
             break;
         case 0:
+            updateStruct(FILE_WITH_COMPANIES, sizeof(Company) * index, &companies->company[index], sizeof(Company));
             printf("Leaving!.\n");
             break;
         default:

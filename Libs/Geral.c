@@ -60,7 +60,7 @@ void inicializeStructs(int number, char *txt, void *data, int structSize) {
 int showComments(Company *company, bool admin) {
     int count = 1;
     for (int i = 0; i < company->numberComments; ++i) {
-        if ((company->comments[i].commentHide && !admin)) {
+        if ((!company->comments[i].commentHide && !admin)) {
             printf("\nComment Number: %d, Title: %s\n",
                    count,
                    company->comments[i].title);

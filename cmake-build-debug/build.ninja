@@ -39,7 +39,7 @@ include CMakeFiles/rules.ninja
 #############################################
 # Logical path to working directory; prefix for absolute paths.
 
-cmake_ninja_workdir = C$:/Users/anton/OneDrive/Documentos/GitHub/Company-management/cmake-build-debug/
+cmake_ninja_workdir = /cygdrive/c/Users/anton/OneDrive/Documentos/GitHub/Company-management/cmake-build-debug/
 # =============================================================================
 # Object build statements for EXECUTABLE target Company_management
 
@@ -49,41 +49,41 @@ cmake_ninja_workdir = C$:/Users/anton/OneDrive/Documentos/GitHub/Company-managem
 
 build cmake_object_order_depends_target_Company_management: phony || CMakeFiles/Company_management.dir
 
-build CMakeFiles/Company_management.dir/main.c.obj: C_COMPILER__Company_management_unscanned_Debug C$:/Users/anton/OneDrive/Documentos/GitHub/Company-management/main.c || cmake_object_order_depends_target_Company_management
-  DEP_FILE = CMakeFiles\Company_management.dir\main.c.obj.d
+build CMakeFiles/Company_management.dir/main.c.o: C_COMPILER__Company_management_unscanned_Debug /cygdrive/c/Users/anton/OneDrive/Documentos/GitHub/Company-management/main.c || cmake_object_order_depends_target_Company_management
+  DEP_FILE = CMakeFiles/Company_management.dir/main.c.o.d
   FLAGS = -g -std=gnu99 -fdiagnostics-color=always
-  OBJECT_DIR = CMakeFiles\Company_management.dir
-  OBJECT_FILE_DIR = CMakeFiles\Company_management.dir
+  OBJECT_DIR = CMakeFiles/Company_management.dir
+  OBJECT_FILE_DIR = CMakeFiles/Company_management.dir
 
-build CMakeFiles/Company_management.dir/Libs/Geral.c.obj: C_COMPILER__Company_management_unscanned_Debug C$:/Users/anton/OneDrive/Documentos/GitHub/Company-management/Libs/Geral.c || cmake_object_order_depends_target_Company_management
-  DEP_FILE = CMakeFiles\Company_management.dir\Libs\Geral.c.obj.d
+build CMakeFiles/Company_management.dir/Libs/Geral.c.o: C_COMPILER__Company_management_unscanned_Debug /cygdrive/c/Users/anton/OneDrive/Documentos/GitHub/Company-management/Libs/Geral.c || cmake_object_order_depends_target_Company_management
+  DEP_FILE = CMakeFiles/Company_management.dir/Libs/Geral.c.o.d
   FLAGS = -g -std=gnu99 -fdiagnostics-color=always
-  OBJECT_DIR = CMakeFiles\Company_management.dir
-  OBJECT_FILE_DIR = CMakeFiles\Company_management.dir\Libs
+  OBJECT_DIR = CMakeFiles/Company_management.dir
+  OBJECT_FILE_DIR = CMakeFiles/Company_management.dir/Libs
 
-build CMakeFiles/Company_management.dir/Libs/Admin.c.obj: C_COMPILER__Company_management_unscanned_Debug C$:/Users/anton/OneDrive/Documentos/GitHub/Company-management/Libs/Admin.c || cmake_object_order_depends_target_Company_management
-  DEP_FILE = CMakeFiles\Company_management.dir\Libs\Admin.c.obj.d
+build CMakeFiles/Company_management.dir/Libs/Admin.c.o: C_COMPILER__Company_management_unscanned_Debug /cygdrive/c/Users/anton/OneDrive/Documentos/GitHub/Company-management/Libs/Admin.c || cmake_object_order_depends_target_Company_management
+  DEP_FILE = CMakeFiles/Company_management.dir/Libs/Admin.c.o.d
   FLAGS = -g -std=gnu99 -fdiagnostics-color=always
-  OBJECT_DIR = CMakeFiles\Company_management.dir
-  OBJECT_FILE_DIR = CMakeFiles\Company_management.dir\Libs
+  OBJECT_DIR = CMakeFiles/Company_management.dir
+  OBJECT_FILE_DIR = CMakeFiles/Company_management.dir/Libs
 
-build CMakeFiles/Company_management.dir/Libs/user.c.obj: C_COMPILER__Company_management_unscanned_Debug C$:/Users/anton/OneDrive/Documentos/GitHub/Company-management/Libs/user.c || cmake_object_order_depends_target_Company_management
-  DEP_FILE = CMakeFiles\Company_management.dir\Libs\user.c.obj.d
+build CMakeFiles/Company_management.dir/Libs/user.c.o: C_COMPILER__Company_management_unscanned_Debug /cygdrive/c/Users/anton/OneDrive/Documentos/GitHub/Company-management/Libs/user.c || cmake_object_order_depends_target_Company_management
+  DEP_FILE = CMakeFiles/Company_management.dir/Libs/user.c.o.d
   FLAGS = -g -std=gnu99 -fdiagnostics-color=always
-  OBJECT_DIR = CMakeFiles\Company_management.dir
-  OBJECT_FILE_DIR = CMakeFiles\Company_management.dir\Libs
+  OBJECT_DIR = CMakeFiles/Company_management.dir
+  OBJECT_FILE_DIR = CMakeFiles/Company_management.dir/Libs
 
-build CMakeFiles/Company_management.dir/Libs/Menus.c.obj: C_COMPILER__Company_management_unscanned_Debug C$:/Users/anton/OneDrive/Documentos/GitHub/Company-management/Libs/Menus.c || cmake_object_order_depends_target_Company_management
-  DEP_FILE = CMakeFiles\Company_management.dir\Libs\Menus.c.obj.d
+build CMakeFiles/Company_management.dir/Libs/Menus.c.o: C_COMPILER__Company_management_unscanned_Debug /cygdrive/c/Users/anton/OneDrive/Documentos/GitHub/Company-management/Libs/Menus.c || cmake_object_order_depends_target_Company_management
+  DEP_FILE = CMakeFiles/Company_management.dir/Libs/Menus.c.o.d
   FLAGS = -g -std=gnu99 -fdiagnostics-color=always
-  OBJECT_DIR = CMakeFiles\Company_management.dir
-  OBJECT_FILE_DIR = CMakeFiles\Company_management.dir\Libs
+  OBJECT_DIR = CMakeFiles/Company_management.dir
+  OBJECT_FILE_DIR = CMakeFiles/Company_management.dir/Libs
 
-build CMakeFiles/Company_management.dir/Libs/Company.c.obj: C_COMPILER__Company_management_unscanned_Debug C$:/Users/anton/OneDrive/Documentos/GitHub/Company-management/Libs/Company.c || cmake_object_order_depends_target_Company_management
-  DEP_FILE = CMakeFiles\Company_management.dir\Libs\Company.c.obj.d
+build CMakeFiles/Company_management.dir/Libs/Company.c.o: C_COMPILER__Company_management_unscanned_Debug /cygdrive/c/Users/anton/OneDrive/Documentos/GitHub/Company-management/Libs/Company.c || cmake_object_order_depends_target_Company_management
+  DEP_FILE = CMakeFiles/Company_management.dir/Libs/Company.c.o.d
   FLAGS = -g -std=gnu99 -fdiagnostics-color=always
-  OBJECT_DIR = CMakeFiles\Company_management.dir
-  OBJECT_FILE_DIR = CMakeFiles\Company_management.dir\Libs
+  OBJECT_DIR = CMakeFiles/Company_management.dir
+  OBJECT_FILE_DIR = CMakeFiles/Company_management.dir/Libs
 
 
 # =============================================================================
@@ -93,12 +93,12 @@ build CMakeFiles/Company_management.dir/Libs/Company.c.obj: C_COMPILER__Company_
 #############################################
 # Link the executable Company_management.exe
 
-build Company_management.exe: C_EXECUTABLE_LINKER__Company_management_Debug CMakeFiles/Company_management.dir/main.c.obj CMakeFiles/Company_management.dir/Libs/Geral.c.obj CMakeFiles/Company_management.dir/Libs/Admin.c.obj CMakeFiles/Company_management.dir/Libs/user.c.obj CMakeFiles/Company_management.dir/Libs/Menus.c.obj CMakeFiles/Company_management.dir/Libs/Company.c.obj
+build Company_management.exe: C_EXECUTABLE_LINKER__Company_management_Debug CMakeFiles/Company_management.dir/main.c.o CMakeFiles/Company_management.dir/Libs/Geral.c.o CMakeFiles/Company_management.dir/Libs/Admin.c.o CMakeFiles/Company_management.dir/Libs/user.c.o CMakeFiles/Company_management.dir/Libs/Menus.c.o CMakeFiles/Company_management.dir/Libs/Company.c.o
   FLAGS = -g
-  LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
-  OBJECT_DIR = CMakeFiles\Company_management.dir
-  POST_BUILD = cd .
-  PRE_LINK = cd .
+  LINK_FLAGS = -Wl,--enable-auto-import
+  OBJECT_DIR = CMakeFiles/Company_management.dir
+  POST_BUILD = :
+  PRE_LINK = :
   TARGET_FILE = Company_management.exe
   TARGET_IMPLIB = libCompany_management.dll.a
   TARGET_PDB = Company_management.exe.dbg
@@ -108,7 +108,7 @@ build Company_management.exe: C_EXECUTABLE_LINKER__Company_management_Debug CMak
 # Utility command for edit_cache
 
 build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cmd.exe /C "cd /D C:\Users\anton\OneDrive\Documentos\GitHub\Company-management\cmake-build-debug && C:\Users\anton\AppData\Local\Programs\CLion\bin\cmake\win\x64\bin\cmake.exe -E echo "No interactive CMake dialog available.""
+  COMMAND = /bin/sh CMakeFiles/edit_cache.dir/utility.sh 4a0000ae7b8d51c2
   DESC = No interactive CMake dialog available...
   restat = 1
 
@@ -119,7 +119,7 @@ build edit_cache: phony CMakeFiles/edit_cache.util
 # Utility command for rebuild_cache
 
 build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = cmd.exe /C "cd /D C:\Users\anton\OneDrive\Documentos\GitHub\Company-management\cmake-build-debug && C:\Users\anton\AppData\Local\Programs\CLion\bin\cmake\win\x64\bin\cmake.exe --regenerate-during-build -SC:\Users\anton\OneDrive\Documentos\GitHub\Company-management -BC:\Users\anton\OneDrive\Documentos\GitHub\Company-management\cmake-build-debug"
+  COMMAND = /bin/sh CMakeFiles/rebuild_cache.dir/utility.sh 0bf2fee0bfd97a27
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
@@ -137,7 +137,7 @@ build Company_management: phony Company_management.exe
 # =============================================================================
 
 #############################################
-# Folder: C:/Users/anton/OneDrive/Documentos/GitHub/Company-management/cmake-build-debug
+# Folder: /cygdrive/c/Users/anton/OneDrive/Documentos/GitHub/Company-management/cmake-build-debug
 
 build all: phony Company_management.exe
 
@@ -148,14 +148,14 @@ build all: phony Company_management.exe
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja: RERUN_CMAKE | C$:/Users/anton/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.26/Modules/CMakeCInformation.cmake C$:/Users/anton/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.26/Modules/CMakeCommonLanguageInclude.cmake C$:/Users/anton/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.26/Modules/CMakeGenericSystem.cmake C$:/Users/anton/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.26/Modules/CMakeInitializeConfigs.cmake C$:/Users/anton/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.26/Modules/CMakeLanguageInformation.cmake C$:/Users/anton/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.26/Modules/CMakeRCInformation.cmake C$:/Users/anton/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.26/Modules/CMakeSystemSpecificInformation.cmake C$:/Users/anton/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.26/Modules/CMakeSystemSpecificInitialize.cmake C$:/Users/anton/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.26/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Users/anton/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.26/Modules/Compiler/GNU-C.cmake C$:/Users/anton/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.26/Modules/Compiler/GNU.cmake C$:/Users/anton/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.26/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/Users/anton/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.26/Modules/Platform/Windows-GNU-C.cmake C$:/Users/anton/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.26/Modules/Platform/Windows-GNU.cmake C$:/Users/anton/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.26/Modules/Platform/Windows-windres.cmake C$:/Users/anton/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.26/Modules/Platform/Windows.cmake C$:/Users/anton/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.26/Modules/Platform/WindowsPaths.cmake C$:/Users/anton/OneDrive/Documentos/GitHub/Company-management/CMakeLists.txt CMakeCache.txt CMakeFiles/3.26.4/CMakeCCompiler.cmake CMakeFiles/3.26.4/CMakeRCCompiler.cmake CMakeFiles/3.26.4/CMakeSystem.cmake
+build build.ninja: RERUN_CMAKE | /cygdrive/c/Users/anton/AppData/Local/JetBrains/CLion2023.2/cygwin_cmake/share/cmake-3.26.4/Modules/CMakeCInformation.cmake /cygdrive/c/Users/anton/AppData/Local/JetBrains/CLion2023.2/cygwin_cmake/share/cmake-3.26.4/Modules/CMakeCommonLanguageInclude.cmake /cygdrive/c/Users/anton/AppData/Local/JetBrains/CLion2023.2/cygwin_cmake/share/cmake-3.26.4/Modules/CMakeGenericSystem.cmake /cygdrive/c/Users/anton/AppData/Local/JetBrains/CLion2023.2/cygwin_cmake/share/cmake-3.26.4/Modules/CMakeInitializeConfigs.cmake /cygdrive/c/Users/anton/AppData/Local/JetBrains/CLion2023.2/cygwin_cmake/share/cmake-3.26.4/Modules/CMakeLanguageInformation.cmake /cygdrive/c/Users/anton/AppData/Local/JetBrains/CLion2023.2/cygwin_cmake/share/cmake-3.26.4/Modules/CMakeRCInformation.cmake /cygdrive/c/Users/anton/AppData/Local/JetBrains/CLion2023.2/cygwin_cmake/share/cmake-3.26.4/Modules/CMakeSystemSpecificInformation.cmake /cygdrive/c/Users/anton/AppData/Local/JetBrains/CLion2023.2/cygwin_cmake/share/cmake-3.26.4/Modules/CMakeSystemSpecificInitialize.cmake /cygdrive/c/Users/anton/AppData/Local/JetBrains/CLion2023.2/cygwin_cmake/share/cmake-3.26.4/Modules/Compiler/CMakeCommonCompilerMacros.cmake /cygdrive/c/Users/anton/AppData/Local/JetBrains/CLion2023.2/cygwin_cmake/share/cmake-3.26.4/Modules/Compiler/GNU-C.cmake /cygdrive/c/Users/anton/AppData/Local/JetBrains/CLion2023.2/cygwin_cmake/share/cmake-3.26.4/Modules/Compiler/GNU.cmake /cygdrive/c/Users/anton/AppData/Local/JetBrains/CLion2023.2/cygwin_cmake/share/cmake-3.26.4/Modules/Platform/CYGWIN-GNU-C.cmake /cygdrive/c/Users/anton/AppData/Local/JetBrains/CLion2023.2/cygwin_cmake/share/cmake-3.26.4/Modules/Platform/CYGWIN-GNU.cmake /cygdrive/c/Users/anton/AppData/Local/JetBrains/CLion2023.2/cygwin_cmake/share/cmake-3.26.4/Modules/Platform/CYGWIN-windres.cmake /cygdrive/c/Users/anton/AppData/Local/JetBrains/CLion2023.2/cygwin_cmake/share/cmake-3.26.4/Modules/Platform/CYGWIN.cmake /cygdrive/c/Users/anton/AppData/Local/JetBrains/CLion2023.2/cygwin_cmake/share/cmake-3.26.4/Modules/Platform/UnixPaths.cmake /cygdrive/c/Users/anton/OneDrive/Documentos/GitHub/Company-management/CMakeLists.txt CMakeCache.txt CMakeFiles/3.26.4/CMakeCCompiler.cmake CMakeFiles/3.26.4/CMakeRCCompiler.cmake CMakeFiles/3.26.4/CMakeSystem.cmake
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build C$:/Users/anton/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.26/Modules/CMakeCInformation.cmake C$:/Users/anton/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.26/Modules/CMakeCommonLanguageInclude.cmake C$:/Users/anton/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.26/Modules/CMakeGenericSystem.cmake C$:/Users/anton/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.26/Modules/CMakeInitializeConfigs.cmake C$:/Users/anton/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.26/Modules/CMakeLanguageInformation.cmake C$:/Users/anton/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.26/Modules/CMakeRCInformation.cmake C$:/Users/anton/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.26/Modules/CMakeSystemSpecificInformation.cmake C$:/Users/anton/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.26/Modules/CMakeSystemSpecificInitialize.cmake C$:/Users/anton/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.26/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Users/anton/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.26/Modules/Compiler/GNU-C.cmake C$:/Users/anton/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.26/Modules/Compiler/GNU.cmake C$:/Users/anton/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.26/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/Users/anton/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.26/Modules/Platform/Windows-GNU-C.cmake C$:/Users/anton/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.26/Modules/Platform/Windows-GNU.cmake C$:/Users/anton/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.26/Modules/Platform/Windows-windres.cmake C$:/Users/anton/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.26/Modules/Platform/Windows.cmake C$:/Users/anton/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.26/Modules/Platform/WindowsPaths.cmake C$:/Users/anton/OneDrive/Documentos/GitHub/Company-management/CMakeLists.txt CMakeCache.txt CMakeFiles/3.26.4/CMakeCCompiler.cmake CMakeFiles/3.26.4/CMakeRCCompiler.cmake CMakeFiles/3.26.4/CMakeSystem.cmake: phony
+build /cygdrive/c/Users/anton/AppData/Local/JetBrains/CLion2023.2/cygwin_cmake/share/cmake-3.26.4/Modules/CMakeCInformation.cmake /cygdrive/c/Users/anton/AppData/Local/JetBrains/CLion2023.2/cygwin_cmake/share/cmake-3.26.4/Modules/CMakeCommonLanguageInclude.cmake /cygdrive/c/Users/anton/AppData/Local/JetBrains/CLion2023.2/cygwin_cmake/share/cmake-3.26.4/Modules/CMakeGenericSystem.cmake /cygdrive/c/Users/anton/AppData/Local/JetBrains/CLion2023.2/cygwin_cmake/share/cmake-3.26.4/Modules/CMakeInitializeConfigs.cmake /cygdrive/c/Users/anton/AppData/Local/JetBrains/CLion2023.2/cygwin_cmake/share/cmake-3.26.4/Modules/CMakeLanguageInformation.cmake /cygdrive/c/Users/anton/AppData/Local/JetBrains/CLion2023.2/cygwin_cmake/share/cmake-3.26.4/Modules/CMakeRCInformation.cmake /cygdrive/c/Users/anton/AppData/Local/JetBrains/CLion2023.2/cygwin_cmake/share/cmake-3.26.4/Modules/CMakeSystemSpecificInformation.cmake /cygdrive/c/Users/anton/AppData/Local/JetBrains/CLion2023.2/cygwin_cmake/share/cmake-3.26.4/Modules/CMakeSystemSpecificInitialize.cmake /cygdrive/c/Users/anton/AppData/Local/JetBrains/CLion2023.2/cygwin_cmake/share/cmake-3.26.4/Modules/Compiler/CMakeCommonCompilerMacros.cmake /cygdrive/c/Users/anton/AppData/Local/JetBrains/CLion2023.2/cygwin_cmake/share/cmake-3.26.4/Modules/Compiler/GNU-C.cmake /cygdrive/c/Users/anton/AppData/Local/JetBrains/CLion2023.2/cygwin_cmake/share/cmake-3.26.4/Modules/Compiler/GNU.cmake /cygdrive/c/Users/anton/AppData/Local/JetBrains/CLion2023.2/cygwin_cmake/share/cmake-3.26.4/Modules/Platform/CYGWIN-GNU-C.cmake /cygdrive/c/Users/anton/AppData/Local/JetBrains/CLion2023.2/cygwin_cmake/share/cmake-3.26.4/Modules/Platform/CYGWIN-GNU.cmake /cygdrive/c/Users/anton/AppData/Local/JetBrains/CLion2023.2/cygwin_cmake/share/cmake-3.26.4/Modules/Platform/CYGWIN-windres.cmake /cygdrive/c/Users/anton/AppData/Local/JetBrains/CLion2023.2/cygwin_cmake/share/cmake-3.26.4/Modules/Platform/CYGWIN.cmake /cygdrive/c/Users/anton/AppData/Local/JetBrains/CLion2023.2/cygwin_cmake/share/cmake-3.26.4/Modules/Platform/UnixPaths.cmake /cygdrive/c/Users/anton/OneDrive/Documentos/GitHub/Company-management/CMakeLists.txt CMakeCache.txt CMakeFiles/3.26.4/CMakeCCompiler.cmake CMakeFiles/3.26.4/CMakeRCCompiler.cmake CMakeFiles/3.26.4/CMakeSystem.cmake: phony
 
 
 #############################################
