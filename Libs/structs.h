@@ -7,6 +7,7 @@
 #include "constVariables.h"
 typedef enum {false, true} bool;
 typedef enum {MICRO = 1, PME, LARGE_COMPANY} Category;
+typedef enum {USER = 1, ADMIN, COMPANY} Type;
 
 typedef struct {
     bool Active;

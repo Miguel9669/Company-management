@@ -56,8 +56,7 @@ void menuUserSearch(bool *quit, Companies *companies, User *user, Activities *ac
 }
 
 void menuAdmin(bool *quit, Companies *companies, Activities *activities) {
-    int option1 = GetOption(MENU_ADMIN, 0, 5, false, true, ADMIN_MENU);
-    int option2;
+    int option1 = GetOption(MENU_ADMIN, 0, 3, false, true, ADMIN_MENU);
     switch (option1) {
         case 0:
             puts("BYE");
@@ -70,29 +69,35 @@ void menuAdmin(bool *quit, Companies *companies, Activities *activities) {
             modifyCompany(companies, activities);
             break;
         case 3:
-            deleteCompany(companies);
-            break;
-        case 4:
             handleAdminActivity(activities, companies);
             break;
-        case 5:
-            option2 = GetOption(MENU_COMMENTS,0,2,false,true,ADMIN_MENU);
-            switch (option2) {
-                case 0:
-                    puts("BYE");
-                    *quit = true;
-                    break;
-                case 1:
-                    deleteComment(companies);
-                    break;
-                case 2:
-                    hideComments(companies);
-                    break;
-            }
+
+    }
+}
+void menuComments(Company *company) {
+    int optionComments;
+    if (company->numberComments > 0) {
+        do {
+            optionComments = showComments(company, true);
+        } while (!verifyNumber(&optionComments, 0, company->numberComments));
+    } else {
+        puts("No comments!!!");
+        return;
+    }
+
+    int option = GetOption(MENU_COMMENTS,0,2,false,false,"");
+    switch (option) {
+        case 0:
+            puts("BYE");
+            break;
+        case 1:
+            deleteComment(company, optionComments - 1);
+            break;
+        case 2:
+            hideComments(company, optionComments - 1);
             break;
     }
 }
-
 void menuCompanies(bool *quit, Companies *companies, Activities *activities) {
     int option = GetOption(MENU_COMPANY, 0, 4, true, false, COMPANY_MENU);
     switch (option) {
@@ -107,7 +112,7 @@ void menuCompanies(bool *quit, Companies *companies, Activities *activities) {
             showCommentsCompany(companies);
             break;
         case 3:
-            hideComments(companies);
+            //hideComments(&companies->company[0], 1);
             break;
         case 4:
             break;
@@ -124,7 +129,7 @@ void menuCompany(User *user, Company *foundCompany, bool *back){
             rating(user, foundCompany);
             break;
         case 3:
-            showComments(foundCompany);
+            showComments(foundCompany, false);
             break;
         case 0:
             *back = true;
@@ -166,7 +171,6 @@ void menuActionAdminActivity(Activities *activities, int index, Companies *compa
     Activity *activity = &(activities->activities[index]);
     do {
         header(activity->activity);
-        printf("%d\n", activity->Active);
         if (activity->Active == false) {
             puts("0 Active");
         } else {
@@ -202,11 +206,10 @@ int menuModify(Companies *companies, int index, Activities *activities) {
     int numberCompanies = companies->numberCompanies;
     Company *company = &companies->company[index];
     showCompany(company);
-    int menuModify = GetOption(MENU_MODIFY, 0, 7, false, true, MODIFY_MENU);
+    int menuModify = GetOption(MENU_MANAGE_COMPANY_ADMIN, 0, 9, false, true, MODIFY_MENU);
     switch (menuModify) {
         case 1:
             getString(newName, MSG_GET_NAME, MAX_NAME_COMPANY);
-
             if (isCompanyExists(companies, newName, 0, numberCompanies)) {
                 do {
                     puts("There is a company with that name!!");
@@ -241,6 +244,12 @@ int menuModify(Companies *companies, int index, Activities *activities) {
             break;
         case 7:
             company->active = companies->company[index].active == true ? false : true;
+            break;
+        case 8:
+            menuComments(company);
+            break;
+        case 9:
+            deleteCompany(companies, index);
             break;
         case 0:
             printf("Leaving!.\n");

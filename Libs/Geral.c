@@ -11,19 +11,41 @@ static char *categoryString(Company company) {
     return string[company.category - 1];
 }
 
-void showComments(Company *company) {
+int showComments(Company *company, bool admin) {
     int count = 1;
     for (int i = 0; i < company->numberComments; ++i) {
         if ((company->comments[i].commentHide)) {
-            printf("\nComment Number: %d, User: %s, Title: %s, Comment: %s\n",
+            printf("\nComment Number: %d, Title: %s\n",
                    count,
-                   company->comments[i].user.name,
+                   company->comments[i].title);
+            count++;
+        } else if(admin) {
+            printf("\nComment Number: %d, Title: %s, Hide: %s\n",
+                   count,
                    company->comments[i].title,
-                   company->comments[i].commentText);
+                   company->comments[i].commentHide == false ? "False" : "True");
             count++;
         }
     }
-    sleep(4);
+    if (count == 1) {
+        puts("No Comments!");
+    } else {
+        int commentSelected = GetOption("", 0, company->numberComments, false, false, "");
+        int opcao;
+        do {
+            header(company->comments[commentSelected - 1].title);
+            printf("User: %s\nContent: %s\n----------------------------------------------------------------",
+                   company->comments[commentSelected - 1].user,
+                   company->comments[commentSelected - 1].commentText);
+            if (!admin) {
+                puts("\n0 Leave");
+                opcao = inputNumber("");
+            }
+            if (admin)
+                opcao = 0;
+        } while (opcao != 0);
+        return commentSelected;
+    }
 }
 
 char *boolString(bool variable){
@@ -36,7 +58,6 @@ char *boolString(bool variable){
 }
 
 void showCompany(Company *company){
-    system("clear");
     header(company -> nameCompany);
     printf("Company Information:\n");
     printf("Name: %s\n", company->nameCompany);

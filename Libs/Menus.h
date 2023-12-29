@@ -11,4 +11,5 @@ int menuBranchActivity(Activities *activities);
 void menuActionAdminActivity(Activities *activities, int index, Companies *companies);
 int menuShowActivity(Activities *activities, bool admin, char *txt);
 int menuModify(Companies *companies, int index, Activities *activities);
+void menuComments(Company *company);
 #endif //COMPANY_MANAGEMENT_MENUS_H

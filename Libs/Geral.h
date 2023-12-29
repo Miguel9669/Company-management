@@ -9,7 +9,7 @@ void showActivity(Activities *activities, bool admin);
 int verifyNumber(int *variable, int min, int max);
 int GetOption(char *txt, int min, int max, bool showOption, bool showHeader, char *txtHeader);
 void header(char *txt);
-void showComments(Company *company);
+int showComments(Company *company, bool admin);
 int verifyNif(int nif);
 void cleanBuffer();
 void getString(char *dest, char *txt, int charLen);

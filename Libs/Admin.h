@@ -10,7 +10,7 @@
 
 #include "structs.h"
 void createCompany(Companies *companies, Activities *activities);
-void deleteCompany(Companies *companies);
+void deleteCompany(Companies *companies, int index);
 void modifyCompany(Companies *companies, Activities *activities);
 void handleAdmin(Companies *companies, Activities *activities);
 void iniciateCommentsAndRates(Company *company);
@@ -19,7 +19,7 @@ void inactiveActivity(Activity *activity, Companies *companies);
 void deleteActivity(Activities *activities, int index);
 void activeActivity(Activity *activity, Companies *companies);
 void handleAdminActivity(Activities *activities, Companies *companies);
-void deleteComment(Companies *companies);
-void hideComments(Companies *companies);
+void deleteComment(Company *company, int index);
+void hideComments(Company *company, int index);
 
 #endif

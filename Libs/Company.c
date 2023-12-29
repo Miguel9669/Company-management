@@ -21,6 +21,6 @@ void showCommentsCompany(Companies *companies) {
         printf("No company with that name!");
         return;
     }
-    showComments(foundCompany);
+    showComments(foundCompany, true);
 }
 

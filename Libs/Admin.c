@@ -86,37 +86,25 @@ void iniciateCommentsAndRates(Company *company) {
     }
 }
 
-void deleteCompany(Companies *companies) {
-    int nif, index;
-
-    if (companies->numberCompanies > 0) {
-        Company *company = &(companies->company[companies->numberCompanies]);
-        nif = inputNumber(MSG_GET_NIF);
-        index = findCompanyIndexByNif(companies, nif);
-        if (companies->company[index].numberComments > 0) {
-            puts("You can not delete this company! But u can set as an inactive company.");
-            return;
-        }
-        if (index == -1) {
-            printf("Company not found: %d\n", nif);
-            sleep(4);
-        }
-        for (int i = index; i < companies->numberCompanies; ++i) {
-            companies->company[i] = companies->company[i + 1];
-        }
-        company->nif = 0;
-        strcpy(company->nameCompany, "");
-        strcpy(company->activity,"");
-        strcpy(company->local.adress, "");
-        strcpy(company->local.city, "");
-        strcpy(company->local.codigoPostal, "");
-        company->active = false;
-        printf("Company deleted successfully.\n");
-        companies->numberCompanies--;
-    } else {
-        printf("No companies to delete.\n");
-        sleep(4);
+void deleteCompany(Companies *companies, int index) {
+    if (companies->company[index].numberComments > 0) {
+        puts("You can not delete this company! But u can set as an inactive company.");
+        return;
     }
+
+    for (int i = index; i < companies->numberCompanies; ++i) {
+        companies->company[i] = companies->company[i + 1];
+    }
+    Company *company = &companies->company[index];
+    company->nif = 0;
+    strcpy(company->nameCompany, "");
+    strcpy(company->activity,"");
+    strcpy(company->local.adress, "");
+    strcpy(company->local.city, "");
+    strcpy(company->local.codigoPostal, "");
+    company->active = false;
+    printf("Company deleted successfully.\n");
+    companies->numberCompanies--;
 }
 
 void creatActivity(Activities *activities){
@@ -163,10 +151,13 @@ void handleAdminActivity(Activities *activities, Companies *companies) {
     bool back;
     do {
         back = false;
-        optionActivity = menuShowActivity(activities, true, "0 Sair");
-        if (optionActivity != 0)
+        optionActivity = menuShowActivity(activities, true, "0 Create Activity\n-1 Sair");
+        if (optionActivity != -1 && optionActivity != 0)
             menuActionAdminActivity(activities, optionActivity - 1, companies);
-    } while (optionActivity != 0);
+        if (optionActivity == 0) {
+            creatActivity(activities);
+        }
+    } while (optionActivity != -1);
 }
 
 void deleteActivity(Activities *activities, int index) {
@@ -191,87 +182,30 @@ void modifyCompany(Companies *companies, Activities *activities) {
 
         do {
             opcao = menuModify(companies, index, activities);
-        } while (opcao != 0);
+        } while (opcao != 0 && opcao != 9);
 
     } else {
         printf("No companies to modify.\n");
     }
 }
 
-void deleteComment(Companies *companies) {
-    int nif, index, i;
-    Company *company;
+void deleteComment(Company *company, int index) {
 
-    if (companies->numberCompanies > 0) {
-        nif = inputNumber(OPERATING_NIF_COMPANY);
-        index = findCompanyIndexByNif(companies, nif);
-
-        if (index == -1) {
-            printf("Company not found: %d\n", nif);
-            return;
-        }
-
-        company = &(companies->company[index]);
-
-        if (company->numberComments > 0) {
-            printf("No comments! Returning...\n");
-            return;
-        }
-
-        showComments(company);
-        printf("\n");
-        index = inputNumber(COMMENT_NUMBER);
-        if (index < 0 || index >= company->numberComments) {
-            printf("Invalid comment number!\n");
-            return;
-        }
-
-        for (i = index; i < company->numberComments - 1; i++) {
-            company->comments[i] = company->comments[i + 1];
-        }
-        company->numberComments--;
-    } else {
-        printf("No companies found!");
+    for (int i = index; i < company->numberComments - 1; i++) {
+        company->comments[i] = company->comments[i + 1];
     }
+    company->numberComments--;
+
 }
 
-void hideComments(Companies *companies) {
-    int nif, index, i;
-    Company *company;
-
-    if (companies->numberCompanies > 0) {
-        nif = inputNumber(OPERATING_NIF_COMPANY);
-        index = findCompanyIndexByNif(companies, nif);
-
-        if (index == -1) {
-            printf("Company not found: %d\n", nif);
-            return;
-        }
-
-        company = &(companies->company[index]);
-
-        if (company->numberComments == 0) {
-            printf("No comments! Returning...\n");
-            return;
-        }
-
-        showComments(company);
-        printf("\n");
-        index = inputNumber(DISABLE_COMMENT);
-
-        if (index < 0 || index >= company->numberComments) {
-            printf("Invalid comment number!\n");
-            return;
-        }
-
-        for (i = 0; i < company->numberComments; i++) {
-            if (i == index) {
+void hideComments(Company *company, int index) {
+    for (int i = 0; i < company->numberComments; i++) {
+        if (i == index) {
+            if (company->comments[i].commentHide == false)
+                company->comments[i].commentHide = true;
+            else
                 company->comments[i].commentHide = false;
-            }
         }
-
-    } else {
-        printf("No companies found!");
     }
 }
 

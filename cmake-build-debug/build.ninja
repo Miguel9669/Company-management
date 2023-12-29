@@ -89,6 +89,14 @@ build CMakeFiles/Company_management.dir/Libs/Menus.c.obj: C_COMPILER__Company_ma
   TARGET_COMPILE_PDB = CMakeFiles\Company_management.dir\
   TARGET_PDB = Company_management.pdb
 
+build CMakeFiles/Company_management.dir/Libs/Company.c.obj: C_COMPILER__Company_management_unscanned_Debug C$:/Users/anton/OneDrive/Documentos/GitHub/Company-management/Libs/Company.c || cmake_object_order_depends_target_Company_management
+  DEP_FILE = CMakeFiles\Company_management.dir\Libs\Company.c.obj.d
+  FLAGS = -g -std=gnu99 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\Company_management.dir
+  OBJECT_FILE_DIR = CMakeFiles\Company_management.dir\Libs
+  TARGET_COMPILE_PDB = CMakeFiles\Company_management.dir\
+  TARGET_PDB = Company_management.pdb
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target Company_management
@@ -97,7 +105,7 @@ build CMakeFiles/Company_management.dir/Libs/Menus.c.obj: C_COMPILER__Company_ma
 #############################################
 # Link the executable Company_management.exe
 
-build Company_management.exe: C_EXECUTABLE_LINKER__Company_management_Debug CMakeFiles/Company_management.dir/main.c.obj CMakeFiles/Company_management.dir/Libs/Geral.c.obj CMakeFiles/Company_management.dir/Libs/Admin.c.obj CMakeFiles/Company_management.dir/Libs/user.c.obj CMakeFiles/Company_management.dir/Libs/Menus.c.obj
+build Company_management.exe: C_EXECUTABLE_LINKER__Company_management_Debug CMakeFiles/Company_management.dir/main.c.obj CMakeFiles/Company_management.dir/Libs/Geral.c.obj CMakeFiles/Company_management.dir/Libs/Admin.c.obj CMakeFiles/Company_management.dir/Libs/user.c.obj CMakeFiles/Company_management.dir/Libs/Menus.c.obj CMakeFiles/Company_management.dir/Libs/Company.c.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\Company_management.dir
