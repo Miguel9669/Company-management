@@ -32,6 +32,31 @@ void updateNumberFromFile(int number, char *txt) {
     fwrite(&number, sizeof(int), 1, var);
     fclose(var);
 }
+void updateStruct(char *txt, int position, void *activitiesOrCompanies, int structSize) {
+    FILE *var = fopen(txt, "rb+");
+    if (var != NULL) {
+
+        fseek(var, position, SEEK_SET);
+        fwrite(activitiesOrCompanies, structSize, 1, var);
+        fclose(var);
+    }
+}
+void inicializeStructs(int number, char *txt, void *data, int structSize) {
+    FILE *var = fopen(txt, "rb+");
+    if (var == NULL) {
+        var = fopen(txt, "wb");
+        if (var == NULL) {
+            return;
+        }
+        fclose(var);
+        var = fopen(txt, "rb+");
+    }
+
+    if (var != NULL) {
+        fread(data, structSize, number, var);
+        fclose(var);
+    }
+}
 int showComments(Company *company, bool admin) {
     int count = 1;
     for (int i = 0; i < company->numberComments; ++i) {

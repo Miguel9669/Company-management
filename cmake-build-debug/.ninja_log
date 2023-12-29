@@ -1,14 +1,13 @@
 # ninja log v5
-20	444	7255130578876358	CMakeFiles/Company_management.dir/Libs/Geral.c.obj	2af7a6d23538f7dc
-7	357	7255130577983730	CMakeFiles/Company_management.dir/main.c.obj	2cf27553554da2e3
-35	403	7255130578459512	CMakeFiles/Company_management.dir/Libs/user.c.obj	1ff717b0481db567
-50	351	7255130577928401	CMakeFiles/Company_management.dir/Libs/Company.c.obj	5a68e82daff87ad4
-468	695	7255130581318008	Company_management.exe	db53977972c02aa8
-67	467	7255130579137898	CMakeFiles/Company_management.dir/Libs/Admin.c.obj	62fce60e2f3c7082
-89	431	7255130578763793	CMakeFiles/Company_management.dir/Libs/Menus.c.obj	5e42c1f94d175429
-8	253	7255132149406038	CMakeFiles/Company_management.dir/Libs/Menus.c.obj	5e42c1f94d175429
-255	490	7255132151655463	Company_management.exe	db53977972c02aa8
-5	273	7255136949339619	CMakeFiles/Company_management.dir/Libs/Geral.c.obj	2af7a6d23538f7dc
-274	516	7255136951686367	Company_management.exe	db53977972c02aa8
-7	294	7255137637589586	CMakeFiles/Company_management.dir/Libs/Geral.c.obj	2af7a6d23538f7dc
-296	531	7255137639882599	Company_management.exe	db53977972c02aa8
+5	268	7255780942768438	CMakeFiles/Company_management.dir/Libs/Geral.c.obj	2af7a6d23538f7dc
+5	206	7255786960218611	CMakeFiles/Company_management.dir/main.c.obj	2cf27553554da2e3
+6	225	7255772782170862	CMakeFiles/Company_management.dir/Libs/user.c.obj	1ff717b0481db567
+54	281	7255757390989951	CMakeFiles/Company_management.dir/Libs/Company.c.obj	5a68e82daff87ad4
+265	492	7255786963000899	Company_management.exe	db53977972c02aa8
+19	264	7255786960800604	CMakeFiles/Company_management.dir/Libs/Admin.c.obj	62fce60e2f3c7082
+85	355	7255757391747910	CMakeFiles/Company_management.dir/Libs/Menus.c.obj	5e42c1f94d175429
+21	249	7255798954088171	CMakeFiles/Company_management.dir/Libs/Menus.c.obj	5e42c1f94d175429
+6	275	7255798954362411	CMakeFiles/Company_management.dir/Libs/Admin.c.obj	62fce60e2f3c7082
+276	543	7255798956962953	Company_management.exe	db53977972c02aa8
+6	223	7255799126567004	CMakeFiles/Company_management.dir/main.c.obj	2cf27553554da2e3
+226	485	7255799129098131	Company_management.exe	db53977972c02aa8

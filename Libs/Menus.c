@@ -197,6 +197,7 @@ void menuActionAdminActivity(Activities *activities, int index, Companies *compa
             }
             break;
         case -2:
+            updateStruct(FILE_WITH_ACTIVITIES, sizeof(Activity) * index, &activities->activities[index], sizeof(Activity));
             break;
     }
 }

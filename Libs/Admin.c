@@ -33,8 +33,8 @@ void createCompany(Companies *companies, Activities *activities) {
     getString(company->nameCompany, MSG_GET_NAME, MAX_NAME_COMPANY);
 
     if (isCompanyExists(companies, company->nameCompany, 0, numberCompanies)) {
-        puts("There is a company with that name!!");
         do {
+            puts("There is a company with that name!!");
             getString(company->nameCompany, MSG_GET_NAME, MAX_NAME_COMPANY);
         } while (isCompanyExists(companies, company->nameCompany, 0, numberCompanies));
     }
@@ -68,6 +68,7 @@ void createCompany(Companies *companies, Activities *activities) {
     iniciateCommentsAndRates(company);
     company->active = true;
     updateNumberFromFile(companies->numberCompanies, FILE_NUMBER_COMPANIES_NAME);
+    updateStruct(FILE_WITH_COMPANIES, sizeof(Company) * (companies->numberCompanies - 1), &companies->company[numberCompanies], sizeof(Company));
 }
 
 void iniciateCommentsAndRates(Company *company) {
@@ -95,6 +96,7 @@ void deleteCompany(Companies *companies, int index) {
 
     for (int i = index; i < companies->numberCompanies; ++i) {
         companies->company[i] = companies->company[i + 1];
+        updateStruct(FILE_WITH_COMPANIES, sizeof(Company) * i, &companies->company[i], sizeof(Company));
     }
     Company *company = &companies->company[index];
     company->nif = 0;
@@ -129,6 +131,7 @@ void creatActivity(Activities *activities){
     activities->activities[activities->numberActivities].Active = true;
     activities->numberActivities++;
     updateNumberFromFile(activities->numberActivities, FILE_NUMBER_ACTIVITIES_NAME);
+    updateStruct(FILE_WITH_ACTIVITIES, sizeof(Activity) * (activities->numberActivities - 1), &activities->activities[activities->numberActivities - 1], sizeof(Activity));
 }
 
 void inactiveActivity(Activity *activity, Companies *companies) {
@@ -136,6 +139,7 @@ void inactiveActivity(Activity *activity, Companies *companies) {
     for (int i = 0; i < companies->numberCompanies; i++) {
         if (strcmp(companies->company[i].activity, activity->activity) == 0) {
             companies->company[i].active = false;
+            updateStruct(FILE_WITH_COMPANIES, sizeof(Company) * i, &companies->company[i], sizeof(Company));
         }
     }
 }
@@ -145,6 +149,7 @@ void activeActivity(Activity *activity, Companies *companies) {
     for (int i = 0; i < companies->numberCompanies; i++) {
         if (strcmp(companies->company[i].activity, activity->activity) == 0) {
             companies->company[i].active = true;
+            updateStruct(FILE_WITH_COMPANIES, sizeof(Company) * i, &companies->company[i], sizeof(Company));
         }
     }
 }
@@ -169,10 +174,11 @@ void deleteActivity(Activities *activities, int index) {
     }
     activities->numberActivities--;
     updateNumberFromFile(activities->numberActivities, FILE_NUMBER_ACTIVITIES_NAME);
+
 }
 
 void modifyCompany(Companies *companies, Activities *activities) {
-    int nif, index, opcao, optionActivity;;
+    int nif, index, opcao;
 
     if (companies->numberCompanies > 0) {
         nif = inputNumber(OPERATING_NIF_COMPANY);
@@ -187,7 +193,7 @@ void modifyCompany(Companies *companies, Activities *activities) {
         do {
             opcao = menuModify(companies, index, activities);
         } while (opcao != 0 && opcao != 9);
-
+        updateStruct(FILE_WITH_COMPANIES, sizeof(Company) * index, &companies->company[index], sizeof(Company));
     } else {
         printf("No companies to modify.\n");
     }

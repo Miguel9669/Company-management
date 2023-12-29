@@ -24,4 +24,6 @@ int showCompaniesInActivity(Activities *activities, Companies *companies, int in
 int verifyPostalCode(char *postalCode);
 int getNumberFromFile(char *txt);
 void updateNumberFromFile(int number, char *txt);
+void updateStruct(char *txt, int position, void *activitiesOrCompanies, int structSize);
+void inicializeStructs(int number, char *txt, void *data, int structSize);
 #endif //COMPANY_MANAGEMENT_GERAL_H

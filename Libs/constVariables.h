@@ -35,6 +35,8 @@
 #define GET_USER_NAME "Your name: "
 #define FILE_NUMBER_COMPANIES_NAME "numberCompanies.bin"
 #define FILE_NUMBER_ACTIVITIES_NAME "numberActivities.bin"
+#define FILE_WITH_COMPANIES "companiesList.bin"
+#define FILE_WITH_ACTIVITIES "activitiesList.bin"
 
 
 

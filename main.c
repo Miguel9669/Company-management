@@ -12,14 +12,15 @@
 int main() {
     int numberCompanies = getNumberFromFile(FILE_NUMBER_COMPANIES_NAME);
     int numberActivities = getNumberFromFile(FILE_NUMBER_ACTIVITIES_NAME);
-    printf("--%d", numberCompanies);
     Companies companies = {.numberCompanies = numberCompanies,
-                           .maxCompanies = numberCompanies == 0 ? 10 : numberCompanies * 2,
+                           .maxCompanies = numberCompanies > 10 ? numberCompanies * 2 : 10,
                            .company = (Company *) malloc(companies.maxCompanies * sizeof(Company))};
     Activities activities = {
             .numberActivities = numberActivities,
             .maxActivities = numberActivities == 0 ? 5 : numberActivities * 2,
             .activities = (Activity *) malloc(activities.maxActivities * sizeof(Activity))};
+    inicializeStructs(numberCompanies, FILE_WITH_COMPANIES, companies.company, sizeof(Company));
+    inicializeStructs(numberActivities, FILE_WITH_ACTIVITIES, activities.activities, sizeof(Activity));
     User user;
     bool quit;
 
