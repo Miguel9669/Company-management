@@ -33,7 +33,7 @@ void handleUser(User *user, bool *quit, Companies *companies, Activities *activi
     do {
         getString( user->email, GET_USER_EMAIL, MAX_EMAIL);
         if (!isValidEmail(user->email)) {
-            printf("INVALID_EMAIL");
+            puts(INVALID_EMAIL);
         }
     } while (!isValidEmail(user->email));
 
