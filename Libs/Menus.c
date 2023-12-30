@@ -18,6 +18,7 @@ int menushowActivity(Activities *activities, bool admin, char *txt) {
 }
 
 void menuStart(User *user, bool *quit, Companies *companies, Activities *activities) {
+    Type userType;
     int option = GetOption(MENU_START, 0, 3, false, true, "START");
     switch (option) {
         case 0:
@@ -28,11 +29,11 @@ void menuStart(User *user, bool *quit, Companies *companies, Activities *activit
             handleUser(user, quit, companies, activities);
             break;
         case 2:
-            companies->company->type = ADMIN;
+            userType = ADMIN;
             handleAdmin(companies, activities);
             break;
         case 3:
-            companies->company->type = COMPANY;
+            userType = COMPANY;
             handleCompany(companies, activities);
             break;
     }
@@ -68,15 +69,14 @@ void menuAdmin(bool *quit, Companies *companies, Activities *activities) {
             createCompany(companies, activities);
             break;
         case 2:
-            modifyCompany(companies, activities);
+            modifyCompany(companies, activities, ADMIN);
             break;
-        case 3:
             handleAdminActivity(activities, companies);
             break;
 
     }
 }
-void menuComments(Company *company) {
+void menuComments(Company *company, Type userType) {
     int optionComments;
     if (company->numberComments > 0) {
         do {
@@ -87,8 +87,7 @@ void menuComments(Company *company) {
         return;
     }
 
-
-    if (company->type == ADMIN) {
+    if (userType == ADMIN) {
         int option = GetOption(MENU_COMMENTS,0,2,true,false,"");
         switch (option) {
             case 0:
@@ -102,28 +101,20 @@ void menuComments(Company *company) {
                 break;
         }
     }
-
-    if (company->type == COMPANY) {
+    if (userType == COMPANY) {
         hideComments(company, optionComments - 1);
     }
 }
 
 void menuCompanies(bool *quit, Companies *companies, Activities *activities) {
-    int option = GetOption(MENU_COMPANY, 0, 4, true, false, COMPANY_MENU);
+    int option = GetOption(MENU_COMPANY, 0, 1, true, false, COMPANY_MENU);
     switch (option) {
         case 0:
             puts("BYE");
             *quit = true;
             break;
         case 1:
-            modifyCompany(companies, activities);
-            break;
-        case 2:
-            showCommentsCompany(companies);
-            break;
-        case 3:
-            break;
-        case 4:
+            modifyCompany(companies, activities, COMPANY);
             break;
     }
 }
@@ -209,7 +200,7 @@ void menuActionAdminActivity(Activities *activities, int index, Companies *compa
     }
 }
 
-int menuModify(Companies *companies, int index, Activities *activities) {
+int menuModify(Companies *companies, int index, Activities *activities, Type userType) {
     char newName[MAX_NAME_COMPANY];
     int optionActivity;
     int numberCompanies = companies->numberCompanies;
@@ -262,7 +253,7 @@ int menuModify(Companies *companies, int index, Activities *activities) {
             updateStructCompany(FILE_WITH_COMPANIES, sizeof(Company) * index, &companies->company[index], sizeof(Company));
             break;
         case 8:
-            menuComments(company);
+            menuComments(company, userType);
             break;
         case 9:
             deleteCompany(companies, index);

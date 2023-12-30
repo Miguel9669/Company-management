@@ -11,7 +11,7 @@
 #include "structs.h"
 void createCompany(Companies *companies, Activities *activities);
 void deleteCompany(Companies *companies, int index);
-void modifyCompany(Companies *companies, Activities *activities);
+void modifyCompany(Companies *companies, Activities *activities, Type userType);
 void handleAdmin(Companies *companies, Activities *activities);
 void iniciateCommentsAndRates(Company *company);
 void creatActivity(Activities *activities);

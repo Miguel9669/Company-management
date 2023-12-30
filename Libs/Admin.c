@@ -17,6 +17,7 @@ void handleAdmin(Companies *companies, Activities *activities){
 }
 
 void createCompany(Companies *companies, Activities *activities) {
+    char newName[MAX_NAME];
     int numberCompanies = companies->numberCompanies;
     Company *company = &(companies->company[numberCompanies]);
     companies->numberCompanies++;
@@ -30,14 +31,14 @@ void createCompany(Companies *companies, Activities *activities) {
             puts("Error: REALLOC FAIL.");
         }
     }
-    getString(company->nameCompany, MSG_GET_NAME, MAX_NAME_COMPANY);
-
-    if (isCompanyExists(companies, company->nameCompany, 0, numberCompanies)) {
+    getString(newName, MSG_GET_NAME, MAX_NAME_COMPANY);
+    if (isCompanyExists(companies, newName, 0, numberCompanies)) {
         do {
             puts("There is a company with that name!!");
-            getString(company->nameCompany, MSG_GET_NAME, MAX_NAME_COMPANY);
-        } while (isCompanyExists(companies, company->nameCompany, 0, numberCompanies));
+            getString(newName, MSG_GET_NAME, MAX_NAME_COMPANY);
+        } while (isCompanyExists(companies, newName, 0, numberCompanies));
     }
+    strcpy(company->nameCompany, newName);
 
     do {
         company->nif = inputNumber(MSG_GET_NIF);
@@ -180,7 +181,7 @@ void deleteActivity(Activities *activities, int index) {
     updateNumberFromFile(activities->numberActivities, FILE_NUMBER_ACTIVITIES_NAME);
 }
 
-void modifyCompany(Companies *companies, Activities *activities) {
+void modifyCompany(Companies *companies, Activities *activities, Type userType) {
     int nif, index, opcao;
 
     if (companies->numberCompanies > 0) {
@@ -194,7 +195,7 @@ void modifyCompany(Companies *companies, Activities *activities) {
         }
 
         do {
-            opcao = menuModify(companies, index, activities);
+            opcao = menuModify(companies, index, activities, userType);
         } while (opcao != 0 && opcao != 9);
     } else {
         printf("No companies to modify.\n");
@@ -213,11 +214,14 @@ void deleteComment(Company *company, int index) {
 void hideComments(Company *company, int index) {
     for (int i = 0; i < company->numberComments; i++) {
         if (i == index) {
-            if (company->comments[i].commentHide == false)
+            if (company->comments[i].commentHide == false) {
                 company->comments[i].commentHide = true;
-            else
+                updateStructCompany(FILE_WITH_COMPANIES, sizeof(Company) * index, company, sizeof(Company));
+            }
+            else{
                 company->comments[i].commentHide = false;
-            updateStructCompany(FILE_WITH_COMPANIES, sizeof(Company) * index, company, sizeof(Company));
+                updateStructCompany(FILE_WITH_COMPANIES, sizeof(Company) * index, company, sizeof(Company));
+            }
         }
     }
 }
