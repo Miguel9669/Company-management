@@ -13,7 +13,7 @@ int menushowActivity(Activities *activities, bool admin, char *txt) {
         showActivity(activities, admin);
         printf("%s", txt);
         option = inputNumber("");
-    } while (!verifyNumber(&option, 0, activities->numberActivities));
+    } while (!verifyNumber(&option, -1, activities->numberActivities));
     return option;
 }
 
@@ -128,14 +128,14 @@ void menuCompanies(bool *quit, Companies *companies, Activities *activities) {
     }
 }
 
-void menuCompany(User *user, Company *foundCompany, bool *back){
+void menuCompany(User *user, Company *foundCompany, bool *back, int index){
     int option = GetOption(MENU_INSIDE_COMPANY,0, 3, true, false, "");
     switch (option) {
         case 1:
-            comment(user, foundCompany);
+            comment(user, foundCompany, index);
             break;
         case 2:
-            rating(user, foundCompany);
+            rating(user, foundCompany, index);
             break;
         case 3:
             showComments(foundCompany, false);
@@ -192,9 +192,9 @@ void menuActionAdminActivity(Activities *activities, int index, Companies *compa
     switch (option) {
         case 0:
             if (activity->Active == false) {
-                activeActivity(activity, companies);
+                activeActivity(activity, companies, index);
             } else {
-                inactiveActivity(activity, companies);
+                inactiveActivity(activity, companies, index);
             }
             break;
         case -1:
@@ -205,7 +205,6 @@ void menuActionAdminActivity(Activities *activities, int index, Companies *compa
             }
             break;
         case -2:
-            updateStruct(FILE_WITH_ACTIVITIES, sizeof(Activity) * index, &activities->activities[index], sizeof(Activity));
             break;
     }
 }
@@ -227,6 +226,7 @@ int menuModify(Companies *companies, int index, Activities *activities) {
                 } while (isCompanyExists(companies, newName, 0, numberCompanies));
             }
             strcpy(company->nameCompany, newName);
+            updateStructCompany(FILE_WITH_COMPANIES, sizeof(Company) * index, &companies->company[index], sizeof(Company));
             break;
         case 2:
             do {
@@ -234,12 +234,15 @@ int menuModify(Companies *companies, int index, Activities *activities) {
             } while (optionActivity == 0);
 
             strcpy(company->activity, activities->activities[optionActivity - 1].activity);
+            updateStructCompany(FILE_WITH_COMPANIES, sizeof(Company) * index, &companies->company[index], sizeof(Company));
             break;
         case 3:
             getString(company->local.adress, "New address: ", MAX_ADRESS);
+            updateStructCompany(FILE_WITH_COMPANIES, sizeof(Company) * index, &companies->company[index], sizeof(Company));
             break;
         case 4:
             getString(company->local.city, "New city: ", MAX_CITY);
+            updateStructCompany(FILE_WITH_COMPANIES, sizeof(Company) * index, &companies->company[index], sizeof(Company));
             break;
         case 5:
             do {
@@ -248,12 +251,15 @@ int menuModify(Companies *companies, int index, Activities *activities) {
                     puts("Postal Code invalid!");
                 }
             } while (!verifyPostalCode(company->local.codigoPostal));
+            updateStructCompany(FILE_WITH_COMPANIES, sizeof(Company) * index, &companies->company[index], sizeof(Company));
             break;
         case 6:
             company->category = GetOption(MENU_SEARCH_BY_CATEGORY, 1, 3, true, false, "");
+            updateStructCompany(FILE_WITH_COMPANIES, sizeof(Company) * index, &companies->company[index], sizeof(Company));
             break;
         case 7:
             company->active = companies->company[index].active == true ? false : true;
+            updateStructCompany(FILE_WITH_COMPANIES, sizeof(Company) * index, &companies->company[index], sizeof(Company));
             break;
         case 8:
             menuComments(company);
@@ -262,7 +268,6 @@ int menuModify(Companies *companies, int index, Activities *activities) {
             deleteCompany(companies, index);
             break;
         case 0:
-            updateStruct(FILE_WITH_COMPANIES, sizeof(Company) * index, &companies->company[index], sizeof(Company));
             printf("Leaving!.\n");
             break;
         default:

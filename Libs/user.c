@@ -1,7 +1,6 @@
 #include "user.h"
 #include "constVariables.h"
 #include "structs.h"
-#include "Admin.h"
 #include "Geral.h"
 #include <stdio.h>
 #include <string.h>
@@ -45,14 +44,15 @@ void handleUser(User *user, bool *quit, Companies *companies, Activities *activi
 }
 
 void handleUserSearchByName(Companies *companies, User *user){
-    Company *foundCompany = searchCompanyByName(companies);
+    int index;
+    Company *foundCompany = searchCompanyByName(companies, &index);
     bool back;
     if (foundCompany != NULL) {
         do{
             back = false;
             if (foundCompany->active) {
                 showCompany(foundCompany);
-                menuCompany(user, foundCompany, &back);
+                menuCompany(user, foundCompany, &back, index);
             } else {
                 puts(SEARCH_NOT_FOUND);
                 break;
@@ -67,10 +67,11 @@ void handleUserSearchByCategory(Companies *companies, User *user){
 }
 
 void handleUserSearchByActivity(Companies *companies, Activities *activities, User *user) {
+    int index;
     int optionActivity = menuShowActivity(activities, false, "0 leave");
     int numberCompaniesInActivity = showCompaniesInActivity(activities, companies, optionActivity - 1);
     if (numberCompaniesInActivity > 0) {
-        Company *foundCompany = searchCompanyByName(companies);
+        Company *foundCompany = searchCompanyByName(companies, &index);
         if (foundCompany == NULL || strcmp(foundCompany->activity, activities->activities[optionActivity - 1].activity) != 0 ){
             puts("Error: Please search for a company that's in this category");
         } else {
@@ -78,7 +79,7 @@ void handleUserSearchByActivity(Companies *companies, Activities *activities, Us
             do{
                 back = false;
                 showCompany(foundCompany);
-                menuCompany(user, foundCompany, &back);
+                menuCompany(user, foundCompany, &back, index);
             } while (back != true);
         }
     } else {
@@ -88,9 +89,10 @@ void handleUserSearchByActivity(Companies *companies, Activities *activities, Us
 }
 void handleUserSelectByCategory(Companies *companies, User *user, int valueCategory){
     int count = numberCompaniesInCategory(companies, valueCategory);
+    int index;
     if (count > 0) {
         searchByCategory(companies, valueCategory);
-        Company *foundCompany = searchCompanyByName(companies);
+        Company *foundCompany = searchCompanyByName(companies, &index);
         if (foundCompany->category != valueCategory || foundCompany == NULL){
             puts("Error: Please search for a company that's in this category");
         } else {
@@ -99,7 +101,7 @@ void handleUserSelectByCategory(Companies *companies, User *user, int valueCateg
                 back = false;
                 if (foundCompany->active) {
                     showCompany(foundCompany);
-                    menuCompany(user, foundCompany, &back);
+                    menuCompany(user, foundCompany, &back, index);
                 } else {
                     puts(SEARCH_NOT_FOUND);
                     break;
@@ -111,7 +113,7 @@ void handleUserSelectByCategory(Companies *companies, User *user, int valueCateg
     }
 }
 
-Company *searchCompanyByName(Companies *companies){
+Company *searchCompanyByName(Companies *companies, int *index){
     char companySearchName[MAX_NAME_COMPANY];
 
     if (companies->numberCompanies <= 0) {
@@ -122,6 +124,7 @@ Company *searchCompanyByName(Companies *companies){
     getString(companySearchName, "\nWhich company do you want to search: ", MAX_NAME_COMPANY);
     for (int i = 0; i < companies -> numberCompanies; i++){
         if (strcmp(companies->company[i].nameCompany, companySearchName) == 0){
+            *index = i;
             return &(companies -> company[i]);
         }
     }
@@ -136,7 +139,7 @@ void searchByCategory(Companies *companies, int valueCategory){
     }
 }
 
-void comment(User *user, Company *company) {
+void comment(User *user, Company *company, int index) {
     Comment *companyComments = &(company->comments[company->numberComments]);
     if (company->maxComments - company->numberComments == 1) {
         Comment *pComment = (Comment *) realloc(company->comments, company->maxComments * 2 * sizeof(Comment));
@@ -153,9 +156,10 @@ void comment(User *user, Company *company) {
     getString(companyComments->title, "Title: ", TITLE);
     getString(companyComments->commentText, "Comment: ", COMMENT);
     company->numberComments++;
+    updateStructCompany(FILE_WITH_COMPANIES, sizeof(Company) * index, company, sizeof(Company));
 }
 
-void rating(User *user, Company *company) {
+void rating(User *user, Company *company, int index) {
     int userRating;
     do {
         userRating = inputNumber(USER_RATING_TXT);
@@ -172,6 +176,7 @@ void rating(User *user, Company *company) {
             }
             company->rates[company->numberRates].rate = userRating;
             company->numberRates++;
+            updateStructCompany(FILE_WITH_COMPANIES, sizeof(Company) * index, company, sizeof(Company));
         } else {
             printf("Invalid rating!\n");
         }

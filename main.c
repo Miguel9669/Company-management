@@ -19,8 +19,8 @@ int main() {
             .numberActivities = numberActivities,
             .maxActivities = numberActivities == 0 ? 5 : numberActivities * 2,
             .activities = (Activity *) malloc(activities.maxActivities * sizeof(Activity))};
-    inicializeStructs(numberCompanies, FILE_WITH_COMPANIES, companies.company, sizeof(Company));
-    inicializeStructs(numberActivities, FILE_WITH_ACTIVITIES, activities.activities, sizeof(Activity));
+    inicializeStructCompany(numberCompanies, FILE_WITH_COMPANIES, companies.company, sizeof(Company));
+    inicializeStructActivity(numberActivities, FILE_WITH_ACTIVITIES, activities.activities, sizeof(Activity));
     User user;
     bool quit;
 
@@ -28,6 +28,10 @@ int main() {
         quit = false;
         menuStart(&user, &quit, &companies, &activities);
     } while (quit != true);
+    for (int i = 0; i < companies.numberCompanies; ++i) {
+        free(companies.company[i].comments);
+        free(companies.company[i].rates);
+    }
     free(activities.activities);
     free(companies.company);
     return 0;

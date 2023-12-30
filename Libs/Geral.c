@@ -32,16 +32,24 @@ void updateNumberFromFile(int number, char *txt) {
     fwrite(&number, sizeof(int), 1, var);
     fclose(var);
 }
-void updateStruct(char *txt, int position, void *activitiesOrCompanies, int structSize) {
+void updateStructCompany(char *txt, long position, Company *company, int structSize) {
     FILE *var = fopen(txt, "rb+");
     if (var != NULL) {
-
         fseek(var, position, SEEK_SET);
-        fwrite(activitiesOrCompanies, structSize, 1, var);
-        fclose(var);
+        fwrite(company, structSize, 1, var);
+        fwrite(company->comments, sizeof(Comment), company->numberComments, var);
+        fwrite(company->rates, sizeof(Rate), company->numberRates, var);
     }
 }
-void inicializeStructs(int number, char *txt, void *data, int structSize) {
+void updateStructActivities(char *txt, long position, Activity *activity, int structSize) {
+    FILE *var = fopen(txt, "rb+");
+    if (var != NULL) {
+        fseek(var, position, SEEK_SET);
+        fwrite(activity, structSize, 1, var);
+    }
+
+}
+void inicializeStructCompany(int number, char *txt, Company *company, int structSize) {
     FILE *var = fopen(txt, "rb+");
     if (var == NULL) {
         var = fopen(txt, "wb");
@@ -53,7 +61,27 @@ void inicializeStructs(int number, char *txt, void *data, int structSize) {
     }
 
     if (var != NULL) {
-        fread(data, structSize, number, var);
+        fread(company, structSize, number, var);
+        company->comments = (Comment *) malloc(sizeof(Comment) * company->maxComments);
+        company->rates = (Rate *) malloc(sizeof(Rate) * company->maxRates);
+        fread(company->comments, sizeof(Comment), company->numberComments, var);
+        fread(company->rates, sizeof(Rate), company->numberRates, var);
+        fclose(var);
+    }
+}
+void inicializeStructActivity(int number, char *txt, Activity *activity, int structSize) {
+    FILE *var = fopen(txt, "rb+");
+    if (var == NULL) {
+        var = fopen(txt, "wb");
+        if (var == NULL) {
+            return;
+        }
+        fclose(var);
+        var = fopen(txt, "rb+");
+    }
+
+    if (var != NULL) {
+        fread(activity, structSize, number, var);
         fclose(var);
     }
 }

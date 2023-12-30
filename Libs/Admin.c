@@ -68,7 +68,7 @@ void createCompany(Companies *companies, Activities *activities) {
     iniciateCommentsAndRates(company);
     company->active = true;
     updateNumberFromFile(companies->numberCompanies, FILE_NUMBER_COMPANIES_NAME);
-    updateStruct(FILE_WITH_COMPANIES, sizeof(Company) * (companies->numberCompanies - 1), &companies->company[numberCompanies], sizeof(Company));
+    updateStructCompany(FILE_WITH_COMPANIES, sizeof(Company) * (companies->numberCompanies - 1), &companies->company[numberCompanies], sizeof(Company));
 }
 
 void iniciateCommentsAndRates(Company *company) {
@@ -96,7 +96,7 @@ void deleteCompany(Companies *companies, int index) {
 
     for (int i = index; i < companies->numberCompanies; ++i) {
         companies->company[i] = companies->company[i + 1];
-        updateStruct(FILE_WITH_COMPANIES, sizeof(Company) * i, &companies->company[i], sizeof(Company));
+        updateStructCompany(FILE_WITH_COMPANIES, sizeof(Company) * i, &companies->company[i], sizeof(Company));
     }
     Company *company = &companies->company[index];
     company->nif = 0;
@@ -131,25 +131,27 @@ void creatActivity(Activities *activities){
     activities->activities[activities->numberActivities].Active = true;
     activities->numberActivities++;
     updateNumberFromFile(activities->numberActivities, FILE_NUMBER_ACTIVITIES_NAME);
-    updateStruct(FILE_WITH_ACTIVITIES, sizeof(Activity) * (activities->numberActivities - 1), &activities->activities[activities->numberActivities - 1], sizeof(Activity));
+    updateStructActivities(FILE_WITH_ACTIVITIES, sizeof(Activity) * (activities->numberActivities - 1), &activities->activities[activities->numberActivities - 1], sizeof(Activity));
 }
 
-void inactiveActivity(Activity *activity, Companies *companies) {
+void inactiveActivity(Activity *activity, Companies *companies, int index) {
     activity->Active = false;
+    updateStructActivities(FILE_WITH_ACTIVITIES, sizeof(Activity) * index, activity, sizeof(Activity));
     for (int i = 0; i < companies->numberCompanies; i++) {
         if (strcmp(companies->company[i].activity, activity->activity) == 0) {
             companies->company[i].active = false;
-            updateStruct(FILE_WITH_COMPANIES, sizeof(Company) * i, &companies->company[i], sizeof(Company));
+            updateStructCompany(FILE_WITH_COMPANIES, sizeof(Company) * i, &companies->company[i], sizeof(Company));
         }
     }
 }
 
-void activeActivity(Activity *activity, Companies *companies) {
+void activeActivity(Activity *activity, Companies *companies, int index) {
     activity->Active = true;
+    updateStructActivities(FILE_WITH_ACTIVITIES, sizeof(Activity) * index, activity, sizeof(Activity));
     for (int i = 0; i < companies->numberCompanies; i++) {
         if (strcmp(companies->company[i].activity, activity->activity) == 0) {
             companies->company[i].active = true;
-            updateStruct(FILE_WITH_COMPANIES, sizeof(Company) * i, &companies->company[i], sizeof(Company));
+            updateStructCompany(FILE_WITH_COMPANIES, sizeof(Company) * i, &companies->company[i], sizeof(Company));
         }
     }
 }
@@ -162,6 +164,7 @@ void handleAdminActivity(Activities *activities, Companies *companies) {
         optionActivity = menuShowActivity(activities, true, "0 Create Activity\n-1 Sair");
         if (optionActivity != -1 && optionActivity != 0)
             menuActionAdminActivity(activities, optionActivity - 1, companies);
+
         if (optionActivity == 0) {
             creatActivity(activities);
         }
@@ -171,10 +174,10 @@ void handleAdminActivity(Activities *activities, Companies *companies) {
 void deleteActivity(Activities *activities, int index) {
     for (int i = index; i < activities->numberActivities - 1; i++) {
         activities->activities[i] = activities->activities[i + 1];
+        updateStructActivities(FILE_WITH_ACTIVITIES, sizeof(Activity) * index, &activities->activities[index], sizeof(Activity));
     }
     activities->numberActivities--;
     updateNumberFromFile(activities->numberActivities, FILE_NUMBER_ACTIVITIES_NAME);
-
 }
 
 void modifyCompany(Companies *companies, Activities *activities) {
@@ -193,18 +196,18 @@ void modifyCompany(Companies *companies, Activities *activities) {
         do {
             opcao = menuModify(companies, index, activities);
         } while (opcao != 0 && opcao != 9);
-        updateStruct(FILE_WITH_COMPANIES, sizeof(Company) * index, &companies->company[index], sizeof(Company));
     } else {
         printf("No companies to modify.\n");
     }
 }
 
 void deleteComment(Company *company, int index) {
-
     for (int i = index; i < company->numberComments - 1; i++) {
         company->comments[i] = company->comments[i + 1];
+        updateStructCompany(FILE_WITH_COMPANIES, sizeof(Company) * index, company, sizeof(Company));
     }
     company->numberComments--;
+    updateStructCompany(FILE_WITH_COMPANIES, sizeof(Company) * index, company, sizeof(Company));
 }
 
 void hideComments(Company *company, int index) {
@@ -214,6 +217,7 @@ void hideComments(Company *company, int index) {
                 company->comments[i].commentHide = true;
             else
                 company->comments[i].commentHide = false;
+            updateStructCompany(FILE_WITH_COMPANIES, sizeof(Company) * index, company, sizeof(Company));
         }
     }
 }

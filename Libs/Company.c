@@ -17,7 +17,7 @@ void handleCompany(Companies *companies, Activities *activities){
 }
 
 void showCommentsCompany(Companies *companies) {
-    Company *foundCompany = searchCompanyByName(companies);
+    Company *foundCompany = searchCompanyByName(companies, NULL);
     if (foundCompany == NULL) {
         printf("No company with that name!");
         return;
