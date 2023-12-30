@@ -28,9 +28,11 @@ void menuStart(User *user, bool *quit, Companies *companies, Activities *activit
             handleUser(user, quit, companies, activities);
             break;
         case 2:
+            companies->company->type = ADMIN;
             handleAdmin(companies, activities);
             break;
         case 3:
+            companies->company->type = COMPANY;
             handleCompany(companies, activities);
             break;
     }
@@ -85,17 +87,24 @@ void menuComments(Company *company) {
         return;
     }
 
-    int option = GetOption(MENU_COMMENTS,0,2,false,false,"");
-    switch (option) {
-        case 0:
-            puts("BYE");
-            break;
-        case 1:
-            deleteComment(company, optionComments - 1);
-            break;
-        case 2:
-            hideComments(company, optionComments - 1);
-            break;
+
+    if (company->type == ADMIN) {
+        int option = GetOption(MENU_COMMENTS,0,2,true,false,"");
+        switch (option) {
+            case 0:
+                puts("BYE");
+                break;
+            case 1:
+                deleteComment(company, optionComments - 1);
+                break;
+            case 2:
+                hideComments(company, optionComments - 1);
+                break;
+        }
+    }
+
+    if (company->type == COMPANY) {
+        hideComments(company, optionComments - 1);
     }
 }
 
@@ -113,7 +122,6 @@ void menuCompanies(bool *quit, Companies *companies, Activities *activities) {
             showCommentsCompany(companies);
             break;
         case 3:
-            //hideComments(&companies->company[0], 1);
             break;
         case 4:
             break;

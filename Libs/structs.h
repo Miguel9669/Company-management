@@ -49,6 +49,7 @@ typedef struct{
     Local local;
     char activity[ACTIVITY];
     Category category;
+    Type type;
 }Company;
 
 typedef struct{
