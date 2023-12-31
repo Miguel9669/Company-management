@@ -37,8 +37,6 @@ void updateStructCompany(char *txt, long position, Company *company, int structS
     if (var != NULL) {
         fseek(var, position, SEEK_SET);
         fwrite(company, structSize, 1, var);
-        fwrite(company->comments, sizeof(Comment), company->numberComments, var);
-        fwrite(company->rates, sizeof(Rate), company->numberRates, var);
     }
 }
 void updateStructActivities(char *txt, long position, Activity *activity, int structSize) {
@@ -87,14 +85,20 @@ void inicializeStructActivity(int number, char *txt, Activity *activity, int str
 }
 int showComments(Company *company, bool admin) {
     int count = 1;
+    header("COMMENTS");
     for (int i = 0; i < company->numberComments; ++i) {
+<<<<<<< Updated upstream
         if ((company->comments[i].commentHide == false && !admin)) {
             printf("\nComment Number: %d, Title: %s\n",
+=======
+        if ((!company->comments[i].commentHide && !admin)) {
+            printf("Comment Number: %d, Title: %s\n",
+>>>>>>> Stashed changes
                    count,
                    company->comments[i].title);
             count++;
         } else if(admin) {
-            printf("\nComment Number: %d, Title: %s, Hide: %s\n",
+            printf("Comment Number: %d, Title: %s, Hide: %s\n",
                    count,
                    company->comments[i].title,
                    company->comments[i].commentHide == false ? "False" : "True");
