@@ -255,8 +255,15 @@ int menuModify(Companies *companies, int index, Activities *activities, Type use
             updateStructCompany(FILE_WITH_COMPANIES, sizeof(Company) * index, &companies->company[index], sizeof(Company));
             break;
         case 7:
-            company->active = companies->company[index].active == true ? false : true;
-            updateStructCompany(FILE_WITH_COMPANIES, sizeof(Company) * index, &companies->company[index], sizeof(Company));
+            for (int i = 0; i < activities->numberActivities; i++) {
+                if (strcmp(companies->company[index].activity, activities->activities[i].activity) == 0) {
+                    if (activities->activities[i].Active == true) {
+                        company->active = companies->company[index].active == true ? false : true;
+                        updateStructCompany(FILE_WITH_COMPANIES, sizeof(Company) * index, &companies->company[index], sizeof(Company));
+                    } else
+                        puts("THE ACTIVITY IS INACTIVE!!");
+                }
+            }
             break;
         case 8:
             menuComments(company, userType, companies);
