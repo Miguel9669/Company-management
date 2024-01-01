@@ -71,12 +71,13 @@ void menuAdmin(bool *quit, Companies *companies, Activities *activities) {
         case 2:
             modifyCompany(companies, activities, ADMIN);
             break;
+        case 3:
             handleAdminActivity(activities, companies);
             break;
 
     }
 }
-void menuComments(Company *company, Type userType) {
+void menuComments(Company *company, Type userType, Companies *companies) {
     int optionComments;
     if (company->numberComments > 0) {
         do {
@@ -95,14 +96,17 @@ void menuComments(Company *company, Type userType) {
                 break;
             case 1:
                 deleteComment(company, optionComments - 1);
+                updateComments(companies);
                 break;
             case 2:
                 hideComments(company, optionComments - 1);
+                updateComments(companies);
                 break;
         }
     }
     if (userType == COMPANY) {
         hideComments(company, optionComments - 1);
+        updateComments(companies);
     }
 }
 
@@ -119,14 +123,16 @@ void menuCompanies(bool *quit, Companies *companies, Activities *activities) {
     }
 }
 
-void menuCompany(User *user, Company *foundCompany, bool *back, int index){
+void menuCompany(User *user, Company *foundCompany, bool *back, int index, Companies *companies){
     int option = GetOption(MENU_INSIDE_COMPANY,0, 3, true, false, "");
     switch (option) {
         case 1:
             comment(user, foundCompany, index);
+            updateComments(companies);
             break;
         case 2:
             rating(user, foundCompany, index);
+            updateRates(companies);
             break;
         case 3:
             showComments(foundCompany, false);
@@ -222,7 +228,7 @@ int menuModify(Companies *companies, int index, Activities *activities, Type use
         case 2:
             do {
                 optionActivity = menuShowActivity(activities, true, "0 Leave");
-            } while (optionActivity == 0);
+            } while (optionActivity < 0);
 
             strcpy(company->activity, activities->activities[optionActivity - 1].activity);
             updateStructCompany(FILE_WITH_COMPANIES, sizeof(Company) * index, &companies->company[index], sizeof(Company));
@@ -253,7 +259,7 @@ int menuModify(Companies *companies, int index, Activities *activities, Type use
             updateStructCompany(FILE_WITH_COMPANIES, sizeof(Company) * index, &companies->company[index], sizeof(Company));
             break;
         case 8:
-            menuComments(company, userType);
+            menuComments(company, userType, companies);
             break;
         case 9:
             deleteCompany(companies, index);

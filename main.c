@@ -20,10 +20,11 @@ int main() {
             .maxActivities = numberActivities == 0 ? 5 : numberActivities * 2,
             .activities = (Activity *) malloc(activities.maxActivities * sizeof(Activity))};
     inicializeStructCompany(numberCompanies, FILE_WITH_COMPANIES, companies.company, sizeof(Company));
+    inicializeComments(&companies);
+    inicializeRates(&companies);
     inicializeStructActivity(numberActivities, FILE_WITH_ACTIVITIES, activities.activities, sizeof(Activity));
     User user;
     bool quit;
-
     do {
         quit = false;
         menuStart(&user, &quit, &companies, &activities);

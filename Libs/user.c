@@ -52,7 +52,7 @@ void handleUserSearchByName(Companies *companies, User *user){
             back = false;
             if (foundCompany->active) {
                 showCompany(foundCompany);
-                menuCompany(user, foundCompany, &back, index);
+                menuCompany(user, foundCompany, &back, index, companies);
             } else {
                 puts(SEARCH_NOT_FOUND);
                 break;
@@ -79,7 +79,7 @@ void handleUserSearchByActivity(Companies *companies, Activities *activities, Us
             do{
                 back = false;
                 showCompany(foundCompany);
-                menuCompany(user, foundCompany, &back, index);
+                menuCompany(user, foundCompany, &back, index, companies);
             } while (back != true);
         }
     } else {
@@ -101,7 +101,7 @@ void handleUserSelectByCategory(Companies *companies, User *user, int valueCateg
                 back = false;
                 if (foundCompany->active) {
                     showCompany(foundCompany);
-                    menuCompany(user, foundCompany, &back, index);
+                    menuCompany(user, foundCompany, &back, index, companies);
                 } else {
                     puts(SEARCH_NOT_FOUND);
                     break;
@@ -165,7 +165,7 @@ void rating(User *user, Company *company, int index) {
         userRating = inputNumber(USER_RATING_TXT);
         if (userRating >= 1 && userRating <= 5) {
             if (company->maxRates - company->numberRates == 1) {
-                Rate *pRate = (Rate *) realloc(company->rates, company->maxRates * 2 * sizeof(Rate));
+                Rate *pRate = (Rate *)realloc(company->rates, company->maxRates * 2 * sizeof(Rate));
                 if (pRate != NULL) {
                     company->rates = pRate;
                     company->maxRates *= 2;

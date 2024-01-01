@@ -39,6 +39,52 @@ void updateStructCompany(char *txt, long position, Company *company, int structS
         fwrite(company, structSize, 1, var);
     }
 }
+void updateComments(Companies *companies) {
+    FILE *comments = fopen(FILE_FOR_COMMENTS, "wb");
+    for (int i = 0; i < companies->numberCompanies; ++i) {
+        fwrite(companies->company[i].comments, sizeof(Comment), companies->company[i].numberComments, comments);
+    }
+    fclose(comments);
+}
+void inicializeComments(Companies *companies) {
+    FILE *comments = fopen(FILE_FOR_COMMENTS, "rb");
+    if (comments == NULL) {
+        comments = fopen(FILE_FOR_COMMENTS, "wb");
+        fclose(comments);
+        comments = fopen(FILE_FOR_COMMENTS, "rb");
+    }
+    int numberComments = 0;
+    for (int i = 0; i < companies->numberCompanies; ++i) {
+        companies->company[i].comments = (Comment *) malloc(sizeof(Comment) * companies->company[i].maxComments);
+        fseek(comments, sizeof(Comment) * numberComments, SEEK_SET);
+        fread(companies->company[i].comments, sizeof(Comment), companies->company[i].numberComments, comments);
+        numberComments += companies->company[i].numberComments;
+    }
+    fclose(comments);
+}
+void updateRates(Companies *companies) {
+    FILE *rates = fopen(FILE_FOR_RATES, "wb");
+    for (int i = 0; i < companies->numberCompanies; ++i) {
+        fwrite(companies->company[i].rates, sizeof(Rate), companies->company[i].numberRates, rates);
+    }
+    fclose(rates);
+}
+void inicializeRates(Companies *companies) {
+    FILE *rates = fopen(FILE_FOR_RATES, "rb");
+    if (rates == NULL) {
+        rates = fopen(FILE_FOR_RATES, "wb");
+        fclose(rates);
+        rates = fopen(FILE_FOR_RATES, "rb");
+    }
+    int numberRates = 0;
+    for (int i = 0; i < companies->numberCompanies; ++i) {
+        companies->company[i].rates = (Rate *) malloc(sizeof(Rate) * companies->company[i].maxRates);
+        fseek(rates, sizeof(Rate) * numberRates, SEEK_SET);
+        fread(companies->company[i].rates, sizeof(Rate), companies->company[i].numberRates, rates);
+        numberRates += companies->company[i].numberRates;
+    }
+    fclose(rates);
+}
 void updateStructActivities(char *txt, long position, Activity *activity, int structSize) {
     FILE *var = fopen(txt, "rb+");
     if (var != NULL) {
@@ -141,7 +187,7 @@ void showCompany(Company *company){
     printf("Postal Code: %s\n", company->local.codigoPostal);
     printf("Category: %s\n", categoryString(*company));
     printf("Active: %s\n", boolString(company->active));
-    printf("Rating average: %.2f\n", companyAverageRating(company));
+    printf("Rating average: %.2lf\n", companyAverageRating(company));
 }
 
 int inputNumber(char *txt) {
@@ -344,6 +390,7 @@ double companyAverageRating(Company *company) {
         return 0;
     }
     for (i = 0; i < company->numberRates; i++) {
+        printf("\n%d\n", company->rates[i].rate);
         sum += company->rates[i].rate;
     }
     averageRating = sum / company->numberRates;

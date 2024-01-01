@@ -28,4 +28,8 @@ void updateStructCompany(char *txt, long position, Company *company, int structS
 void updateStructActivities(char *txt, long position, Activity *activity, int structSize);
 void inicializeStructCompany(int number, char *txt, Company *company, int structSize);
 void inicializeStructActivity(int number, char *txt, Activity *activity, int structSize);
+void inicializeComments(Companies *companies);
+void updateComments(Companies *companies);
+void updateRates(Companies *companies);
+void inicializeRates(Companies *companies);
 #endif //COMPANY_MANAGEMENT_GERAL_H

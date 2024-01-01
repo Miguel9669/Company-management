@@ -94,12 +94,11 @@ void deleteCompany(Companies *companies, int index) {
         puts("You can not delete this company! But u can set as an inactive company.");
         return;
     }
-
     for (int i = index; i < companies->numberCompanies; ++i) {
-        companies->company[i] = companies->company[i + 1];
-        updateStructCompany(FILE_WITH_COMPANIES, sizeof(Company) * i, &companies->company[i], sizeof(Company));
+        if (i != companies->numberCompanies)
+            companies->company[i] = companies->company[i + 1];
     }
-    Company *company = &companies->company[index];
+    Company *company = &companies->company[companies->numberCompanies];
     company->nif = 0;
     strcpy(company->nameCompany, "");
     strcpy(company->activity,"");
@@ -108,6 +107,8 @@ void deleteCompany(Companies *companies, int index) {
     strcpy(company->local.codigoPostal, "");
     company->active = false;
     printf("Company deleted successfully.\n");
+    updateStructCompany(FILE_WITH_COMPANIES, 0, companies->company, sizeof(Company) * companies->numberCompanies);
+    memset(&companies->company[companies->numberCompanies - 1], 0, sizeof(Company));
     companies->numberCompanies--;
     updateNumberFromFile(companies->numberCompanies, FILE_NUMBER_COMPANIES_NAME);
 }
@@ -186,9 +187,7 @@ void modifyCompany(Companies *companies, Activities *activities, Type userType) 
 
     if (companies->numberCompanies > 0) {
         nif = inputNumber(OPERATING_NIF_COMPANY);
-        int numberCompanies = companies->numberCompanies;
         index = findCompanyIndexByNif(companies, nif);
-        Company *company = &(companies->company[index]);
         if (index == -1) {
             printf("Company not found: %d\n", nif);
             return;
@@ -205,10 +204,9 @@ void modifyCompany(Companies *companies, Activities *activities, Type userType) 
 void deleteComment(Company *company, int index) {
     for (int i = index; i < company->numberComments - 1; i++) {
         company->comments[i] = company->comments[i + 1];
-        updateStructCompany(FILE_WITH_COMPANIES, sizeof(Company) * index, company, sizeof(Company));
     }
     company->numberComments--;
-    updateStructCompany(FILE_WITH_COMPANIES, sizeof(Company) * index, company, sizeof(Company));
+    updateStructCompany(FILE_WITH_COMPANIES, sizeof(Company) * (index + 1), company, sizeof(Company));
 }
 
 void hideComments(Company *company, int index) {
