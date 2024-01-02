@@ -91,7 +91,6 @@ void updateStructActivities(char *txt, long position, Activity *activity, int st
         fseek(var, position, SEEK_SET);
         fwrite(activity, structSize, 1, var);
     }
-
 }
 void inicializeStructCompany(int number, char *txt, Company *company, int structSize) {
     FILE *var = fopen(txt, "rb+");
@@ -106,10 +105,6 @@ void inicializeStructCompany(int number, char *txt, Company *company, int struct
 
     if (var != NULL) {
         fread(company, structSize, number, var);
-        company->comments = (Comment *) malloc(sizeof(Comment) * company->maxComments);
-        company->rates = (Rate *) malloc(sizeof(Rate) * company->maxRates);
-        fread(company->comments, sizeof(Comment), company->numberComments, var);
-        fread(company->rates, sizeof(Rate), company->numberRates, var);
         fclose(var);
     }
 }
@@ -154,7 +149,7 @@ int showComments(Company *company, bool admin) {
         do {
             header(company->comments[commentSelected - 1].title);
             printf("User: %s\nContent: %s\n----------------------------------------------------------------\n",
-                   company->comments[commentSelected - 1].user,
+                   company->comments[commentSelected - 1].user.name,
                    company->comments[commentSelected - 1].commentText);
             if (!admin) {
                 puts("\n0 Leave");
@@ -390,7 +385,6 @@ double companyAverageRating(Company *company) {
         return 0;
     }
     for (i = 0; i < company->numberRates; i++) {
-        printf("\n%d\n", company->rates[i].rate);
         sum += company->rates[i].rate;
     }
     averageRating = sum / company->numberRates;

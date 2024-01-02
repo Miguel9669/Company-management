@@ -262,6 +262,7 @@ int menuModify(Companies *companies, int index, Activities *activities, Type use
                         updateStructCompany(FILE_WITH_COMPANIES, sizeof(Company) * index, &companies->company[index], sizeof(Company));
                     } else
                         puts("THE ACTIVITY IS INACTIVE!!");
+                        puts("THE ACTIVITY IS INACTIVE!!");
                 }
             }
             break;
