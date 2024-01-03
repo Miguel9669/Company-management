@@ -69,7 +69,7 @@ void menuAdmin(bool *quit, Companies *companies, Activities *activities) {
             createCompany(companies, activities);
             break;
         case 2:
-            modifyCompany(companies, activities, ADMIN);
+            modifyCompany(companies, activities, ADMIN, MENU_MANAGE_COMPANY_ADMIN, 0, 9);
             break;
         case 3:
             handleAdminActivity(activities, companies);
@@ -118,7 +118,7 @@ void menuCompanies(bool *quit, Companies *companies, Activities *activities) {
             *quit = true;
             break;
         case 1:
-            modifyCompany(companies, activities, COMPANY);
+            modifyCompany(companies, activities, COMPANY, MENU_MANAGE_COMPANY_COMPANY, 0, 8);
             break;
     }
 }
@@ -205,13 +205,13 @@ void menuActionAdminActivity(Activities *activities, int index, Companies *compa
     }
 }
 
-int menuModify(Companies *companies, int index, Activities *activities, Type userType) {
+int menuModify(Companies *companies, int index, Activities *activities, Type userType, char *txt, int min, int max) {
     char newName[MAX_NAME_COMPANY];
     int optionActivity;
     int numberCompanies = companies->numberCompanies;
     Company *company = &companies->company[index];
     showCompany(company);
-    int menuModify = GetOption(MENU_MANAGE_COMPANY_ADMIN, 0, 9, false, true, MODIFY_MENU);
+    int menuModify = GetOption(txt, 0, max, false, true, MODIFY_MENU);
     switch (menuModify) {
         case 1:
             getString(newName, MSG_GET_NAME, MAX_NAME_COMPANY);

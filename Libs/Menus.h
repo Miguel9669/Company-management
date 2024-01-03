@@ -10,6 +10,6 @@ void menuSearchByCategory(Companies *companies, User *user);
 int menuBranchActivity(Activities *activities);
 void menuActionAdminActivity(Activities *activities, int index, Companies *companies);
 int menuShowActivity(Activities *activities, bool admin, char *txt);
-int menuModify(Companies *companies, int index, Activities *activities, Type userType);
+int menuModify(Companies *companies, int index, Activities *activities, Type userType, char *txt, int min, int max);
 void menuComments(Company *company, Type userType, Companies *companies);
 #endif //COMPANY_MANAGEMENT_MENUS_H
