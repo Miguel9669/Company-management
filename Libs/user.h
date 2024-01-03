@@ -12,11 +12,11 @@
 Company *searchCompanyByName(Companies *companies, int *index);
 void searchByCategory(Companies *companies, int valueCategory);
 void comment(User *user, Company *company, int index);
-void handleUser(User *user, bool *quit, Companies *companies, Activities *activities);
+void handleUser(User *user, Companies *companies, Activities *activities);
 void handleUserSearchByName(Companies *companies, User *user);
 void handleUserSearchByCategory(Companies *companies, User *user);
 void handleUserSelectByCategory(Companies *companies, User *user, int valueCategory);
-void rating(User *user, Company *company, int index);
+void rating(Company *company, int index);
 void handleUserSearchByActivity(Companies *companies, Activities *activities, User *user);
 bool isValidEmail(const char *email);
 #endif //COMPANY_MANAGEMENT_USER_H

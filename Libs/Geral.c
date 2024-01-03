@@ -1,5 +1,6 @@
 #include "Geral.h"
 #include "structs.h"
+#include "constVariables.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -120,6 +121,7 @@ int showComments(Company *company, bool admin) {
     }
     if (count == 1) {
         puts("No Comments!");
+        return 0;
     } else {
         int commentSelected = GetOption("", 0, company->numberComments, false, false, "");
         int opcao;
@@ -161,7 +163,51 @@ void showCompany(Company *company){
     printf("Active: %s\n", boolString(company->active));
     printf("Rating average: %.2lf\n", companyAverageRating(company));
 }
+void getNameForCompany(Companies *companies, int index) {
+    char newName[MAX_NAME];
+    getString(newName, MSG_GET_NAME, MAX_NAME_COMPANY);
+    if (isCompanyExists(companies, newName, 0, companies->numberCompanies)) {
+        do {
+            puts("There is a company with that name!!");
+            getString(newName, MSG_GET_NAME, MAX_NAME_COMPANY);
+        } while (isCompanyExists(companies, newName, 0, companies->numberCompanies));
+    }
+    strcpy(companies->company[index].nameCompany, newName);
+}
+void getNifForCompany(Company *company, Companies *companies, int numberCompanies) {
+    do {
+        company->nif = inputNumber(MSG_GET_NIF);
 
+        if (verifyNif(company->nif) == -1 || isCompanyExists(companies, "", company->nif, numberCompanies) == 1) {
+            puts(verifyNif(company->nif) == -1 ? ERROR_NIF : EXISTENT_NIF);
+        }
+    } while (verifyNif(company->nif) == -1 || isCompanyExists(companies, "", company->nif, numberCompanies) == 1);
+
+}
+void reallocInStruct(int number, int max, Companies *companies, Activities *activities, typeStruct structType){
+    if (max - number == -1) {
+        if (structType == COMPANIES) {
+            Company *pCompany= (Company *) realloc(companies->company, (companies->maxCompanies) * 2 * sizeof(Company));
+            if (pCompany != NULL) {
+                companies->company = pCompany;
+                companies->maxCompanies *= 2;
+            } else {
+                puts("Error: REALLOC FAIL.");
+            }
+        } else if (structType == ACTIVITIES) {
+            if (max - number == -1) {
+                Activity *pActivities = (Activity *) realloc(activities->activities,activities->maxActivities * 2 * sizeof(Activity));
+                if(pActivities == NULL){
+                    puts("Error: Realloc Activity failed!!");
+                } else {
+                    activities->activities = pActivities;
+                    activities->maxActivities *= 2;
+                }
+            }
+        }
+
+    }
+}
 int inputNumber(char *txt) {
     int variable;
     printf("%s\n", txt);
@@ -211,9 +257,9 @@ char *inputString(char *txt, int quant) {
     return var;
 }
 
-int verifyNumber(int *variable, int min, int max){
+int verifyNumber(int variable, int min, int max){
 
-    if ((*variable < min) || (*variable > max)){
+    if ((variable < min) || (variable > max)){
         return 0;
     } else {
         return 1;
@@ -292,10 +338,10 @@ int GetOption(char *txt, int min, int max, bool showOption, bool showHeader, cha
         }
         puts(txt);
         number = inputNumber("");
-        if (!verifyNumber(&number, min, max)) {
+        if (!verifyNumber(number, min, max)) {
             puts("Invalid option!");
         }
-    } while (!verifyNumber(&number, min, max));
+    } while (!verifyNumber(number, min, max));
     return number;
 }
 

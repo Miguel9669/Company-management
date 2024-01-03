@@ -13,12 +13,11 @@ int menushowActivity(Activities *activities, bool admin, char *txt) {
         showActivity(activities, admin);
         printf("%s", txt);
         option = inputNumber("");
-    } while (!verifyNumber(&option, -1, activities->numberActivities));
+    } while (!verifyNumber(option, -1, activities->numberActivities));
     return option;
 }
 
 void menuStart(User *user, bool *quit, Companies *companies, Activities *activities) {
-    Type userType;
     int option = GetOption(MENU_START, 0, 3, false, true, "START");
     switch (option) {
         case 0:
@@ -26,14 +25,12 @@ void menuStart(User *user, bool *quit, Companies *companies, Activities *activit
             *quit = true;
             break;
         case 1:
-            handleUser(user, quit, companies, activities);
+            handleUser(user, companies, activities);
             break;
         case 2:
-            userType = ADMIN;
             handleAdmin(companies, activities);
             break;
         case 3:
-            userType = COMPANY;
             handleCompany(companies, activities);
             break;
     }
@@ -82,7 +79,7 @@ void menuComments(Company *company, Type userType, Companies *companies) {
     if (company->numberComments > 0) {
         do {
             optionComments = showComments(company, true);
-        } while (!verifyNumber(&optionComments, 0, company->numberComments));
+        } while (!verifyNumber(optionComments, 0, company->numberComments));
     } else {
         puts("No comments!!!");
         return;
@@ -131,7 +128,7 @@ void menuCompany(User *user, Company *foundCompany, bool *back, int index, Compa
             updateComments(companies);
             break;
         case 2:
-            rating(user, foundCompany, index);
+            rating(foundCompany, index);
             break;
         case 3:
             showComments(foundCompany, false);
@@ -211,17 +208,10 @@ int menuModify(Companies *companies, int index, Activities *activities, Type use
     int numberCompanies = companies->numberCompanies;
     Company *company = &companies->company[index];
     showCompany(company);
-    int menuModify = GetOption(txt, 0, max, false, true, MODIFY_MENU);
+    int menuModify = GetOption(txt, min, max, false, true, MODIFY_MENU);
     switch (menuModify) {
         case 1:
-            getString(newName, MSG_GET_NAME, MAX_NAME_COMPANY);
-            if (isCompanyExists(companies, newName, 0, numberCompanies)) {
-                do {
-                    puts("There is a company with that name!!");
-                    getString(newName, MSG_GET_NAME, MAX_NAME_COMPANY);
-                } while (isCompanyExists(companies, newName, 0, numberCompanies));
-            }
-            strcpy(company->nameCompany, newName);
+            getNameForCompany(companies, index);
             updateStructCompany(FILE_WITH_COMPANIES, sizeof(Company) * index, &companies->company[index], sizeof(Company));
             break;
         case 2:

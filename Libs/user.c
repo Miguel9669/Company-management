@@ -25,7 +25,7 @@ bool isValidEmail(const char *email) {
     return true;
 }
 
-void handleUser(User *user, bool *quit, Companies *companies, Activities *activities) {
+void handleUser(User *user, Companies *companies, Activities *activities) {
     header("USER");
     getString(user->name, GET_USER_NAME, MAX_NAME);
 
@@ -159,7 +159,7 @@ void comment(User *user, Company *company, int index) {
     updateStructCompany(FILE_WITH_COMPANIES, sizeof(Company) * index, company, sizeof(Company));
 }
 
-void rating(User *user, Company *company, int index) {
+void rating(Company *company, int index) {
     int userRating;
     do {
         userRating = inputNumber(USER_RATING_TXT);

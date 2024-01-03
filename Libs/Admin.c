@@ -17,43 +17,17 @@ void handleAdmin(Companies *companies, Activities *activities){
 }
 
 void createCompany(Companies *companies, Activities *activities) {
-    char newName[MAX_NAME];
     int numberCompanies = companies->numberCompanies;
     Company *company = &(companies->company[numberCompanies]);
     companies->numberCompanies++;
-
-    if (companies->numberCompanies == companies->maxCompanies) {
-        //funcqo
-        Company *pCompany= (Company *) realloc(companies->company, (companies->maxCompanies) * 2 * sizeof(Company));
-        if (pCompany != NULL) {
-            companies->company = pCompany;
-            companies->maxCompanies *= 2;
-        } else {
-            puts("Error: REALLOC FAIL.");
-        }
-    }
-    getString(newName, MSG_GET_NAME, MAX_NAME_COMPANY);
-    if (isCompanyExists(companies, newName, 0, numberCompanies)) {
-        do {
-            puts("There is a company with that name!!");
-            getString(newName, MSG_GET_NAME, MAX_NAME_COMPANY);
-        } while (isCompanyExists(companies, newName, 0, numberCompanies));
-    }
-    strcpy(company->nameCompany, newName);
-
-    do {
-        company->nif = inputNumber(MSG_GET_NIF);
-
-        if (verifyNif(company->nif) == -1 || isCompanyExists(companies, "", company->nif, numberCompanies) == 1) {
-            puts(verifyNif(company->nif) == -1 ? ERROR_NIF : EXISTENT_NIF);
-        }
-    } while (verifyNif(company->nif) == -1 || isCompanyExists(companies, "", company->nif, numberCompanies) == 1);
-
+    reallocInStruct(companies->numberCompanies, companies->maxCompanies, companies, NULL, COMPANIES);
+    getNameForCompany(companies, numberCompanies);
+    getNifForCompany(company, companies, numberCompanies);
     int optionActivity;
 
     do {
         optionActivity = menuBranchActivity(activities);
-    } while (optionActivity == 0);
+    } while (optionActivity <= 0);
 
     strcpy(company->activity, activities->activities[optionActivity - 1].activity);
     getString(company->local.adress, MSG_GET_ADRESS, MAX_ADRESS);
@@ -113,15 +87,7 @@ void deleteCompany(Companies *companies, int index) {
 }
 
 void creatActivity(Activities *activities){
-    if (activities->numberActivities == activities->maxActivities) {
-        Activity *pActivities = (Activity *) realloc(activities->activities,activities->maxActivities * 2 * sizeof(Activity));
-        if(pActivities == NULL){
-            puts("Error: Realloc Activity failed!!");
-        } else {
-            activities->activities = pActivities;
-            activities->maxActivities *= 2;
-        }
-    }
+    reallocInStruct(activities->numberActivities, activities->maxActivities, NULL, activities, ACTIVITIES);
     getString(activities->activities[activities->numberActivities].activity, "Name of the Activity: ", ACTIVITY);
     if (isActivityExist(activities, activities->activities[activities->numberActivities].activity)) {
         puts("There is an Activity with that name!!");
