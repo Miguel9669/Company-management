@@ -134,8 +134,8 @@ Company *searchCompanyByName(Companies *companies, int *index){
 void searchByCategory(Companies *companies, int valueCategory){
     header("COMPANIES FOUND");
     for (int i = 0; i < companies->numberCompanies; ++i) {
-        printf("-> %s\n", companies->company[i].nameCompany);
-
+        if (companies->company[i].category == valueCategory)
+            printf("-> %s\n", companies->company[i].nameCompany);
     }
 }
 

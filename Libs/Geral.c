@@ -384,8 +384,10 @@ double companyAverageRating(Company *company) {
     if (company->numberRates == 0) {
         return 0;
     }
-    for (i = 0; i < company->numberRates; i++) {
-        sum += company->rates[i].rate;
+    if (company->numberRates <= 0) {
+        for (i = 0; i < company->numberRates; i++) {
+            sum += company->rates[i].rate;
+        }
     }
     averageRating = sum / company->numberRates;
     return averageRating;
