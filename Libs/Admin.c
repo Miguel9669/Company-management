@@ -23,6 +23,7 @@ void createCompany(Companies *companies, Activities *activities) {
     companies->numberCompanies++;
 
     if (companies->numberCompanies == companies->maxCompanies) {
+        //funcqo
         Company *pCompany= (Company *) realloc(companies->company, (companies->maxCompanies) * 2 * sizeof(Company));
         if (pCompany != NULL) {
             companies->company = pCompany;
@@ -73,8 +74,7 @@ void createCompany(Companies *companies, Activities *activities) {
 }
 
 void iniciateCommentsAndRates(Company *company) {
-    company->numberComments = 0;
-    company->numberRates = 0;
+    company->numberComments = company->numberRates = 0;
     company->maxComments = 5;
     company->comments = (Comment *)malloc(company->maxComments * sizeof(Comment));
 
