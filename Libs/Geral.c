@@ -62,29 +62,6 @@ void inicializeComments(Companies *companies) {
     }
     fclose(comments);
 }
-void updateRates(Companies *companies) {
-    FILE *rates = fopen(FILE_FOR_RATES, "wb");
-    for (int i = 0; i < companies->numberCompanies; ++i) {
-        fwrite(companies->company[i].rates, sizeof(Rate), companies->company[i].numberRates, rates);
-    }
-    fclose(rates);
-}
-void inicializeRates(Companies *companies) {
-    FILE *rates = fopen(FILE_FOR_RATES, "rb");
-    if (rates == NULL) {
-        rates = fopen(FILE_FOR_RATES, "wb");
-        fclose(rates);
-        rates = fopen(FILE_FOR_RATES, "rb");
-    }
-    int numberRates = 0;
-    for (int i = 0; i < companies->numberCompanies; ++i) {
-        companies->company[i].rates = (Rate *) malloc(sizeof(Rate) * companies->company[i].maxRates);
-        fseek(rates, sizeof(Rate) * numberRates, SEEK_SET);
-        fread(companies->company[i].rates, sizeof(Rate), companies->company[i].numberRates, rates);
-        numberRates += companies->company[i].numberRates;
-    }
-    fclose(rates);
-}
 void updateStructActivities(char *txt, long position, Activity *activity, int structSize) {
     FILE *var = fopen(txt, "rb+");
     if (var != NULL) {
@@ -379,17 +356,6 @@ void header(char *txt) {
 }
 
 double companyAverageRating(Company *company) {
-    int i;
-    double sum = 0.0, averageRating;
-    if (company->numberRates == 0) {
-        return 0;
-    }
-    if (company->numberRates <= 0) {
-        for (i = 0; i < company->numberRates; i++) {
-            sum += company->rates[i].rate;
-        }
-    }
-    averageRating = sum / company->numberRates;
-    return averageRating;
+    return (double)company->sumRates/company->numberRates;
 }
 

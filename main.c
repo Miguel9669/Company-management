@@ -21,7 +21,6 @@ int main() {
             .activities = (Activity *) malloc(activities.maxActivities * sizeof(Activity))};
     inicializeStructCompany(numberCompanies, FILE_WITH_COMPANIES, companies.company, sizeof(Company));
     inicializeComments(&companies);
-    inicializeRates(&companies);
     inicializeStructActivity(numberActivities, FILE_WITH_ACTIVITIES, activities.activities, sizeof(Activity));
     User user;
     bool quit;
@@ -31,7 +30,6 @@ int main() {
     } while (quit != true);
     for (int i = 0; i < companies.numberCompanies; ++i) {
         free(companies.company[i].comments);
-        free(companies.company[i].rates);
     }
     free(activities.activities);
     free(companies.company);

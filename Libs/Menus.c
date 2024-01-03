@@ -132,7 +132,6 @@ void menuCompany(User *user, Company *foundCompany, bool *back, int index, Compa
             break;
         case 2:
             rating(user, foundCompany, index);
-            updateRates(companies);
             break;
         case 3:
             showComments(foundCompany, false);

@@ -22,11 +22,6 @@ typedef struct {
     char email[MAX_EMAIL];
 }User;
 
-typedef struct {
-    char name[MAX_NAME];
-    int rate;
-} Rate;
-
 typedef struct{
     User user;
     char commentText[COMMENT];
@@ -41,10 +36,9 @@ typedef struct{
 }Local;
 
 typedef struct{
-    int numberRates, numberComments, nif, maxRates, maxComments;
+    int numberRates, numberComments, nif, maxRates, maxComments, sumRates;
     char nameCompany[MAX_NAME_COMPANY];
     bool active;
-    Rate *rates;
     Comment *comments;
     Local local;
     char activity[ACTIVITY];

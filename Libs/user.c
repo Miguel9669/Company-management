@@ -164,17 +164,7 @@ void rating(User *user, Company *company, int index) {
     do {
         userRating = inputNumber(USER_RATING_TXT);
         if (userRating >= 1 && userRating <= 5) {
-            if (company->maxRates - company->numberRates == 1) {
-                Rate *pRate = (Rate *)realloc(company->rates, company->maxRates * 2 * sizeof(Rate));
-                if (pRate != NULL) {
-                    company->rates = pRate;
-                    company->maxRates *= 2;
-                } else {
-                    printf("ERROR: Failed in realloc rating");
-                    return;
-                }
-            }
-            company->rates[company->numberRates].rate = userRating;
+            company->sumRates += userRating;
             company->numberRates++;
             updateStructCompany(FILE_WITH_COMPANIES, sizeof(Company) * index, company, sizeof(Company));
         } else {
