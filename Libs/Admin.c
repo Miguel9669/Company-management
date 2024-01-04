@@ -36,6 +36,7 @@ void createCompany(Companies *companies, Activities *activities) {
 }
 
 void iniciateCommentsAndRates(Company *company) {
+    company->sumRates = 0;
     company->numberComments = company->numberRates = 0;
     company->maxComments = 5;
     company->comments = (Comment *)malloc(company->maxComments * sizeof(Comment));
