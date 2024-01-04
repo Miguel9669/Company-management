@@ -47,7 +47,7 @@ void updateComments(Companies *companies) {
     }
     fclose(comments);
 }
-void inicializeComments(Companies *companies) {
+void loadComments(Companies *companies) {
     FILE *comments = fopen(FILE_FOR_COMMENTS, "rb");
     if (comments == NULL) {
         comments = fopen(FILE_FOR_COMMENTS, "wb");
@@ -70,7 +70,7 @@ void updateStructActivities(char *txt, long position, Activity *activity, int st
         fwrite(activity, structSize, 1, var);
     }
 }
-void inicializeStructCompany(int number, char *txt, Company *company, int structSize) {
+void loadStructCompany(int number, char *txt, Company *company, int structSize) {
     FILE *var = fopen(txt, "rb+");
     if (var == NULL) {
         var = fopen(txt, "wb");
@@ -86,7 +86,74 @@ void inicializeStructCompany(int number, char *txt, Company *company, int struct
         fclose(var);
     }
 }
-void inicializeStructActivity(int number, char *txt, Activity *activity, int structSize) {
+void mostSearchedCompanies(Companies companies, int size, CompaniesExtraInformation companiesExtraInformation, int *array){
+    int actualHighNumbers = 0, counter = 0;
+    for(int i = 0; i < size; i++){
+        for(int j = 0; j < companies.numberCompanies; j++){
+            int searchCounter = companiesExtraInformation.companyExtraInformation[j].searchCounter;
+            Company company = companies.company[j];
+
+            if(searchCounter > actualHighNumbers){
+                for(int h = 0; h < size; h++){
+                    if(j == array[h]){
+                        counter++;
+                    }
+                }
+                if(counter == 0){
+                    actualHighNumbers = searchCounter;
+                    array[i] = j;
+                }
+
+            }
+        }
+    }
+}
+void mostRatedCompanies(Companies companies, int size, int *array) {
+    double actualHighNumbers;
+    int counter;
+    for(int i = 0; i < size; i++){
+        actualHighNumbers = -1;
+        for(int j = 0; j < companies.numberCompanies; j++){
+            Company company = companies.company[j];
+            double companyRate = companyAverageRating(&company);
+            if(companyRate > actualHighNumbers){
+                counter = 0;
+                for(int h = 0; h < size; h++){
+                    if(j == array[h]){
+                        counter = 1;
+                    }
+                }
+                if(counter == 0){
+                    actualHighNumbers = companyRate;
+                    array[i] = j;
+                }
+
+            }
+        }
+    }
+}
+void listMostCompanies(Companies companies, CompaniesExtraInformation companiesExtraInformation, bool searched, int sizeOfTop){
+    if (companies.numberCompanies > 0) {
+        int size = companies.numberCompanies >= sizeOfTop ? sizeOfTop : companies.numberCompanies;
+        int array[size];
+        if (searched) {
+            mostSearchedCompanies(companies, size, companiesExtraInformation, array);
+            for (int i = 0; i < size; i++) {
+                printf("The %d company is : %s with %d\n", i + 1, companies.company[array[i]].nameCompany,
+                       companiesExtraInformation.companyExtraInformation[array[i]].searchCounter);
+            }
+        } else {
+            mostRatedCompanies(companies, size, array);
+            for (int i = 0; i < size; i++) {
+                printf("The %d company is : %s with %.2lf\n", i + 1, companies.company[array[i]].nameCompany,
+                       companyAverageRating(&companies.company[array[i]]));
+
+            }
+        }
+    } else
+        puts("No Companies!!");
+}
+void loadStructActivity(int number, char *txt, Activity *activity, int structSize) {
     FILE *var = fopen(txt, "rb+");
     if (var == NULL) {
         var = fopen(txt, "wb");
@@ -423,6 +490,9 @@ void header(char *txt) {
 }
 
 double companyAverageRating(Company *company) {
-    return (double)company->sumRates/company->numberRates;
+    if ((double)company->sumRates/company->numberRates > 0)
+        return (double)company->sumRates/company->numberRates;
+    else
+        return 0;
 }
 

@@ -3,8 +3,9 @@
 
 #define MENU_START "1 User\n2 Admin\n3 Company\n0 Quit\n"
 #define MENU_COMPANY "1 Manage data\n0 Quit"
-#define MENU_ADMIN "1 Create\n2 Manage Company\n3 Manage Activity\n0 Quit"
-#define MENU_USER_SEARCH "1 Name\n2 Category\n3 Activity Industry\n0 Quit\n"
+#define MENU_ADMIN "1 Create\n2 Manage Company\n3 Manage Activity\n4 Reports\n0 Quit"
+#define MENU_ADMIN_REPORTS "1 Top 10 Most searched\n2 Top 10 with the best Rates\n0 Leave"
+#define MENU_USER_SEARCH "1 Name\n2 Category\n3 Activity Industry\n0 Leave\n"
 #define MENU_INSIDE_COMPANY "1 Make a comment\n2 Rate company\n3 See comments \n0 Go back\n"
 #define MENU_SEARCH_BY_CATEGORY "1 Micro Company\n2 Medium and Small Company\n3 Large Company\n"
 #define MENU_MANAGE_COMPANY_COMPANY "1 Name\n2 Activity\n3 Address\n4 City\n5 Postal Code\n6 Category\n7 Set Active or inactive\n8 Manage Comments\n0 Leave"

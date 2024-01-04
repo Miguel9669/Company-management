@@ -17,7 +17,7 @@ int menushowActivity(Activities *activities, bool admin, char *txt) {
     return option;
 }
 
-void menuStart(User *user, bool *quit, Companies *companies, Activities *activities) {
+void menuStart(User *user, bool *quit, Companies *companies, Activities *activities, CompaniesExtraInformation *companiesExtraInformation) {
     int option = GetOption(MENU_START, 0, 3, false, true, "START");
     switch (option) {
         case 0:
@@ -28,7 +28,7 @@ void menuStart(User *user, bool *quit, Companies *companies, Activities *activit
             handleUser(user, companies, activities);
             break;
         case 2:
-            handleAdmin(companies, activities);
+            handleAdmin(companies, activities, *companiesExtraInformation);
             break;
         case 3:
             handleCompany(companies, activities);
@@ -55,8 +55,8 @@ void menuUserSearch(bool *quit, Companies *companies, User *user, Activities *ac
     }
 }
 
-void menuAdmin(bool *quit, Companies *companies, Activities *activities) {
-    int option1 = GetOption(MENU_ADMIN, 0, 3, false, true, ADMIN_MENU);
+void menuAdmin(bool *quit, Companies *companies, Activities *activities, CompaniesExtraInformation companiesExtraInformation) {
+    int option1 = GetOption(MENU_ADMIN, 0, 4, false, true, ADMIN_MENU);
     switch (option1) {
         case 0:
             puts("BYE");
@@ -71,7 +71,23 @@ void menuAdmin(bool *quit, Companies *companies, Activities *activities) {
         case 3:
             handleAdminActivity(activities, companies);
             break;
-
+        case 4:
+            handleAdminReports(*companies, companiesExtraInformation);
+            break;
+    }
+}
+void menuAdminReports (bool *back, Companies companies, CompaniesExtraInformation companiesExtraInformation) {
+    int option = GetOption(MENU_ADMIN_REPORTS, 0, 2, false, true, "REPORTS");
+    switch (option) {
+        case 0:
+            *back = true;
+            break;
+        case 1:
+            listMostCompanies(companies, companiesExtraInformation, true, 10);
+            break;
+        case 2:
+            listMostCompanies(companies, companiesExtraInformation, false, 10);
+            break;
     }
 }
 void menuComments(Company *company, Type userType, Companies *companies) {

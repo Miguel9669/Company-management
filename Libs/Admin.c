@@ -8,11 +8,11 @@
 #include <unistd.h>
 #include "Menus.h"
 
-void handleAdmin(Companies *companies, Activities *activities){
+void handleAdmin(Companies *companies, Activities *activities, CompaniesExtraInformation companiesExtraInformation){
     bool back;
     do {
         back = false;
-        menuAdmin(&back, companies, activities);
+        menuAdmin(&back, companies, activities, companiesExtraInformation);
     } while (back != true);
 }
 
@@ -127,6 +127,13 @@ void handleAdminActivity(Activities *activities, Companies *companies) {
     } while (optionActivity != -1);
 }
 
+void handleAdminReports(Companies companies, CompaniesExtraInformation companiesExtraInformation) {
+    bool back;
+    do {
+        back = false;
+        menuAdminReports(&back, companies, companiesExtraInformation);
+    } while (!back);
+}
 void deleteActivity(Activities *activities, int index) {
     for (int i = index; i < activities->numberActivities - 1; i++) {
         activities->activities[i] = activities->activities[i + 1];

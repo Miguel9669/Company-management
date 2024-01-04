@@ -31,8 +31,9 @@ int getNumberFromFile(char *txt);
 void updateNumberFromFile(int number, char *txt);
 void updateStructCompany(char *txt, long position, Company *company, int structSize);
 void updateStructActivities(char *txt, long position, Activity *activity, int structSize);
-void inicializeStructCompany(int number, char *txt, Company *company, int structSize);
-void inicializeStructActivity(int number, char *txt, Activity *activity, int structSize);
-void inicializeComments(Companies *companies);
+void loadStructCompany(int number, char *txt, Company *company, int structSize);
+void loadStructActivity(int number, char *txt, Activity *activity, int structSize);
+void loadComments(Companies *companies);
+void listMostCompanies(Companies companies, CompaniesExtraInformation companiesExtraInformation, bool searched, int sizeOfTop);
 void updateComments(Companies *companies);
 #endif //COMPANY_MANAGEMENT_GERAL_H
