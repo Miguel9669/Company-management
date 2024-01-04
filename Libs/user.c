@@ -73,7 +73,7 @@ void handleUserSearchByActivity(Companies *companies, Activities *activities, Us
     if (numberCompaniesInActivity > 0) {
         Company *foundCompany = searchCompanyByName(companies, &index);
         if (foundCompany == NULL || strcmp(foundCompany->activity, activities->activities[optionActivity - 1].activity) != 0 ){
-            puts("Error: Please search for a company that's in this category");
+            puts("Error: Please search for a company that's in this Activity");
         } else {
             bool back;
             do{
@@ -121,7 +121,7 @@ Company *searchCompanyByName(Companies *companies, int *index){
         return NULL;
     }
 
-    getString(companySearchName, "\nWhich company do you want to search: ", MAX_NAME_COMPANY);
+    getString(companySearchName, "\nWhich company do you want to search (by name): ", MAX_NAME_COMPANY);
     for (int i = 0; i < companies -> numberCompanies; i++){
         if (strcmp(companies->company[i].nameCompany, companySearchName) == 0){
             *index = i;

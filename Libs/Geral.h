@@ -10,6 +10,8 @@ int verifyNumber(int variable, int min, int max);
 void reallocInStruct(int number, int max, Companies *companies, Activities *activities, typeStruct structType);
 void getNameForCompany(Companies *companies, int index);
 void getNifForCompany(Company *company, Companies *companies, int numberCompanies);
+int getActivityForCompany(Activities *activities, int (*function)(Activities *activities1));
+void getPostalCode(Company *company);
 int GetOption(char *txt, int min, int max, bool showOption, bool showHeader, char *txtHeader);
 void header(char *txt);
 int showComments(Company *company, bool admin);

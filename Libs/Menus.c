@@ -156,7 +156,6 @@ void menuSearchByCategory(Companies *companies, User *user){
 
 int menuBranchActivity(Activities *activities) {
     int option = menushowActivity(activities, false, "0 Creat a new one");
-
     switch (option) {
         case 0:
             creatActivity(activities);
@@ -203,7 +202,6 @@ void menuActionAdminActivity(Activities *activities, int index, Companies *compa
 }
 
 int menuModify(Companies *companies, int index, Activities *activities, Type userType, char *txt, int min, int max) {
-    char newName[MAX_NAME_COMPANY];
     int optionActivity;
     int numberCompanies = companies->numberCompanies;
     Company *company = &companies->company[index];
@@ -215,10 +213,7 @@ int menuModify(Companies *companies, int index, Activities *activities, Type use
             updateStructCompany(FILE_WITH_COMPANIES, sizeof(Company) * index, &companies->company[index], sizeof(Company));
             break;
         case 2:
-            do {
-                optionActivity = menuShowActivity(activities, true, "0 Leave");
-            } while (optionActivity < 0);
-
+            optionActivity = getActivityForCompany(activities, menuBranchActivity);
             strcpy(company->activity, activities->activities[optionActivity - 1].activity);
             updateStructCompany(FILE_WITH_COMPANIES, sizeof(Company) * index, &companies->company[index], sizeof(Company));
             break;
@@ -231,12 +226,7 @@ int menuModify(Companies *companies, int index, Activities *activities, Type use
             updateStructCompany(FILE_WITH_COMPANIES, sizeof(Company) * index, &companies->company[index], sizeof(Company));
             break;
         case 5:
-            do {
-                getString(company->local.codigoPostal, MSG_GET_CODPOSTAL, MAX_CODIGO);
-                if (!verifyPostalCode(company->local.codigoPostal)) {
-                    puts("Postal Code invalid!");
-                }
-            } while (!verifyPostalCode(company->local.codigoPostal));
+            getPostalCode(company);
             updateStructCompany(FILE_WITH_COMPANIES, sizeof(Company) * index, &companies->company[index], sizeof(Company));
             break;
         case 6:

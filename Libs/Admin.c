@@ -23,23 +23,11 @@ void createCompany(Companies *companies, Activities *activities) {
     reallocInStruct(companies->numberCompanies, companies->maxCompanies, companies, NULL, COMPANIES);
     getNameForCompany(companies, numberCompanies);
     getNifForCompany(company, companies, numberCompanies);
-    int optionActivity;
-
-    do {
-        optionActivity = menuBranchActivity(activities);
-    } while (optionActivity <= 0);
-
+    int optionActivity = getActivityForCompany(activities, menuBranchActivity);
     strcpy(company->activity, activities->activities[optionActivity - 1].activity);
     getString(company->local.adress, MSG_GET_ADRESS, MAX_ADRESS);
     getString(company->local.city, MSG_GET_CITY, MAX_CITY);
-
-    do {
-        getString(company->local.codigoPostal, MSG_GET_CODPOSTAL, MAX_CODIGO);
-        if (!verifyPostalCode(company->local.codigoPostal)) {
-            puts("Postal Code invalid!");
-        }
-    } while (!verifyPostalCode(company->local.codigoPostal));
-
+    getPostalCode(company);
     company->category = GetOption(MENU_SEARCH_BY_CATEGORY, 1, 3, true, false, "");
     iniciateCommentsAndRates(company);
     company->active = true;

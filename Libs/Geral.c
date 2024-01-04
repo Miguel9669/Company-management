@@ -184,6 +184,20 @@ void getNifForCompany(Company *company, Companies *companies, int numberCompanie
     } while (verifyNif(company->nif) == -1 || isCompanyExists(companies, "", company->nif, numberCompanies) == 1);
 
 }
+int getActivityForCompany(Activities *activities, int (*function)(Activities *activities1)) {
+    int optionActivity;
+    do {
+        optionActivity = function(activities);
+    } while (optionActivity <= 0);
+}
+void getPostalCode(Company *company) {
+    do {
+        getString(company->local.codigoPostal, MSG_GET_CODPOSTAL, MAX_CODIGO);
+        if (!verifyPostalCode(company->local.codigoPostal)) {
+            puts("Postal Code invalid!");
+        }
+    } while (!verifyPostalCode(company->local.codigoPostal));
+}
 void reallocInStruct(int number, int max, Companies *companies, Activities *activities, typeStruct structType){
     if (max - number == -1) {
         if (structType == COMPANIES) {
@@ -293,7 +307,7 @@ int showCompaniesInActivity(Activities *activities, Companies *companies, int in
         for (int i = 0; i < companies->numberCompanies; i++) {
             if (strcmp(activities->activities[index].activity, companies->company[i].activity) == 0 && companies->company[i].active) {
                 printf("%d ", count + 1);
-                printf("%s", companies->company[i].nameCompany);
+                printf("%s\n", companies->company[i].nameCompany);
                 count++;
             }
         }
@@ -347,8 +361,15 @@ int GetOption(char *txt, int min, int max, bool showOption, bool showHeader, cha
 
 int isCompanyExists(const Companies *companies, char *name, int nif, int numberCompanies) {
     for (int i = 0; i < numberCompanies; ++i) {
-        if (strcmp(companies->company[i].nameCompany, name) == 0 || companies->company[i].nif == nif) {
-            return 1;
+        if (strcmp(name, "") != 0) {
+            if (strcmp(companies->company[i].nameCompany, name) == 0) {
+                return 1;
+            }
+        }
+        if (nif != 0) {
+            if (companies->company[i].nif == nif) {
+                return 1;
+            }
         }
     }
     return 0;
