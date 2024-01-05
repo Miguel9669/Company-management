@@ -37,9 +37,11 @@ int main() {
         quit = false;
         menuStart(&user, &quit, &companies, &activities, &informations);
     } while (quit != true);
+
     for (int i = 0; i < companies.numberCompanies; ++i) {
         free(companies.company[i].comments);
     }
+    free(informations.information);
     free(activities.activities);
     free(companies.company);
     return 0;

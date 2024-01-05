@@ -28,6 +28,9 @@ void handleAdmin(Companies *companies, Activities *activities, Informations *inf
  * @param[in,out] companies A pointer to the Companies structure to which the new company will be added.
  * @param[in,out] activities A pointer to the Activities structure containing available activities for the company.
  * @param[in,out] informations A pointer to the Informations structure containing additional information.
+ *
+ * @return void
+ *
  */
 
 void createCompany(Companies *companies, Activities *activities, Informations *informations) {
@@ -57,7 +60,6 @@ void iniciateInformation(Informations *informations, int index) {
     information->searchByCategoryCounter = 0;
     information->searchByActivityCounter = 0;
     information->searchCounter = 0;
-
 }
 void iniciateCommentsAndRates(Company *company) {
     company->sumRates = 0;

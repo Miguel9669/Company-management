@@ -48,10 +48,11 @@ void handleUserSearchByName(Companies *companies, User *user, Informations *info
     Company *foundCompany = searchCompanyByName(companies, &index);
     bool back;
     if (foundCompany != NULL) {
+        if(foundCompany->active)
+            addToInformation(informations, index, &informations->information[index].searchByNameCounter);
         do{
             back = false;
             if (foundCompany->active) {
-                addToInformation(informations, index, &informations->information[index].searchByNameCounter);
                 showCompany(foundCompany);
                 menuCompany(user, foundCompany, &back, index, companies);
             } else {
@@ -99,10 +100,11 @@ void handleUserSelectByCategory(Companies *companies, User *user, int valueCateg
             puts("Error: Please search for a company that's in this category");
         } else {
             bool back;
+            if (foundCompany->active)
+                addToInformation(informations, index, &informations->information[index].searchByCategoryCounter);
             do{
                 back = false;
                 if (foundCompany->active) {
-                    addToInformation(informations, index, &informations->information[index].searchByCategoryCounter);
                     showCompany(foundCompany);
                     menuCompany(user, foundCompany, &back, index, companies);
                 } else {

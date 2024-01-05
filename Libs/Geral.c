@@ -39,12 +39,13 @@ void updateStructCompany(char *txt, long position, Company *company, int structS
         fseek(var, position, SEEK_SET);
         fwrite(company, structSize, 1, var);
     }
+    fclose(var);
 }
 void updateStructInformation(char *txt, Informations *informations) {
     FILE *var = fopen(txt, "wb");
     if (var != NULL) {
         for (int i = 0; i < informations->numberInformation; ++i) {
-            fwrite(&informations->information[i], sizeof(Information), informations->numberInformation, var);
+            fwrite(&(informations->information[i]), sizeof(Information), 1, var);
         }
         fclose(var);
     }
@@ -78,6 +79,7 @@ void updateStructActivities(char *txt, long position, Activity *activity, int st
         fseek(var, position, SEEK_SET);
         fwrite(activity, structSize, 1, var);
     }
+    fclose(var);
 }
 void loadStructCompany(int number, char *txt, Company *company, int structSize) {
     FILE *var = fopen(txt, "rb+");
@@ -92,24 +94,22 @@ void loadStructCompany(int number, char *txt, Company *company, int structSize) 
 
     if (var != NULL) {
         fread(company, structSize, number, var);
-        fclose(var);
     }
+    fclose(var);
 }
 void loadStructInformation(int number, char *txt, Information *information, int structSize) {
     FILE *var = fopen(txt, "rb+");
     if (var == NULL) {
         var = fopen(txt, "wb");
-        if (var == NULL) {
-            return;
-        }
         fclose(var);
         var = fopen(txt, "rb+");
     }
 
     if (var != NULL) {
+        fseek(var, 0, SEEK_SET);
         fread(information, structSize, number, var);
-        fclose(var);
     }
+    fclose(var);
 }
 void mostSearchedCompanies(Companies companies, int size, Informations informations, int *array){
     int actualHighNumbers = 0, counter = 0;
@@ -203,8 +203,8 @@ void loadStructActivity(int number, char *txt, Activity *activity, int structSiz
 
     if (var != NULL) {
         fread(activity, structSize, number, var);
-        fclose(var);
     }
+    fclose(var);
 }
 int showComments(Company *company, bool admin) {
     int count = 1;
