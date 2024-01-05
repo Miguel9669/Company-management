@@ -40,6 +40,15 @@ void updateStructCompany(char *txt, long position, Company *company, int structS
         fwrite(company, structSize, 1, var);
     }
 }
+void updateStructInformation(char *txt, Informations *informations) {
+    FILE *var = fopen(txt, "wb");
+    if (var != NULL) {
+        for (int i = 0; i < informations->numberInformation; ++i) {
+            fwrite(&informations->information[i], sizeof(Information), informations->numberInformation, var);
+        }
+        fclose(var);
+    }
+}
 void updateComments(Companies *companies) {
     FILE *comments = fopen(FILE_FOR_COMMENTS, "wb");
     for (int i = 0; i < companies->numberCompanies; ++i) {
@@ -86,11 +95,27 @@ void loadStructCompany(int number, char *txt, Company *company, int structSize) 
         fclose(var);
     }
 }
-void mostSearchedCompanies(Companies companies, int size, CompaniesExtraInformation companiesExtraInformation, int *array){
+void loadStructInformation(int number, char *txt, Information *information, int structSize) {
+    FILE *var = fopen(txt, "rb+");
+    if (var == NULL) {
+        var = fopen(txt, "wb");
+        if (var == NULL) {
+            return;
+        }
+        fclose(var);
+        var = fopen(txt, "rb+");
+    }
+
+    if (var != NULL) {
+        fread(information, structSize, number, var);
+        fclose(var);
+    }
+}
+void mostSearchedCompanies(Companies companies, int size, Informations informations, int *array){
     int actualHighNumbers = 0, counter = 0;
     for(int i = 0; i < size; i++){
         for(int j = 0; j < companies.numberCompanies; j++){
-            int searchCounter = companiesExtraInformation.companyExtraInformation[j].searchCounter;
+            int searchCounter = informations.information[j].searchCounter;
             Company company = companies.company[j];
 
             if(searchCounter > actualHighNumbers){
@@ -132,19 +157,28 @@ void mostRatedCompanies(Companies companies, int size, int *array) {
         }
     }
 }
-void listMostCompanies(Companies companies, CompaniesExtraInformation companiesExtraInformation, bool searched, int sizeOfTop){
+void addToInformation(Informations *informations, int index, int *valueToAdd) {
+    informations->information[index].searchCounter++;
+    *valueToAdd += 1;
+    printf("%d", informations->information[index].searchCounter);
+    printf("%d", informations->information[index].searchByActivityCounter);
+    printf("%d", informations->information[index].searchByCategoryCounter);
+    printf("%d", informations->information[index].searchByNameCounter);
+    updateStructInformation(FILE_WITH_EXTRA_INFORMATION, informations);
+}
+void listMostCompanies(Companies companies, Informations informations, bool searched, int sizeOfTop){
     if (companies.numberCompanies > 0) {
         int size = companies.numberCompanies >= sizeOfTop ? sizeOfTop : companies.numberCompanies;
         int array[size];
         if (searched) {
-            mostSearchedCompanies(companies, size, companiesExtraInformation, array);
+            mostSearchedCompanies(companies, size, informations, array);
         } else {
             mostRatedCompanies(companies, size, array);
         }
         for (int i = 0; i < size; i++) {
             printf("The %d company is : %s ", i + 1, companies.company[array[i]].nameCompany);
             if (searched) {
-                printf("with %d\n", companiesExtraInformation.companyExtraInformation[array[i]].searchCounter);
+                printf("with %d\n", informations.information[array[i]].searchCounter);
             } else {
                 printf("with %.2lf\n", companyAverageRating(&companies.company[array[i]]));
             }
@@ -268,7 +302,7 @@ void getPostalCode(Company *company) {
         }
     } while (!verifyPostalCode(company->local.codigoPostal));
 }
-void reallocInStruct(int number, int max, Companies *companies, Activities *activities, typeStruct structType){
+void reallocInStruct(int number, int max, Companies *companies, Activities *activities, Informations *informations,typeStruct structType){
     if (max - number == -1) {
         if (structType == COMPANIES) {
             Company *pCompany= (Company *) realloc(companies->company, (companies->maxCompanies) * 2 * sizeof(Company));
@@ -286,6 +320,17 @@ void reallocInStruct(int number, int max, Companies *companies, Activities *acti
                 } else {
                     activities->activities = pActivities;
                     activities->maxActivities *= 2;
+                }
+            }
+        } else if (structType == INFORMATIONS) {
+            if (max - number == -1) {
+                Information *pInformation = (Information *) realloc(informations->information, informations->maxInformation * 2 *
+                        sizeof(Information));
+                if (pInformation == NULL) {
+                    puts("Error: Realloc Information failed!!");
+                } else {
+                    informations->information = pInformation;
+                    informations->maxInformation *= 2;
                 }
             }
         }

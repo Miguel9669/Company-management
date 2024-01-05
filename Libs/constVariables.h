@@ -46,7 +46,7 @@
 #define FILE_WITH_COMPANIES "companiesList.bin"
 #define FILE_WITH_ACTIVITIES "activitiesList.bin"
 #define FILE_FOR_COMMENTS "comments.bin"
-#define FILE_FOR_RATES "rates.bin"
+#define FILE_WITH_EXTRA_INFORMATION "extra.bin"
 
 
 #endif //COMPANY_MANAGEMENT_CONSTVARIABLES_H

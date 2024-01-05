@@ -17,7 +17,7 @@ int menushowActivity(Activities *activities, bool admin, char *txt) {
     return option;
 }
 
-void menuStart(User *user, bool *quit, Companies *companies, Activities *activities, CompaniesExtraInformation *companiesExtraInformation) {
+void menuStart(User *user, bool *quit, Companies *companies, Activities *activities, Informations *informations) {
     int option = GetOption(MENU_START, 0, 3, false, true, "START");
     switch (option) {
         case 0:
@@ -25,10 +25,10 @@ void menuStart(User *user, bool *quit, Companies *companies, Activities *activit
             *quit = true;
             break;
         case 1:
-            handleUser(user, companies, activities);
+            handleUser(user, companies, activities, informations);
             break;
         case 2:
-            handleAdmin(companies, activities, *companiesExtraInformation);
+            handleAdmin(companies, activities, informations);
             break;
         case 3:
             handleCompany(companies, activities);
@@ -36,7 +36,7 @@ void menuStart(User *user, bool *quit, Companies *companies, Activities *activit
     }
 }
 
-void menuUserSearch(bool *quit, Companies *companies, User *user, Activities *activities) {
+void menuUserSearch(bool *quit, Companies *companies, User *user, Activities *activities, Informations *informations) {
     int option = GetOption(MENU_USER_SEARCH, 0, 3, false, true, SEARCH_COMPANY);
     switch (option) {
         case 0:
@@ -44,18 +44,18 @@ void menuUserSearch(bool *quit, Companies *companies, User *user, Activities *ac
             *quit = true;
             break;
         case 1:
-            handleUserSearchByName(companies, user);
+            handleUserSearchByName(companies, user, informations);
             break;
         case 2:
-            handleUserSearchByCategory(companies, user);
+            handleUserSearchByCategory(companies, user, informations);
             break;
         case 3:
-            handleUserSearchByActivity(companies, activities, user);
+            handleUserSearchByActivity(companies, activities, user, informations);
             break;
     }
 }
 
-void menuAdmin(bool *quit, Companies *companies, Activities *activities, CompaniesExtraInformation companiesExtraInformation) {
+void menuAdmin(bool *quit, Companies *companies, Activities *activities, Informations *informations) {
     int option1 = GetOption(MENU_ADMIN, 0, 4, false, true, ADMIN_MENU);
     switch (option1) {
         case 0:
@@ -63,7 +63,7 @@ void menuAdmin(bool *quit, Companies *companies, Activities *activities, Compani
             *quit = true;
             break;
         case 1:
-            createCompany(companies, activities);
+            createCompany(companies, activities, informations);
             break;
         case 2:
             modifyCompany(companies, activities, ADMIN, MENU_MANAGE_COMPANY_ADMIN, 0, 9);
@@ -72,11 +72,11 @@ void menuAdmin(bool *quit, Companies *companies, Activities *activities, Compani
             handleAdminActivity(activities, companies);
             break;
         case 4:
-            handleAdminReports(*companies, companiesExtraInformation);
+            handleAdminReports(*companies, *informations);
             break;
     }
 }
-void menuAdminReports (bool *back, Companies companies, CompaniesExtraInformation companiesExtraInformation, int topRate, int topSearched) {
+void menuAdminReports (bool *back, Companies companies, Informations informations, int topRate, int topSearched) {
     char ola[sizeof(MENU_ADMIN_REPORTS)];
      sprintf(ola, MENU_ADMIN_REPORTS, topSearched, topRate);
     int option = GetOption(ola, 0, 2, false, true, "REPORTS");
@@ -85,10 +85,10 @@ void menuAdminReports (bool *back, Companies companies, CompaniesExtraInformatio
             *back = true;
             break;
         case 1:
-            listMostCompanies(companies, companiesExtraInformation, true, 5);
+            listMostCompanies(companies, informations, true, topSearched);
             break;
         case 2:
-            listMostCompanies(companies, companiesExtraInformation, false, 5);
+            listMostCompanies(companies, informations, false, topRate);
             break;
     }
 }
@@ -157,17 +157,17 @@ void menuCompany(User *user, Company *foundCompany, bool *back, int index, Compa
     }
 }
 
-void menuSearchByCategory(Companies *companies, User *user){
+void menuSearchByCategory(Companies *companies, User *user, Informations *informations){
     int option = GetOption(MENU_SEARCH_BY_CATEGORY,1,3,true, false, "");
     switch(option){
         case 1 :
-            handleUserSelectByCategory(companies, user, 1);
+            handleUserSelectByCategory(companies, user, 1, informations);
             break;
         case 2 :
-            handleUserSelectByCategory(companies, user, 2);
+            handleUserSelectByCategory(companies, user, 2, informations);
             break;
         case 3 :
-            handleUserSelectByCategory(companies, user, 3);
+            handleUserSelectByCategory(companies, user, 3, informations);
             break;
     }
 }

@@ -7,7 +7,7 @@ int inputNumber(char *txt);
 char *inputString(char *txt, int quant);
 void showActivity(Activities *activities, bool admin);
 int verifyNumber(int variable, int min, int max);
-void reallocInStruct(int number, int max, Companies *companies, Activities *activities, typeStruct structType);
+void reallocInStruct(int number, int max, Companies *companies, Activities *activities, Informations *informations,typeStruct structType);
 void getNameForCompany(Companies *companies, int index);
 void getNifForCompany(Company *company, Companies *companies, int numberCompanies);
 int getActivityForCompany(Activities *activities, int (*function)(Activities *activities1));
@@ -33,7 +33,10 @@ void updateStructCompany(char *txt, long position, Company *company, int structS
 void updateStructActivities(char *txt, long position, Activity *activity, int structSize);
 void loadStructCompany(int number, char *txt, Company *company, int structSize);
 void loadStructActivity(int number, char *txt, Activity *activity, int structSize);
+void loadStructInformation(int number, char *txt, Information *information, int structSize);
+void updateStructInformation(char *txt, Informations *informations);
 void loadComments(Companies *companies);
-void listMostCompanies(Companies companies, CompaniesExtraInformation companiesExtraInformation, bool searched, int sizeOfTop);
+void listMostCompanies(Companies companies, Informations informations, bool searched, int sizeOfTop);
+void addToInformation(Informations *informations, int index, int *valueToAdd);
 void updateComments(Companies *companies);
 #endif //COMPANY_MANAGEMENT_GERAL_H

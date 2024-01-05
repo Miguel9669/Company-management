@@ -15,11 +15,11 @@ int main() {
     Companies companies = {.numberCompanies = numberCompanies,
                            .maxCompanies = numberCompanies > 10 ? numberCompanies * 2 : 10,
                            .company = (Company *) malloc(companies.maxCompanies * sizeof(Company))};
-    CompaniesExtraInformation companiesExtraInformation = {
-            .maxExtraInformation = numberCompanies > 10 ? numberCompanies * 2 : 10,
-            .numberExtraInformation = numberCompanies,
-            .companyExtraInformation = (CompanyExtraInformation *)
-                    malloc(companiesExtraInformation.maxExtraInformation * sizeof(CompanyExtraInformation))
+    Informations informations = {
+            .maxInformation = numberCompanies > 10 ? numberCompanies * 2 : 10,
+            .numberInformation = numberCompanies,
+            .information = (Information *)
+                    malloc(informations.maxInformation * sizeof(Information))
     };
     Activities activities = {
             .numberActivities = numberActivities,
@@ -29,11 +29,13 @@ int main() {
     loadStructCompany(numberCompanies, FILE_WITH_COMPANIES, companies.company, sizeof(Company));
     loadComments(&companies);
     loadStructActivity(numberActivities, FILE_WITH_ACTIVITIES, activities.activities, sizeof(Activity));
+    loadStructInformation(numberCompanies, FILE_WITH_EXTRA_INFORMATION, informations.information, sizeof(Information));
+
     User user;
     bool quit;
     do {
         quit = false;
-        menuStart(&user, &quit, &companies, &activities, &companiesExtraInformation);
+        menuStart(&user, &quit, &companies, &activities, &informations);
     } while (quit != true);
     for (int i = 0; i < companies.numberCompanies; ++i) {
         free(companies.company[i].comments);

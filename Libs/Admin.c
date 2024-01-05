@@ -8,19 +8,33 @@
 #include <unistd.h>
 #include "Menus.h"
 
-void handleAdmin(Companies *companies, Activities *activities, CompaniesExtraInformation companiesExtraInformation){
+/* This function provides an interface for performing administrative tasks on companies and activities.
+ * It uses a menu system to allow the admin to navigate through various options and perform actions
+ */
+void handleAdmin(Companies *companies, Activities *activities, Informations *informations){
     bool back;
     do {
         back = false;
-        menuAdmin(&back, companies, activities, companiesExtraInformation);
+        menuAdmin(&back, companies, activities, informations);
     } while (back != true);
 }
 
-void createCompany(Companies *companies, Activities *activities) {
+/* @brief Creates a new company and adds it to the Companies structure.
+ *
+ * This function is used to create a new company and adds it to the Companies structure.
+ * It collects information such as the company's name, nif, address, city, postal code, category, initializes the new company's
+ * rates and comments, initialize the company active in true and update the number from file and the struct company.
+ *
+ * @param[in,out] companies A pointer to the Companies structure to which the new company will be added.
+ * @param[in,out] activities A pointer to the Activities structure containing available activities for the company.
+ * @param[in,out] informations A pointer to the Informations structure containing additional information.
+ */
+
+void createCompany(Companies *companies, Activities *activities, Informations *informations) {
     int numberCompanies = companies->numberCompanies;
     Company *company = &(companies->company[numberCompanies]);
     companies->numberCompanies++;
-    reallocInStruct(companies->numberCompanies, companies->maxCompanies, companies, NULL, COMPANIES);
+    reallocInStruct(companies->numberCompanies, companies->maxCompanies, companies, NULL, NULL, COMPANIES);
     getNameForCompany(companies, numberCompanies);
     getNifForCompany(company, companies, numberCompanies);
     int optionActivity = getActivityForCompany(activities, menuBranchActivity);
@@ -33,8 +47,18 @@ void createCompany(Companies *companies, Activities *activities) {
     company->active = true;
     updateNumberFromFile(companies->numberCompanies, FILE_NUMBER_COMPANIES_NAME);
     updateStructCompany(FILE_WITH_COMPANIES, sizeof(Company) * (companies->numberCompanies - 1), &companies->company[numberCompanies], sizeof(Company));
+    iniciateInformation(informations, numberCompanies);
 }
 
+void iniciateInformation(Informations *informations, int index) {
+    reallocInStruct(informations->numberInformation, informations->maxInformation, NULL, NULL, informations,INFORMATIONS);
+    Information *information = &informations->information[index];
+    information->searchByNameCounter = 0;
+    information->searchByCategoryCounter = 0;
+    information->searchByActivityCounter = 0;
+    information->searchCounter = 0;
+
+}
 void iniciateCommentsAndRates(Company *company) {
     company->sumRates = 0;
     company->numberComments = company->numberRates = 0;
@@ -76,7 +100,7 @@ void deleteCompany(Companies *companies, int index) {
 }
 
 void creatActivity(Activities *activities){
-    reallocInStruct(activities->numberActivities, activities->maxActivities, NULL, activities, ACTIVITIES);
+    reallocInStruct(activities->numberActivities, activities->maxActivities, NULL, activities, NULL, ACTIVITIES);
     getString(activities->activities[activities->numberActivities].activity, "Name of the Activity: ", ACTIVITY);
     if (isActivityExist(activities, activities->activities[activities->numberActivities].activity)) {
         puts("There is an Activity with that name!!");
@@ -127,11 +151,11 @@ void handleAdminActivity(Activities *activities, Companies *companies) {
     } while (optionActivity != -1);
 }
 
-void handleAdminReports(Companies companies, CompaniesExtraInformation companiesExtraInformation) {
+void handleAdminReports(Companies companies, Informations informations) {
     bool back;
     do {
         back = false;
-        menuAdminReports(&back, companies, companiesExtraInformation, 5, 3);
+        menuAdminReports(&back, companies, informations, 2, 2);
     } while (!back);
 }
 void deleteActivity(Activities *activities, int index) {

@@ -25,7 +25,7 @@ bool isValidEmail(const char *email) {
     return true;
 }
 
-void handleUser(User *user, Companies *companies, Activities *activities) {
+void handleUser(User *user, Companies *companies, Activities *activities, Informations *informations) {
     header("USER");
     getString(user->name, GET_USER_NAME, MAX_NAME);
 
@@ -39,11 +39,11 @@ void handleUser(User *user, Companies *companies, Activities *activities) {
     bool back;
     do {
         back = false;
-        menuUserSearch(&back, companies, user, activities);
+        menuUserSearch(&back, companies, user, activities, informations);
     } while (back != true);
 }
 
-void handleUserSearchByName(Companies *companies, User *user){
+void handleUserSearchByName(Companies *companies, User *user, Informations *informations){
     int index;
     Company *foundCompany = searchCompanyByName(companies, &index);
     bool back;
@@ -51,6 +51,7 @@ void handleUserSearchByName(Companies *companies, User *user){
         do{
             back = false;
             if (foundCompany->active) {
+                addToInformation(informations, index, &informations->information[index].searchByNameCounter);
                 showCompany(foundCompany);
                 menuCompany(user, foundCompany, &back, index, companies);
             } else {
@@ -62,11 +63,11 @@ void handleUserSearchByName(Companies *companies, User *user){
     }
 }
 
-void handleUserSearchByCategory(Companies *companies, User *user){
-    menuSearchByCategory(companies, user);
+void handleUserSearchByCategory(Companies *companies, User *user, Informations *informations){
+    menuSearchByCategory(companies, user, informations);
 }
 
-void handleUserSearchByActivity(Companies *companies, Activities *activities, User *user) {
+void handleUserSearchByActivity(Companies *companies, Activities *activities, User *user, Informations *informations) {
     int index;
     int optionActivity = menuShowActivity(activities, false, "0 leave");
     int numberCompaniesInActivity = showCompaniesInActivity(activities, companies, optionActivity - 1);
@@ -76,6 +77,7 @@ void handleUserSearchByActivity(Companies *companies, Activities *activities, Us
             puts("Error: Please search for a company that's in this Activity");
         } else {
             bool back;
+            addToInformation(informations, index, &informations->information[index].searchByActivityCounter);
             do{
                 back = false;
                 showCompany(foundCompany);
@@ -85,9 +87,9 @@ void handleUserSearchByActivity(Companies *companies, Activities *activities, Us
     } else {
         puts("No company here!!");
     }
-
 }
-void handleUserSelectByCategory(Companies *companies, User *user, int valueCategory){
+
+void handleUserSelectByCategory(Companies *companies, User *user, int valueCategory, Informations *informations){
     int count = numberCompaniesInCategory(companies, valueCategory);
     int index;
     if (count > 0) {
@@ -100,6 +102,7 @@ void handleUserSelectByCategory(Companies *companies, User *user, int valueCateg
             do{
                 back = false;
                 if (foundCompany->active) {
+                    addToInformation(informations, index, &informations->information[index].searchByCategoryCounter);
                     showCompany(foundCompany);
                     menuCompany(user, foundCompany, &back, index, companies);
                 } else {
