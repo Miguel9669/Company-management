@@ -138,17 +138,20 @@ void listMostCompanies(Companies companies, CompaniesExtraInformation companiesE
         int array[size];
         if (searched) {
             mostSearchedCompanies(companies, size, companiesExtraInformation, array);
-            for (int i = 0; i < size; i++) {
-                printf("The %d company is : %s with %d\n", i + 1, companies.company[array[i]].nameCompany,
-                       companiesExtraInformation.companyExtraInformation[array[i]].searchCounter);
-            }
         } else {
             mostRatedCompanies(companies, size, array);
-            for (int i = 0; i < size; i++) {
-                printf("The %d company is : %s with %.2lf\n", i + 1, companies.company[array[i]].nameCompany,
-                       companyAverageRating(&companies.company[array[i]]));
-
+        }
+        for (int i = 0; i < size; i++) {
+            printf("The %d company is : %s ", i + 1, companies.company[array[i]].nameCompany);
+            if (searched) {
+                printf("with %d\n", companiesExtraInformation.companyExtraInformation[array[i]].searchCounter);
+            } else {
+                printf("with %.2lf\n", companyAverageRating(&companies.company[array[i]]));
             }
+
+        }
+        if (sizeOfTop > companies.numberCompanies) {
+            puts("There is no more companies!");
         }
     } else
         puts("No Companies!!");

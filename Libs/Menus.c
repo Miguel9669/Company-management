@@ -76,17 +76,19 @@ void menuAdmin(bool *quit, Companies *companies, Activities *activities, Compani
             break;
     }
 }
-void menuAdminReports (bool *back, Companies companies, CompaniesExtraInformation companiesExtraInformation) {
-    int option = GetOption(MENU_ADMIN_REPORTS, 0, 2, false, true, "REPORTS");
+void menuAdminReports (bool *back, Companies companies, CompaniesExtraInformation companiesExtraInformation, int topRate, int topSearched) {
+    char ola[sizeof(MENU_ADMIN_REPORTS)];
+     sprintf(ola, MENU_ADMIN_REPORTS, topSearched, topRate);
+    int option = GetOption(ola, 0, 2, false, true, "REPORTS");
     switch (option) {
         case 0:
             *back = true;
             break;
         case 1:
-            listMostCompanies(companies, companiesExtraInformation, true, 10);
+            listMostCompanies(companies, companiesExtraInformation, true, 5);
             break;
         case 2:
-            listMostCompanies(companies, companiesExtraInformation, false, 10);
+            listMostCompanies(companies, companiesExtraInformation, false, 5);
             break;
     }
 }

@@ -131,7 +131,7 @@ void handleAdminReports(Companies companies, CompaniesExtraInformation companies
     bool back;
     do {
         back = false;
-        menuAdminReports(&back, companies, companiesExtraInformation);
+        menuAdminReports(&back, companies, companiesExtraInformation, 5, 3);
     } while (!back);
 }
 void deleteActivity(Activities *activities, int index) {
