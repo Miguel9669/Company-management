@@ -43,15 +43,17 @@ void updateStructCompany(char *txt, long position, Company *company, int structS
     }
 }
 void updateStructInformation(char *txt, Informations *informations) {
-    FILE *var = fopen(txt, "rb+");
+    FILE *var = fopen(txt, "ab+");
     if (var == NULL) {
         perror("Erro ao abrir o arquivo");
         return;
     }
+    printf("%d", informations->information[0].searchCounter);
+    printf("%d", informations->information[0].searchByActivityCounter);
+    printf("%d", informations->information[0].searchByCategoryCounter);
+    printf("%d", informations->information[0].searchByNameCounter);
     fseek(var, 0, SEEK_SET);
-    for (int i = 0; i < informations->numberInformation; ++i) {
-        fwrite(&(informations->information[i]), sizeof(Information), 1, var);
-    }
+    fwrite(informations->information, sizeof(Information), informations->numberInformation, var);
     fclose(var);
 }
 
@@ -103,13 +105,12 @@ void loadStructCompany(int number, char *txt, Company *company, int structSize) 
     fclose(var);
 }
 void loadStructInformation(int number, char *txt, Information *information, int structSize) {
-    FILE *var = fopen(txt, "rb+");
+    FILE *var = fopen(txt, "rb");
     if (var == NULL) {
         var = fopen(txt, "wb");
         fclose(var);
         return;
     }
-    fseek(var, 0, SEEK_SET);
     fread(information, structSize, number, var);
     fclose(var);
 }

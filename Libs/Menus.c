@@ -120,8 +120,16 @@ void menuComments(Company *company, Type userType, Companies *companies) {
         }
     }
     if (userType == COMPANY) {
-        hideComments(company, optionComments - 1);
-        updateComments(companies);
+        int option = GetOption(MENU_COMMENTS_COMPANY,0,1,true,false,"");
+        switch (option) {
+            case 0:
+                puts("BYE");
+                break;
+            case 1:
+                hideComments(company, optionComments - 1);
+                updateComments(companies);
+                break;
+        }
     }
 }
 
