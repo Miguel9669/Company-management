@@ -6,7 +6,7 @@
 #include "structs.h"
 void createCompany(Companies *companies, Activities *activities, Informations *informations);
 void deleteCompany(Companies *companies, int index);
-void modifyCompany(Companies *companies, Activities *activities, Type userType, char *txt, int min, int max);
+void modifyCompany(Companies *companies, Activities *activities, Type userType, char *txt, int min, int max, Informations informations);
 void handleAdmin(Companies *companies, Activities *activities, Informations *informations);
 void iniciateCommentsAndRates(Company *company);
 void iniciateInformation(Informations *informations, int index);

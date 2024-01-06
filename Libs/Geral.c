@@ -113,6 +113,55 @@ void loadStructInformation(int number, char *txt, Information *information, int 
     fread(information, structSize, number, var);
     fclose(var);
 }
+char *userCommentedTheMost(Company company, int *numberComments) {
+    Name name[company.numberComments];
+    int nameCounter[company.numberComments];
+    for (int i = 0; i < company.numberComments; ++i) {
+        strcpy(name[i].name, company.comments[i].user.name);
+        nameCounter[i] = 0;
+    }
+    for (int i = 0; i < company.numberComments; ++i) {
+        strcpy(name[i].name, company.comments[i].user.name);
+        for (int j = i; j < company.numberComments; ++j) {
+            if (strcmp(name[i].name, name[j].name) == 0) {
+                nameCounter[i]++;
+                strcpy(name[j].name, "");
+            }
+        }
+    }
+    int actualInt;
+    int index;
+    char finalName[MAX_NAME];
+    for (int i = 0; i < company.numberComments; ++i) {
+        actualInt = nameCounter[i];
+        index = i;
+        for (int j = 1; j < company.numberComments; ++j) {
+            if (actualInt < nameCounter[j]) {
+                actualInt = nameCounter[j];
+                index = j;
+            }
+        }
+        *numberComments = actualInt;
+        strcpy(finalName, name[index].name);
+        break;
+    }
+    return strdup(finalName);
+}
+void reportForCompany(Informations informations, int index, Company *company) {
+    int searchCounter = informations.information[index].searchCounter;
+    int numberCommentsUser;
+    char name[MAX_NAME];
+    strcpy(name, userCommentedTheMost(*company, &numberCommentsUser));
+    char headerTxt[25];
+    sprintf(headerTxt,"Report Company: %s!\n", company->nameCompany);
+    header(headerTxt);
+    printf("Company visits: %d!\n", searchCounter);
+    printf("Rating/Visit percentage: %d!\n", (int)((companyAverageRating(company)/searchCounter) * 100));
+    printf("Comment/Visit percentage: %d!\n", (int)((company->numberComments/searchCounter) * 100));
+    if (strcmp(name, NULL) != 0)
+        printf("The user %s was the one who commented the most with %d comments!", name, numberCommentsUser);
+}
+
 
 void mostSearchedCompanies(Companies companies, int size, Informations informations, int *array){
     int actualHighNumbers = 0, counter = 0;

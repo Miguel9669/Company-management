@@ -7,6 +7,10 @@ typedef enum {USER = 1, ADMIN, COMPANY} Type;
 typedef enum {ACTIVITIES, COMPANIES, INFORMATIONS} typeStruct;
 
 typedef struct {
+    char name [MAX_NAME];
+} Name;
+
+typedef struct {
     int searchCounter, searchByNameCounter, searchByCategoryCounter, searchByActivityCounter;
 } Information;
 

@@ -167,7 +167,7 @@ void deleteActivity(Activities *activities, int index) {
     updateNumberFromFile(activities->numberActivities, FILE_NUMBER_ACTIVITIES_NAME);
 }
 
-void modifyCompany(Companies *companies, Activities *activities, Type userType, char *txt, int min, int max) {
+void modifyCompany(Companies *companies, Activities *activities, Type userType, char *txt, int min, int max, Informations informations) {
     int nif, index, opcao;
 
     if (companies->numberCompanies > 0) {
@@ -179,7 +179,7 @@ void modifyCompany(Companies *companies, Activities *activities, Type userType, 
         }
 
         do {
-            opcao = menuModify(companies, index, activities, userType, txt, min, max);
+            opcao = menuModify(companies, index, activities, userType, txt, min, max, informations);
         } while (opcao != 0 && opcao != 9);
     } else {
         printf("No companies to modify.\n");

@@ -10,6 +10,7 @@
 #define MENU_SEARCH_BY_CATEGORY "1 Micro Company\n2 Medium and Small Company\n3 Large Company\n"
 #define MENU_MANAGE_COMPANY_COMPANY "1 Name\n2 Activity\n3 Address\n4 City\n5 Postal Code\n6 Category\n7 Set Active or inactive\n8 Manage Comments\n9 Reports\n0 Leave"
 #define MENU_MANAGE_COMPANY_ADMIN "1 Name\n2 Activity\n3 Address\n4 City\n5 Postal Code\n6 Category\n7 Set Active or inactive\n8 Manage Comments\n9 Delete Company\n0 Leave"
+#define MENU_REPORTS_IN_COMPANY_COMPANY "1 Report About Company %s\n0 leave"
 #define MAX_NAME 60
 #define MAX_EMAIL 100
 #define COMMENT 200
