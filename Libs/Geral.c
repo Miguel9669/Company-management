@@ -33,23 +33,28 @@ void updateNumberFromFile(int number, char *txt) {
     fwrite(&number, sizeof(int), 1, var);
     fclose(var);
 }
+
 void updateStructCompany(char *txt, long position, Company *company, int structSize) {
     FILE *var = fopen(txt, "rb+");
     if (var != NULL) {
         fseek(var, position, SEEK_SET);
         fwrite(company, structSize, 1, var);
-    }
-    fclose(var);
-}
-void updateStructInformation(char *txt, Informations *informations) {
-    FILE *var = fopen(txt, "wb");
-    if (var != NULL) {
-        for (int i = 0; i < informations->numberInformation; ++i) {
-            fwrite(&(informations->information[i]), sizeof(Information), 1, var);
-        }
         fclose(var);
     }
 }
+void updateStructInformation(char *txt, Informations *informations) {
+    FILE *var = fopen(txt, "rb+");
+    if (var == NULL) {
+        perror("Erro ao abrir o arquivo");
+        return;
+    }
+    fseek(var, 0, SEEK_SET);
+    for (int i = 0; i < informations->numberInformation; ++i) {
+        fwrite(&(informations->information[i]), sizeof(Information), 1, var);
+    }
+    fclose(var);
+}
+
 void updateComments(Companies *companies) {
     FILE *comments = fopen(FILE_FOR_COMMENTS, "wb");
     for (int i = 0; i < companies->numberCompanies; ++i) {
@@ -102,15 +107,13 @@ void loadStructInformation(int number, char *txt, Information *information, int 
     if (var == NULL) {
         var = fopen(txt, "wb");
         fclose(var);
-        var = fopen(txt, "rb+");
+        return;
     }
-
-    if (var != NULL) {
-        fseek(var, 0, SEEK_SET);
-        fread(information, structSize, number, var);
-    }
+    fseek(var, 0, SEEK_SET);
+    fread(information, structSize, number, var);
     fclose(var);
 }
+
 void mostSearchedCompanies(Companies companies, int size, Informations informations, int *array){
     int actualHighNumbers = 0, counter = 0;
     for(int i = 0; i < size; i++){
@@ -167,16 +170,23 @@ void addToInformation(Informations *informations, int index, int *valueToAdd) {
     updateStructInformation(FILE_WITH_EXTRA_INFORMATION, informations);
 }
 void listMostCompanies(Companies companies, Informations informations, bool searched, int sizeOfTop){
+
     if (companies.numberCompanies > 0) {
         int size = companies.numberCompanies >= sizeOfTop ? sizeOfTop : companies.numberCompanies;
         int array[size];
         if (searched) {
             mostSearchedCompanies(companies, size, informations, array);
+            char top[sizeof("Top %d Most searched")];
+            sprintf(top, "Top %d Most searched", sizeOfTop);
+            header(top);
         } else {
             mostRatedCompanies(companies, size, array);
+            char top[sizeof("Top %d with the best Rates")];
+            sprintf(top, "Top %d with the best Rates", sizeOfTop);
+            header(top);
         }
         for (int i = 0; i < size; i++) {
-            printf("The %d company is : %s ", i + 1, companies.company[array[i]].nameCompany);
+            printf("The %d company is : |%s| ", i + 1, companies.company[array[i]].nameCompany);
             if (searched) {
                 printf("with %d\n", informations.information[array[i]].searchCounter);
             } else {

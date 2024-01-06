@@ -5,7 +5,6 @@
 #include "Geral.h"
 #include <stdlib.h>
 #include "constVariables.h"
-#include <unistd.h>
 #include "Menus.h"
 
 /* This function provides an interface for performing administrative tasks on companies and activities.
@@ -48,9 +47,10 @@ void createCompany(Companies *companies, Activities *activities, Informations *i
     company->category = GetOption(MENU_SEARCH_BY_CATEGORY, 1, 3, true, false, "");
     iniciateCommentsAndRates(company);
     company->active = true;
+    iniciateInformation(informations, numberCompanies);
+    updateStructInformation(FILE_WITH_EXTRA_INFORMATION, informations);
     updateNumberFromFile(companies->numberCompanies, FILE_NUMBER_COMPANIES_NAME);
     updateStructCompany(FILE_WITH_COMPANIES, sizeof(Company) * (companies->numberCompanies - 1), &companies->company[numberCompanies], sizeof(Company));
-    iniciateInformation(informations, numberCompanies);
 }
 
 void iniciateInformation(Informations *informations, int index) {
@@ -68,7 +68,7 @@ void iniciateCommentsAndRates(Company *company) {
     company->comments = (Comment *)malloc(company->maxComments * sizeof(Comment));
 
     if (company->comments == NULL) {
-        fprintf(stderr, "Erro ao alocar memória para comentários ou avaliações\n");
+        fprintf(stderr, "Error allocating comments\n");
         exit(EXIT_FAILURE);
     }
 
@@ -140,9 +140,7 @@ void activeActivity(Activity *activity, Companies *companies, int index) {
 
 void handleAdminActivity(Activities *activities, Companies *companies) {
     int optionActivity;
-    bool back;
     do {
-        back = false;
         optionActivity = menuShowActivity(activities, true, "0 Create Activity\n-1 Sair");
         if (optionActivity != -1 && optionActivity != 0)
             menuActionAdminActivity(activities, optionActivity - 1, companies);

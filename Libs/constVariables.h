@@ -8,7 +8,7 @@
 #define MENU_USER_SEARCH "1 Name\n2 Category\n3 Activity Industry\n0 Leave\n"
 #define MENU_INSIDE_COMPANY "1 Make a comment\n2 Rate company\n3 See comments \n0 Go back\n"
 #define MENU_SEARCH_BY_CATEGORY "1 Micro Company\n2 Medium and Small Company\n3 Large Company\n"
-#define MENU_MANAGE_COMPANY_COMPANY "1 Name\n2 Activity\n3 Address\n4 City\n5 Postal Code\n6 Category\n7 Set Active or inactive\n8 Manage Comments\n0 Leave"
+#define MENU_MANAGE_COMPANY_COMPANY "1 Name\n2 Activity\n3 Address\n4 City\n5 Postal Code\n6 Category\n7 Set Active or inactive\n8 Manage Comments\n9 Reports\n0 Leave"
 #define MENU_MANAGE_COMPANY_ADMIN "1 Name\n2 Activity\n3 Address\n4 City\n5 Postal Code\n6 Category\n7 Set Active or inactive\n8 Manage Comments\n9 Delete Company\n0 Leave"
 #define MAX_NAME 60
 #define MAX_EMAIL 100

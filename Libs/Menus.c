@@ -267,7 +267,12 @@ int menuModify(Companies *companies, int index, Activities *activities, Type use
             menuComments(company, userType, companies);
             break;
         case 9:
-            deleteCompany(companies, index);
+            if (userType == COMPANY) {
+                //reports menu
+                //geral~(visitas totais, percentagem de comments per visit e o user que comentou mais, percentagem de rates per visit,
+                //leave
+            } else if (userType == ADMIN)
+                deleteCompany(companies, index);
             break;
         case 0:
             printf("Leaving!.\n");

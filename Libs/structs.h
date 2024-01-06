@@ -5,6 +5,7 @@ typedef enum {false, true} bool;
 typedef enum {MICRO = 1, PME, LARGE_COMPANY} Category;
 typedef enum {USER = 1, ADMIN, COMPANY} Type;
 typedef enum {ACTIVITIES, COMPANIES, INFORMATIONS} typeStruct;
+
 typedef struct {
     int searchCounter, searchByNameCounter, searchByCategoryCounter, searchByActivityCounter;
 } Information;
