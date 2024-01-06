@@ -122,7 +122,7 @@ char *userCommentedTheMost(Company company, int *numberComments) {
     }
     for (int i = 0; i < company.numberComments; ++i) {
         strcpy(name[i].name, company.comments[i].user.name);
-        for (int j = i; j < company.numberComments; ++j) {
+        for (int j = 1; j < company.numberComments; ++j) {
             if (strcmp(name[i].name, name[j].name) == 0) {
                 nameCounter[i]++;
                 strcpy(name[j].name, "");
@@ -142,10 +142,8 @@ char *userCommentedTheMost(Company company, int *numberComments) {
             }
         }
         *numberComments = actualInt;
-        strcpy(finalName, name[index].name);
-        break;
+        return strdup(name[index].name);
     }
-    return strdup(finalName);
 }
 void reportForCompany(Informations informations, int index, Company *company) {
     int searchCounter = informations.information[index].searchCounter;
@@ -156,10 +154,10 @@ void reportForCompany(Informations informations, int index, Company *company) {
     sprintf(headerTxt,"Report Company: %s!\n", company->nameCompany);
     header(headerTxt);
     printf("Company visits: %d!\n", searchCounter);
-    printf("Rating/Visit percentage: %d!\n", (int)((companyAverageRating(company)/searchCounter) * 100));
-    printf("Comment/Visit percentage: %d!\n", (int)((company->numberComments/searchCounter) * 100));
-    if (strcmp(name, NULL) != 0)
-        printf("The user %s was the one who commented the most with %d comments!", name, numberCommentsUser);
+    printf("Rating/Visit percentage: %d%%!\n", (int)((companyAverageRating(company)/searchCounter) * 100));
+    printf("Comment/Visit percentage: %d%%!\n", (int)(((double)company->numberComments/searchCounter) * 100));
+    if (company->numberComments > 0)
+        printf("The user |%s| was the one who commented the most with %d comments!", name, numberCommentsUser);
 }
 
 
