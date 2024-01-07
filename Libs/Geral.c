@@ -323,7 +323,7 @@ void showCompany(Company *company){
     printf("Rating average: %.2lf\n", companyAverageRating(company));
 }
 void getNameForCompany(Companies *companies, int index) {
-    char newName[MAX_NAME];
+    char newName[MAX_NAME_COMPANY];
     getString(newName, MSG_GET_NAME, MAX_NAME_COMPANY);
     if (isCompanyExists(companies, newName, 0, companies->numberCompanies)) {
         do {
