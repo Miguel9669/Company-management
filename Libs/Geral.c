@@ -43,17 +43,15 @@ void updateStructCompany(char *txt, long position, Company *company, int structS
     }
 }
 void updateStructInformation(char *txt, Informations *informations) {
-    FILE *var = fopen(txt, "ab+");
+    printf("%d", informations->numberInformation);
+    FILE *var = fopen(txt, "wb");
     if (var == NULL) {
         perror("Erro ao abrir o arquivo");
         return;
     }
-    printf("%d", informations->information[0].searchCounter);
-    printf("%d", informations->information[0].searchByActivityCounter);
-    printf("%d", informations->information[0].searchByCategoryCounter);
-    printf("%d", informations->information[0].searchByNameCounter);
-    fseek(var, 0, SEEK_SET);
-    fwrite(informations->information, sizeof(Information), informations->numberInformation, var);
+    if (fwrite(informations->information, sizeof(Information), informations->numberInformation, var) != informations->numberInformation) {
+        perror("Erro ao escrever no arquivo");
+    }
     fclose(var);
 }
 
@@ -114,37 +112,36 @@ void loadStructInformation(int number, char *txt, Information *information, int 
     fread(information, structSize, number, var);
     fclose(var);
 }
-char *userCommentedTheMost(Company company, int *numberComments) {
+char* userCommentedTheMost(Company company, int *numberComments) {
     Name name[company.numberComments];
     int nameCounter[company.numberComments];
+
     for (int i = 0; i < company.numberComments; ++i) {
         strcpy(name[i].name, company.comments[i].user.name);
         nameCounter[i] = 0;
     }
-    for (int i = 0; i < company.numberComments; ++i) {
-        strcpy(name[i].name, company.comments[i].user.name);
-        for (int j = 1; j < company.numberComments; ++j) {
+
+    for (int i = 0; i < company.numberComments - 1; ++i) {
+        nameCounter[i]++;
+        for (int j = i + 1; j < company.numberComments; ++j) {
             if (strcmp(name[i].name, name[j].name) == 0) {
                 nameCounter[i]++;
                 strcpy(name[j].name, "");
             }
         }
     }
-    int actualInt;
-    int index;
+
+    int maxComments = 0;
     char finalName[MAX_NAME];
+
     for (int i = 0; i < company.numberComments; ++i) {
-        actualInt = nameCounter[i];
-        index = i;
-        for (int j = 1; j < company.numberComments; ++j) {
-            if (actualInt < nameCounter[j]) {
-                actualInt = nameCounter[j];
-                index = j;
-            }
+        if (nameCounter[i] > maxComments) {
+            maxComments = nameCounter[i];
+            strcpy(finalName, name[i].name);
         }
-        *numberComments = actualInt;
-        return strdup(name[index].name);
     }
+    *numberComments = maxComments;
+    return strdup(finalName);
 }
 void reportForCompany(Informations informations, int index, Company *company) {
     int searchCounter = informations.information[index].searchCounter;
@@ -268,7 +265,7 @@ int showComments(Company *company, bool admin) {
     int count = 1;
     header("COMMENTS");
     for (int i = 0; i < company->numberComments; ++i) {
-        if ((company->comments[i].commentHide == false && !admin)) {
+        if (company->comments[i].commentHide == false && !admin && strcmp(company->comments[i].user.name, "") != 0) {
             printf("Comment Number: %d, Title: %s\n",
                    count,
                    company->comments[i].title);
@@ -285,7 +282,7 @@ int showComments(Company *company, bool admin) {
         puts("No Comments!");
         return 0;
     } else {
-        int commentSelected = GetOption("", 0, company->numberComments, false, false, "");
+        int commentSelected = GetOption("", 1, company->numberComments, false, false, "");
         int opcao;
         do {
             header(company->comments[commentSelected - 1].title);
@@ -429,9 +426,7 @@ char *inputString(char *txt, int quant) {
             if (len > 1 && var[len - 1] == '\n') {
                 var[len - 1] = '\0';
             } else {
-                // Limpar o buffer de entrada se necessário
-                int c;
-                while ((c = getchar()) != '\n' && c != EOF);
+                cleanBuffer();
             }
         }
         if (len > quant) {
@@ -439,8 +434,8 @@ char *inputString(char *txt, int quant) {
         }
 
 
-    } while (len == 0 || len > quant);  // Continue pedindo entrada até que algo seja digitado
-
+    } while (len == 0 || len == 1 || len > quant);
+    
     return var;
 }
 

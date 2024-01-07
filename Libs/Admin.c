@@ -33,10 +33,11 @@ void handleAdmin(Companies *companies, Activities *activities, Informations *inf
  */
 
 void createCompany(Companies *companies, Activities *activities, Informations *informations) {
+    reallocInStruct(informations->numberInformation, informations->maxInformation, NULL, NULL, informations,INFORMATIONS);
+    reallocInStruct(companies->numberCompanies, companies->maxCompanies, companies, NULL, NULL, COMPANIES);
     int numberCompanies = companies->numberCompanies;
     Company *company = &(companies->company[numberCompanies]);
     companies->numberCompanies++;
-    reallocInStruct(companies->numberCompanies, companies->maxCompanies, companies, NULL, NULL, COMPANIES);
     getNameForCompany(companies, numberCompanies);
     getNifForCompany(company, companies, numberCompanies);
     int optionActivity = getActivityForCompany(activities, menuBranchActivity);
@@ -54,7 +55,7 @@ void createCompany(Companies *companies, Activities *activities, Informations *i
 }
 
 void iniciateInformation(Informations *informations, int index) {
-    reallocInStruct(informations->numberInformation, informations->maxInformation, NULL, NULL, informations,INFORMATIONS);
+    informations->numberInformation++;
     Information *information = &informations->information[index];
     information->searchByNameCounter = 0;
     information->searchByCategoryCounter = 0;
@@ -180,7 +181,7 @@ void modifyCompany(Companies *companies, Activities *activities, Type userType, 
 
         do {
             opcao = menuModify(companies, index, activities, userType, txt, min, max, informations);
-        } while (opcao != 0 && opcao != 9);
+        } while (opcao != 0);
     } else {
         printf("No companies to modify.\n");
     }
