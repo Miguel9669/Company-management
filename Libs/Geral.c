@@ -1,6 +1,7 @@
 #include "Geral.h"
 #include "structs.h"
 #include "constVariables.h"
+#include "Admin.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -438,7 +439,38 @@ char *inputString(char *txt, int quant) {
     
     return var;
 }
-
+void companyChangeActiveStatus(Activities *activities, Companies *companies, Company *company, int index) {
+    for (int i = 0; i < activities->numberActivities; i++) {
+        if (strcmp(companies->company[index].activity, activities->activities[i].activity) == 0) {
+            if (activities->activities[i].Active == true) {
+                company->active = companies->company[index].active == true ? false : true;
+            } else
+                puts("THE ACTIVITY IS INACTIVE!!");
+        }
+    }
+}
+void activitiesChangeActiveStatus(Activity *activity, Companies *companies, int index) {
+    if (activity->Active == false) {
+        activeActivity(activity, companies, index);
+    } else {
+        inactiveActivity(activity, companies, index);
+    }
+}
+void verifyNumberComments(Company *company) {
+    if (company->comments == NULL) {
+        fprintf(stderr, "Error allocating comments\n");
+        exit(EXIT_FAILURE);
+    }
+}
+void createNameActivity(Activities *activities) {
+    getString(activities->activities[activities->numberActivities].activity, "Name of the Activity: ", ACTIVITY);
+    if (isActivityExist(activities, activities->activities[activities->numberActivities].activity)) {
+        puts("There is an Activity with that name!!");
+        do {
+            getString(activities->activities[activities->numberActivities].activity, "Name of the Activity: ", ACTIVITY);
+        } while (isActivityExist(activities, activities->activities[activities->numberActivities].activity));
+    }
+}
 int verifyNumber(int variable, int min, int max){
 
     if ((variable < min) || (variable > max)){

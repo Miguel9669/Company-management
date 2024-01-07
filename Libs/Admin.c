@@ -68,10 +68,7 @@ void iniciateCommentsAndRates(Company *company) {
     company->maxComments = 5;
     company->comments = (Comment *)malloc(company->maxComments * sizeof(Comment));
 
-    if (company->comments == NULL) {
-        fprintf(stderr, "Error allocating comments\n");
-        exit(EXIT_FAILURE);
-    }
+    verifyNumberComments(company);
 
     for (int i = 0; i < company->maxComments; ++i) {
         company->comments[i].commentHide = false;
@@ -104,13 +101,7 @@ void deleteCompany(Companies *companies, int index) {
 
 void creatActivity(Activities *activities){
     reallocInStruct(activities->numberActivities, activities->maxActivities, NULL, activities, NULL, ACTIVITIES);
-    getString(activities->activities[activities->numberActivities].activity, "Name of the Activity: ", ACTIVITY);
-    if (isActivityExist(activities, activities->activities[activities->numberActivities].activity)) {
-        puts("There is an Activity with that name!!");
-        do {
-            getString(activities->activities[activities->numberActivities].activity, "Name of the Activity: ", ACTIVITY);
-        } while (isActivityExist(activities, activities->activities[activities->numberActivities].activity));
-    }
+    createNameActivity(activities);
     activities->activities[activities->numberActivities].Active = true;
     activities->numberActivities++;
     updateNumberFromFile(activities->numberActivities, FILE_NUMBER_ACTIVITIES_NAME);

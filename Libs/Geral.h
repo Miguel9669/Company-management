@@ -39,5 +39,9 @@ void loadComments(Companies *companies);
 void listMostCompanies(Companies companies, Informations informations, bool searched, int sizeOfTop);
 void addToInformation(Informations *informations, int index, int *valueToAdd);
 void reportForCompany(Informations informations, int index, Company *company);
+void companyChangeActiveStatus(Activities *activities, Companies *companies, Company *company, int index);
+void activitiesChangeActiveStatus(Activity *activity, Companies *companies, int index);
+void verifyNumberComments(Company *company);
+void createNameActivity(Activities *activities);
 void updateComments(Companies *companies);
 #endif //COMPANY_MANAGEMENT_GERAL_H

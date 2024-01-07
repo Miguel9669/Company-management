@@ -209,11 +209,7 @@ void menuActionAdminActivity(Activities *activities, int index, Companies *compa
     } while (option != 0 && option != -1 && option != -2);
     switch (option) {
         case 0:
-            if (activity->Active == false) {
-                activeActivity(activity, companies, index);
-            } else {
-                inactiveActivity(activity, companies, index);
-            }
+            activitiesChangeActiveStatus(activity, companies, index);
             break;
         case -1:
             if (isCompanyExistInActivity(&activities->activities[index], companies) == 1){
@@ -229,7 +225,6 @@ void menuActionAdminActivity(Activities *activities, int index, Companies *compa
 
 int menuModify(Companies *companies, int index, Activities *activities, Type userType, char *txt, int min, int max, Informations informations) {
     int optionActivity;
-    int numberCompanies = companies->numberCompanies;
     Company *company = &companies->company[index];
     showCompany(company);
     int menuModify = GetOption(txt, min, max, false, true, MODIFY_MENU);
@@ -260,15 +255,8 @@ int menuModify(Companies *companies, int index, Activities *activities, Type use
             updateStructCompany(FILE_WITH_COMPANIES, sizeof(Company) * index, &companies->company[index], sizeof(Company));
             break;
         case 7:
-            for (int i = 0; i < activities->numberActivities; i++) {
-                if (strcmp(companies->company[index].activity, activities->activities[i].activity) == 0) {
-                    if (activities->activities[i].Active == true) {
-                        company->active = companies->company[index].active == true ? false : true;
-                        updateStructCompany(FILE_WITH_COMPANIES, sizeof(Company) * index, &companies->company[index], sizeof(Company));
-                    } else
-                        puts("THE ACTIVITY IS INACTIVE!!");
-                }
-            }
+            companyChangeActiveStatus(activities, companies, company, index);
+            updateStructCompany(FILE_WITH_COMPANIES, sizeof(Company) * index, &companies->company[index], sizeof(Company));
             break;
         case 8:
             menuComments(company, userType, companies);
