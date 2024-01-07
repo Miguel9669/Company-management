@@ -44,7 +44,6 @@ void updateStructCompany(char *txt, long position, Company *company, int structS
     }
 }
 void updateStructInformation(char *txt, Informations *informations) {
-    printf("%d", informations->numberInformation);
     FILE *var = fopen(txt, "wb");
     if (var == NULL) {
         perror("Erro ao abrir o arquivo");
@@ -359,38 +358,38 @@ void getPostalCode(Company *company) {
     } while (!verifyPostalCode(company->local.codigoPostal));
 }
 void reallocInStruct(int number, int max, Companies *companies, Activities *activities, Informations *informations,typeStruct structType){
-    if (max - number == -1) {
-        if (structType == COMPANIES) {
-            Company *pCompany= (Company *) realloc(companies->company, (companies->maxCompanies) * 2 * sizeof(Company));
+    if (structType == COMPANIES) {
+        if (max == number) {
+            Company *pCompany = (Company *) realloc(companies->company,
+                                                    (companies->maxCompanies) * 2 * sizeof(Company));
             if (pCompany != NULL) {
                 companies->company = pCompany;
                 companies->maxCompanies *= 2;
             } else {
                 puts("Error: REALLOC FAIL.");
             }
-        } else if (structType == ACTIVITIES) {
-            if (max - number == -1) {
-                Activity *pActivities = (Activity *) realloc(activities->activities,activities->maxActivities * 2 * sizeof(Activity));
-                if(pActivities == NULL){
-                    puts("Error: Realloc Activity failed!!");
-                } else {
-                    activities->activities = pActivities;
-                    activities->maxActivities *= 2;
-                }
-            }
-        } else if (structType == INFORMATIONS) {
-            if (max - number == -1) {
-                Information *pInformation = (Information *) realloc(informations->information, informations->maxInformation * 2 *
-                        sizeof(Information));
-                if (pInformation == NULL) {
-                    puts("Error: Realloc Information failed!!");
-                } else {
-                    informations->information = pInformation;
-                    informations->maxInformation *= 2;
-                }
+        }
+    } else if (structType == ACTIVITIES) {
+        if (max == number) {
+            Activity *pActivities = (Activity *) realloc(activities->activities,activities->maxActivities * 2 * sizeof(Activity));
+            if(pActivities == NULL){
+                puts("Error: Realloc Activity failed!!");
+            } else {
+                activities->activities = pActivities;
+                activities->maxActivities *= 2;
             }
         }
-
+    } else if (structType == INFORMATIONS) {
+        if (max == number) {
+            Information *pInformation = (Information *) realloc(informations->information, informations->maxInformation * 2 *
+                    sizeof(Information));
+            if (pInformation == NULL) {
+                puts("Error: Realloc Information failed!!");
+            } else {
+                informations->information = pInformation;
+                informations->maxInformation *= 2;
+            }
+        }
     }
 }
 int inputNumber(char *txt) {
@@ -465,8 +464,8 @@ void verifyNumberComments(Company *company) {
 void createNameActivity(Activities *activities) {
     getString(activities->activities[activities->numberActivities].activity, "Name of the Activity: ", ACTIVITY);
     if (isActivityExist(activities, activities->activities[activities->numberActivities].activity)) {
-        puts("There is an Activity with that name!!");
         do {
+            puts("There is an Activity with that name!!");
             getString(activities->activities[activities->numberActivities].activity, "Name of the Activity: ", ACTIVITY);
         } while (isActivityExist(activities, activities->activities[activities->numberActivities].activity));
     }

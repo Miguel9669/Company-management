@@ -37,7 +37,6 @@ void createCompany(Companies *companies, Activities *activities, Informations *i
     reallocInStruct(companies->numberCompanies, companies->maxCompanies, companies, NULL, NULL, COMPANIES);
     int numberCompanies = companies->numberCompanies;
     Company *company = &(companies->company[numberCompanies]);
-    companies->numberCompanies++;
     getNameForCompany(companies, numberCompanies);
     getNifForCompany(company, companies, numberCompanies);
     int optionActivity = getActivityForCompany(activities, menuBranchActivity);
@@ -49,6 +48,7 @@ void createCompany(Companies *companies, Activities *activities, Informations *i
     iniciateCommentsAndRates(company);
     company->active = true;
     iniciateInformation(informations, numberCompanies);
+    companies->numberCompanies++;
     updateStructInformation(FILE_WITH_EXTRA_INFORMATION, informations);
     updateNumberFromFile(companies->numberCompanies, FILE_NUMBER_COMPANIES_NAME);
     updateStructCompany(FILE_WITH_COMPANIES, sizeof(Company) * (companies->numberCompanies - 1), &companies->company[numberCompanies], sizeof(Company));
