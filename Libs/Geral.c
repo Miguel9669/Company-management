@@ -159,28 +159,36 @@ void reportForCompany(Informations informations, int index, Company *company) {
 }
 
 
-void mostSearchedCompanies(Companies companies, int size, Informations informations, int *array){
-    int actualHighNumbers = 0, counter = 0;
-    for(int i = 0; i < size; i++){
-        for(int j = 0; j < companies.numberCompanies; j++){
+void mostSearchedCompanies(Companies companies, int size, Informations informations, int *array) {
+    int actualHighNumbers = 0;
+    
+    for (int i = 0; i < size; i++) {
+        array[i] = 0;
+    }
+
+    for (int i = 0; i < size; i++) {
+        actualHighNumbers = 0;
+        for (int j = 0; j < companies.numberCompanies; j++) {
             int searchCounter = informations.information[j].searchCounter;
-            Company company = companies.company[j];
 
-            if(searchCounter > actualHighNumbers){
-                for(int h = 0; h < size; h++){
-                    if(j == array[h]){
-                        counter++;
-                    }
-                }
-                if(counter == 0){
-                    actualHighNumbers = searchCounter;
-                    array[i] = j;
-                }
 
+            int included = 0;
+            for (int h = 0; h < i; h++) {
+                if (j == array[h]) {
+                    included = 1;
+                    break;
+                }
+            }
+
+            if (!included && searchCounter > actualHighNumbers) {
+                actualHighNumbers = searchCounter;
+                array[i] = j;
             }
         }
     }
 }
+
+
 void mostRatedCompanies(Companies companies, int size, int *array) {
     double actualHighNumbers;
     int counter;
