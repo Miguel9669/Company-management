@@ -6,6 +6,17 @@
 #include "string.h"
 #include "Company.h"
 
+/**
+ * @brief Displays the activity menu for user selection, allowing the creation of a new activity.
+ *
+ * This function shows the activity menu, including the option to create a new activity.
+ * It prompts the user to select an activity from the list and validates the input.
+ *
+ * @param activities A pointer to the Activities structure containing the list of activities.
+ * @param admin A boolean indicating whether the user is an admin.
+ * @param txt Additional text to display in the menu.
+ * @return The user's selected activity option.
+ */
 int menushowActivity(Activities *activities, bool admin, char *txt) {
     int option;
     do{
@@ -17,6 +28,18 @@ int menushowActivity(Activities *activities, bool admin, char *txt) {
     return option;
 }
 
+/**
+ * @brief Displays the initial menu and handles user's choice for different roles.
+ *
+ * This function presents the main menu to the user, allowing them to choose between different roles
+ * such as user, admin, or company. It then calls the corresponding handler functions based on the user's choice.
+ *
+ * @param user A pointer to the User structure for user-related operations.
+ * @param quit A pointer to a boolean variable indicating whether the program should quit.
+ * @param companies A pointer to the Companies structure for company-related operations.
+ * @param activities A pointer to the Activities structure for activity-related operations.
+ * @param informations A pointer to the Informations structure for tracking information.
+ */
 void menuStart(User *user, bool *quit, Companies *companies, Activities *activities, Informations *informations) {
     int option = GetOption(MENU_START, 0, 3, false, true, "START");
     switch (option) {
@@ -36,6 +59,18 @@ void menuStart(User *user, bool *quit, Companies *companies, Activities *activit
     }
 }
 
+/**
+ * @brief Displays the user search menu and handles user's choice for different search options.
+ *
+ * This function presents the user search menu, allowing the user to choose between searching by name,
+ * category, or activity. It then calls the corresponding handler functions based on the user's choice.
+ *
+ * @param quit A pointer to a boolean variable indicating whether the program should quit.
+ * @param companies A pointer to the Companies structure for company-related operations.
+ * @param user A pointer to the User structure for user-related operations.
+ * @param activities A pointer to the Activities structure for activity-related operations.
+ * @param informations A pointer to the Informations structure for tracking information.
+ */
 void menuUserSearch(bool *quit, Companies *companies, User *user, Activities *activities, Informations *informations) {
     int option = GetOption(MENU_USER_SEARCH, 0, 3, false, true, SEARCH_COMPANY);
     switch (option) {
@@ -55,6 +90,18 @@ void menuUserSearch(bool *quit, Companies *companies, User *user, Activities *ac
     }
 }
 
+/**
+ * @brief Displays the main menu for administrators and handles user's choices.
+ *
+ * This function presents the main menu for administrators, allowing the user to create a company, modify existing
+ * companies, manage activities, generate reports, or exit the program. It calls the corresponding handler functions
+ * based on the user's choice.
+ *
+ * @param quit A pointer to a boolean variable indicating whether the user wants to quit the program.
+ * @param companies A pointer to the Companies structure containing the list of companies.
+ * @param activities A pointer to the Activities structure for activity-related operations.
+ * @param informations A pointer to the Informations structure for tracking information.
+ */
 void menuAdmin(bool *quit, Companies *companies, Activities *activities, Informations *informations) {
     int option1 = GetOption(MENU_ADMIN, 0, 4, false, true, ADMIN_MENU);
     switch (option1) {
@@ -76,6 +123,19 @@ void menuAdmin(bool *quit, Companies *companies, Activities *activities, Informa
             break;
     }
 }
+
+/**
+ * @brief Displays the menu for administrative reports and handles user's choices.
+ *
+ * This function presents the menu for administrative reports, allowing the user to list companies based on search or rating.
+ * It calls the corresponding handler functions based on the user's choice.
+ *
+ * @param back A pointer to a boolean variable indicating whether the user wants to go back to the previous menu.
+ * @param companies A reference to the Companies structure containing the list of companies.
+ * @param informations A reference to the Informations structure for tracking information.
+ * @param topRate The top-rated companies to display in the report.
+ * @param topSearched The most searched companies to display in the report.
+ */
 void menuAdminReports (bool *back, Companies companies, Informations informations, int topRate, int topSearched) {
     char ola[sizeof(MENU_ADMIN_REPORTS)];
      sprintf(ola, MENU_ADMIN_REPORTS, topSearched, topRate);
@@ -92,6 +152,17 @@ void menuAdminReports (bool *back, Companies companies, Informations information
             break;
     }
 }
+
+/**
+ * @brief Displays the menu for managing comments on a company and handles user's choices.
+ *
+ * This function presents the menu for managing comments on a company, allowing the user (admin or company) to
+ * delete or hide comments. It calls the corresponding handler functions based on the user's choice.
+ *
+ * @param company A pointer to the Company structure representing the company with comments.
+ * @param userType The type of user (ADMIN or COMPANY) interacting with the comments.
+ * @param companies A pointer to the Companies structure containing the list of companies.
+ */
 void menuComments(Company *company, Type userType, Companies *companies) {
     int optionComments;
     if (company->numberComments > 0) {
@@ -133,6 +204,17 @@ void menuComments(Company *company, Type userType, Companies *companies) {
     }
 }
 
+/**
+ * @brief Displays the menu for managing companies and handles user's choices.
+ *
+ * This function presents the menu for managing companies, allowing the user to modify a company or exit the program.
+ * It calls the corresponding handler functions based on the user's choice.
+ *
+ * @param quit A pointer to a boolean variable indicating whether the user wants to quit the program.
+ * @param companies A pointer to the Companies structure containing the list of companies.
+ * @param activities A pointer to the Activities structure for activity-related operations.
+ * @param informations A pointer to the Informations structure for tracking information.
+ */
 void menuCompanies(bool *quit, Companies *companies, Activities *activities, Informations informations) {
     int option = GetOption(MENU_COMPANY, 0, 1, true, false, COMPANY_MENU);
     switch (option) {
@@ -146,6 +228,19 @@ void menuCompanies(bool *quit, Companies *companies, Activities *activities, Inf
     }
 }
 
+/**
+ * @brief Displays the menu for user interaction with a specific company and handles user's choices.
+ *
+ * This function presents the menu for user interaction with a specific company, allowing actions such as
+ * commenting, rating, showing comments, or returning to the previous menu. It calls the corresponding handler
+ * functions based on the user's choice.
+ *
+ * @param user A pointer to the User structure for user-related operations.
+ * @param foundCompany A pointer to the Company structure representing the selected company.
+ * @param back A pointer to a boolean variable indicating whether the user wants to go back to the previous menu.
+ * @param index The index of the company in the list.
+ * @param companies A pointer to the Companies structure containing the list of companies.
+ */
 void menuCompany(User *user, Company *foundCompany, bool *back, int index, Companies *companies){
     int option = GetOption(MENU_INSIDE_COMPANY,0, 3, true, false, "");
     switch (option) {
@@ -165,6 +260,16 @@ void menuCompany(User *user, Company *foundCompany, bool *back, int index, Compa
     }
 }
 
+/**
+ * @brief Displays the menu for user selection by category and handles user's choices.
+ *
+ * This function presents the menu for selecting companies based on category.
+ * It prompts the user to choose a category and calls the corresponding handler function for further actions.
+ *
+ * @param companies A pointer to the Companies structure containing the list of companies.
+ * @param user A pointer to the User structure for user-related operations.
+ * @param informations A pointer to the Informations structure for tracking information.
+ */
 void menuSearchByCategory(Companies *companies, User *user, Informations *informations){
     int option = GetOption(MENU_SEARCH_BY_CATEGORY,1,3,true, false, "");
     switch(option){
@@ -180,6 +285,15 @@ void menuSearchByCategory(Companies *companies, User *user, Informations *inform
     }
 }
 
+/**
+ * @brief Displays the activity branch menu, allowing the user to create a new activity or select an existing one.
+ *
+ * This function shows the activity branch menu, allowing the user to either create a new activity or select an existing one.
+ * It calls the menushowActivity function to display the list of activities and handles the user's choice accordingly.
+ *
+ * @param activities A pointer to the Activities structure containing the list of activities.
+ * @return The user's selected activity option.
+ */
 int menuBranchActivity(Activities *activities) {
     int option = menushowActivity(activities, false, "0 Creat a new one");
     switch (option) {
@@ -189,10 +303,31 @@ int menuBranchActivity(Activities *activities) {
     return option;
 }
 
+/**
+ * @brief Displays the activity menu for user selection, allowing the creation of a new one.
+ *
+ * This function shows the activity menu, including the option to create a new activity.
+ * It prompts the user to select an activity from the list and validates the input.
+ *
+ * @param activities A pointer to the Activities structure containing the list of activities.
+ * @param admin A boolean indicating whether the user is an admin.
+ * @param txt Additional text to display in the menu.
+ * @return The user's selected activity option.
+ */
 int menuShowActivity(Activities *activities, bool admin, char *txt) {
     return menushowActivity(activities, admin, txt);
 }
 
+/**
+ * @brief Displays the admin action menu for managing activities and handles user's choices.
+ *
+ * This function presents the admin action menu for a specific activity, allowing the admin to change the activity's
+ * active status, delete the activity (if no associated companies exist), or leave the menu. It performs the selected action.
+ *
+ * @param activities A pointer to the Activities structure containing the list of activities.
+ * @param index The index of the activity in the list.
+ * @param companies A pointer to the Companies structure for company-related operations.
+ */
 void menuActionAdminActivity(Activities *activities, int index, Companies *companies){
     int option;
     Activity *activity = &(activities->activities[index]);
@@ -223,6 +358,23 @@ void menuActionAdminActivity(Activities *activities, int index, Companies *compa
     }
 }
 
+/**
+ * @brief Displays the menu for modifying company information and handles user's choices.
+ *
+ * This function presents the menu for modifying various attributes of a company based on the user's choice.
+ * It allows the user to modify the company name, activity, address, city, postal code, category, and more.
+ * The modifications are then applied and updated in the Companies structure.
+ *
+ * @param companies A pointer to the Companies structure containing the list of companies.
+ * @param index The index of the company to be modified.
+ * @param activities A pointer to the Activities structure for activity-related operations.
+ * @param userType The type of user initiating the modification (ADMIN or COMPANY).
+ * @param txt Additional text to display in the menu.
+ * @param min The minimum valid option.
+ * @param max The maximum valid option.
+ * @param informations A pointer to the Informations structure for tracking information.
+ * @return The user's selected option.
+ */
 int menuModify(Companies *companies, int index, Activities *activities, Type userType, char *txt, int min, int max, Informations informations) {
     int optionActivity;
     Company *company = &companies->company[index];
@@ -275,6 +427,18 @@ int menuModify(Companies *companies, int index, Activities *activities, Type use
     }
     return menuModify;
 }
+
+/**
+ * @brief Displays the company reports menu for admin or company users.
+ *
+ * This function displays the menu for viewing reports related to a company and performs the selected action.
+ * It prompts the user to choose whether to view reports for the given company or leave the menu.
+ *
+ * @param company A pointer to the Company structure for which reports are displayed.
+ * @param informations A pointer to the Informations structure for tracking information.
+ * @param index The index of the company.
+ * @return 0 if the user chooses to leave the menu, 1 otherwise.
+ */
 int menuCompanyReport(Company *company, Informations informations, int index) {
     char menu[sizeof(MENU_REPORTS_IN_COMPANY_COMPANY)];
     sprintf(menu, MENU_REPORTS_IN_COMPANY_COMPANY, company->nameCompany);
