@@ -161,8 +161,7 @@ void reportForCompany(Informations informations, int index, Company *company) {
 
 void mostSearchedCompanies(Companies companies, int size, Informations informations, int *array) {
     int actualHighNumbers = 0;
-
-    // Zera o array
+    
     for (int i = 0; i < size; i++) {
         array[i] = 0;
     }
