@@ -30,6 +30,8 @@
 #define MODIFY_MENU "exchange company data"
 #define MSG_GET_NIF "Enter the NIF: "
 #define EXISTENT_COMPANY "Existent company, Try again: "
+#define ERROR_OPENING "ERROR Opening the file"
+#define ERROR_WRITING "ERROR writing the file"
 #define EXISTENT_NIF "Existent nif, Try again: "
 #define OPERATING_NIF_COMPANY "Target the NIF of the company you intend to operate: "
 #define ERROR_NIF "NIF need to be between 100000000 - 999999999: "
