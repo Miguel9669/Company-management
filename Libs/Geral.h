@@ -1,4 +1,13 @@
-// Geral.h
+/**
+ * @file Geral.h
+ * @brief Header file containing general utility functions for the company management system.
+ *
+ * This file defines general utility functions that can be used throughout the company management system.
+ * These functions include input handling, data manipulation, and various other utility operations.
+ *
+ * @author Antonio, Miguel, Luis
+ * @date 20-12-2023
+ */
 #ifndef COMPANY_MANAGEMENT_GERAL_H
 #define COMPANY_MANAGEMENT_GERAL_H
 #include "structs.h"

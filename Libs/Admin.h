@@ -1,3 +1,13 @@
+/**
+ * @file Admin.h
+ * @brief Header file containing declarations of administrative functions for company management.
+ *
+ * This file defines functions responsible for administrative tasks related to company and activity management.
+ * These functions are intended for use by administrators in the company management system.
+ *
+ * @author Antonio, Miguel, Luis
+ * @date 20-12-2023
+ */
 #ifndef COMPANY_MANAGEMENT_ADMIN_H
 #define COMPANY_MANAGEMENT_ADMIN_H
 #include "structs.h"

@@ -1,12 +1,18 @@
-#include <stdio.h>
+/**
+ * @file main.c
+ * @brief Main source file for the company management system.
+ *
+ * This file contains the main function for the company management system.
+ * It initializes the necessary data structures, loads data from files, and starts the main menu loop.
+ * After the user exits the program, it frees allocated memory.
+ *
+ * @author Antonio, Miguel, Luis
+ * @date 20-12-2023
+ */
 #include <stdlib.h>
-#include <string.h>
 #include "Libs/constVariables.h"
 #include "Libs/Geral.h"
-#include "Libs/user.h"
 #include "Libs/structs.h"
-#include "Libs/Admin.h"
-#include <unistd.h>
 #include "Libs/Menus.h"
 
 int main() {

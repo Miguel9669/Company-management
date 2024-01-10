@@ -1,3 +1,13 @@
+/**
+ * @file constVariables.h
+ * @brief Header file containing constant variables and menu strings for the company management system.
+ *
+ * This file defines constant strings and values used throughout the company management system.
+ * It includes menu strings, error messages, input prompts, and file names.
+ *
+ * @author Antonio, Miguel, Luis
+ * @date 20-12-2023
+ */
 #ifndef COMPANY_MANAGEMENT_CONSTVARIABLES_H
 #define COMPANY_MANAGEMENT_CONSTVARIABLES_H
 
@@ -29,14 +39,11 @@
 #define INVALID_INPUT "ERROR: INVALID. PLEASE TRY AGAIN."
 #define MODIFY_MENU "exchange company data"
 #define MSG_GET_NIF "Enter the NIF: "
-#define EXISTENT_COMPANY "Existent company, Try again: "
 #define ERROR_OPENING "ERROR Opening the file"
 #define ERROR_WRITING "ERROR writing the file"
 #define EXISTENT_NIF "Existent nif, Try again: "
 #define OPERATING_NIF_COMPANY "Target the NIF of the company you intend to operate: "
 #define ERROR_NIF "NIF need to be between 100000000 - 999999999: "
-#define COMMENT_NUMBER "Which comment you want to delete"
-#define DISABLE_COMMENT "Which comment you want to disable"
 #define MSG_GET_NAME "Enter the company name: "
 #define MSG_GET_ADRESS "Enter the company address: "
 #define MSG_GET_CITY "Enter the company city: "

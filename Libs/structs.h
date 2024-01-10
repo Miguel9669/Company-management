@@ -1,3 +1,13 @@
+/**
+ * @file structs.h
+ * @brief Header file containing structure definitions for the company management system.
+ *
+ * This file defines various structures used in the company management system, including
+ * user information, company details, activities, and information counters.
+ *
+ * @author Antonio, Miguel, Luis
+ * @date 20-12-2023
+ */
 #ifndef COMPANY_MANAGEMENT_STRUCTS_H
 #define COMPANY_MANAGEMENT_STRUCTS_H
 #include "constVariables.h"

@@ -1,7 +1,13 @@
-//
-// Created by anton on 06/12/2023.
-//
-
+/**
+ * @file user.h
+ * @brief Header file containing user-related functions for the company management system.
+ *
+ * This file defines functions specific to user interactions in the company management system.
+ * These functions include searching for companies, providing comments and ratings, and handling user interactions.
+ *
+ * @author Antonio, Miguel, Luis
+ * @date 20-12-2023
+ */
 #ifndef COMPANY_MANAGEMENT_USER_H
 #define COMPANY_MANAGEMENT_USER_H
 

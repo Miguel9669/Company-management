@@ -1,3 +1,13 @@
+/**
+ * @file Menus.h
+ * @brief Header file containing functions for various menus in the company management system.
+ *
+ * This file defines functions related to different menus in the company management system.
+ * These menus include the main start menu, user-specific menus, admin menus, and activity-related menus.
+ *
+ * @author Antonio, Miguel, Luis
+ * @date 20-12-2023
+ */
 #ifndef COMPANY_MANAGEMENT_MENUS_H
 #define COMPANY_MANAGEMENT_MENUS_H
 #include "structs.h"
