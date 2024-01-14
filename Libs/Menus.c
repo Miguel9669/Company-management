@@ -138,7 +138,7 @@ void menuAdmin(bool *quit, Companies *companies, Activities *activities, Informa
  */
 void menuAdminReports (bool *back, Companies companies, Informations informations, int topRate, int topSearched) {
     char ola[sizeof(MENU_ADMIN_REPORTS)];
-     sprintf(ola, MENU_ADMIN_REPORTS, topSearched, topRate);
+    sprintf(ola, MENU_ADMIN_REPORTS, topSearched, topRate);
     int option = GetOption(ola, 0, 2, false, true, "REPORTS");
     switch (option) {
         case 0:
@@ -452,4 +452,5 @@ int menuCompanyReport(Company *company, Informations informations, int index) {
     }
     return 1;
 }
+
 

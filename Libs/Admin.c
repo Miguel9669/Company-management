@@ -115,9 +115,9 @@ void deleteCompany(Companies *companies, int index) {
         puts("You can not delete this company! But u can set as an inactive company.");
         return;
     }
-    for (int i = index; i < companies->numberCompanies; ++i) {
-        if (i != companies->numberCompanies)
-            companies->company[i] = companies->company[i + 1];
+    for (int i = index; i < companies->numberCompanies - 1; ++i) {
+        companies->company[i] = companies->company[i + 1];
+        updateStructCompany(FILE_WITH_COMPANIES, sizeof(Company) * index, &companies->company[i], sizeof(Company));
     }
     Company *company = &companies->company[companies->numberCompanies];
     company->nif = 0;
@@ -128,8 +128,6 @@ void deleteCompany(Companies *companies, int index) {
     strcpy(company->local.codigoPostal, "");
     company->active = false;
     printf("Company deleted successfully.\n");
-    updateStructCompany(FILE_WITH_COMPANIES, 0, companies->company, sizeof(Company) * companies->numberCompanies);
-    memset(&companies->company[companies->numberCompanies - 1], 0, sizeof(Company));
     companies->numberCompanies--;
     updateNumberFromFile(companies->numberCompanies, FILE_NUMBER_COMPANIES_NAME);
 }
@@ -279,6 +277,8 @@ void modifyCompany(Companies *companies, Activities *activities, Type userType, 
 
         do {
             opcao = menuModify(companies, index, activities, userType, txt, min, max, informations);
+            if (userType == ADMIN)
+                opcao = 0;
         } while (opcao != 0);
     } else {
         printf("No companies to modify.\n");

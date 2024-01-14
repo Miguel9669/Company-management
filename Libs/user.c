@@ -92,8 +92,6 @@ void handleUserSearchByName(Companies *companies, User *user, Informations *info
             }
 
         } while (back != true);
-    } else {
-        puts(SEARCH_NOT_FOUND);
     }
 }
 

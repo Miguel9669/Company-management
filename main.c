@@ -10,17 +10,17 @@
  * @date 20-12-2023
  */
 #include <stdlib.h>
-#include "Libs/constVariables.h"
-#include "Libs/Geral.h"
-#include "Libs/structs.h"
-#include "Libs/Menus.h"
+#include "Libs\constVariables.h"
+#include "Libs\Geral.h"
+#include "Libs\structs.h"
+#include "Libs\Menus.h"
 
 int main() {
     int numberCompanies = getNumberFromFile(FILE_NUMBER_COMPANIES_NAME);
     int numberActivities = getNumberFromFile(FILE_NUMBER_ACTIVITIES_NAME);
     Companies companies = {.numberCompanies = numberCompanies,
-                           .maxCompanies = numberCompanies > 10 ? numberCompanies * 2 : 10,
-                           .company = (Company *) malloc(companies.maxCompanies * sizeof(Company))};
+            .maxCompanies = numberCompanies > 10 ? numberCompanies * 2 : 10,
+            .company = (Company *) malloc(companies.maxCompanies * sizeof(Company))};
     Informations informations = {
             .maxInformation = numberCompanies > 10 ? numberCompanies * 2 : 10,
             .numberInformation = numberCompanies,

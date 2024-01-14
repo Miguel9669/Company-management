@@ -243,7 +243,7 @@ char* userCommentedTheMost(Company company, int *numberComments) {
         nameCounter[i] = 0;
     }
 
-    for (int i = 0; i < company.numberComments - 1; ++i) {
+    for (int i = 0; i < company.numberComments; ++i) {
         nameCounter[i]++;
         for (int j = i + 1; j < company.numberComments; ++j) {
             if (strcmp(name[i].name, name[j].name) == 0) {
@@ -286,8 +286,8 @@ void reportForCompany(Informations informations, int index, Company *company) {
     sprintf(headerTxt,"Report Company: %s!\n", company->nameCompany);
     header(headerTxt);
     printf("Company visits: %d!\n", searchCounter);
-    printf("Rating/Visit percentage: %d%%!\n", (int)((companyAverageRating(company)/searchCounter) * 100));
-    printf("Comment/Visit percentage: %d%%!\n", (int)(((double)company->numberComments/searchCounter) * 100));
+    printf("Rating/Visit percentage: %d%%!\n", searchCounter != 0 ?(int)((companyAverageRating(company)/searchCounter) * 100) : 0);
+    printf("Comment/Visit percentage: %d%%!\n", searchCounter != 0 ? (int)(((double)company->numberComments/searchCounter) * 100): 0);
     if (company->numberComments > 0)
         printf("The user |%s| was the one who commented the most with %d comments!", name, numberCommentsUser);
 }
@@ -306,7 +306,7 @@ void reportForCompany(Informations informations, int index, Company *company) {
  */
 void mostSearchedCompanies(Companies companies, int size, Informations informations, int *array) {
     int actualHighNumbers = 0;
-    
+
     for (int i = 0; i < size; i++) {
         array[i] = 0;
     }
@@ -383,10 +383,6 @@ void mostRatedCompanies(Companies companies, int size, int *array) {
 void addToInformation(Informations *informations, int index, int *valueToAdd) {
     informations->information[index].searchCounter++;
     *valueToAdd += 1;
-    printf("%d", informations->information[index].searchCounter);
-    printf("%d", informations->information[index].searchByActivityCounter);
-    printf("%d", informations->information[index].searchByCategoryCounter);
-    printf("%d", informations->information[index].searchByNameCounter);
     updateStructInformation(FILE_WITH_EXTRA_INFORMATION, informations);
 }
 
@@ -664,7 +660,7 @@ void reallocInStruct(int number, int max, Companies *companies, Activities *acti
     } else if (structType == INFORMATIONS) {
         if (max == number) {
             Information *pInformation = (Information *) realloc(informations->information, informations->maxInformation * 2 *
-                    sizeof(Information));
+                                                                                           sizeof(Information));
             if (pInformation == NULL) {
                 puts("Error: Realloc Information failed!!");
             } else {
@@ -744,7 +740,7 @@ char *inputString(char *txt, int quant) {
 
 
     } while (len == 0 || len == 1 || len > quant);
-    
+
     return var;
 }
 
@@ -898,9 +894,10 @@ int verifyPostalCode(char *postalCode) {
 int showCompaniesInActivity(Activities *activities, Companies *companies, int index) {
     int count = 0;
     if (isCompanyExistInActivity(&(activities->activities[index]), companies)) {
+        header("COMPANIES IN ACTIVITY");
         for (int i = 0; i < companies->numberCompanies; i++) {
             if (strcmp(activities->activities[index].activity, companies->company[i].activity) == 0 && companies->company[i].active) {
-                printf("%d ", count + 1);
+                printf("-> ");
                 printf("%s\n", companies->company[i].nameCompany);
                 count++;
             }
